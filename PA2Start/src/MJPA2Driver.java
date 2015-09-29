@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 // needed because we DON'T parse (see below)
 import java_cup.runtime.*;
 
-import mjparser.*;
+import src.mjparser.*;
 //import ast_visitors.*;
 
 public class MJPA2Driver {
@@ -16,12 +16,12 @@ public class MJPA2Driver {
           System.err.println(
             "MJPA2: Specify input file in program arguments");
       }
-     
-      public static void main(String args[]) 
+
+      public static void main(String args[])
       {
-        
+
         if(args.length < 1)
-        {         
+        {
             usage();
             System.exit(1);
         }
@@ -30,11 +30,11 @@ public class MJPA2Driver {
         String filename = args[args.length-1];
 
         try {
-          // construct the lexer, 
+          // construct the lexer,
           // the lexer will be the same for all of the parsers
           Yylex lexer = new Yylex(new FileReader(filename));
-          
-          // Exercise the lexer: print out all of the tokens 
+
+          // Exercise the lexer: print out all of the tokens
           java_cup.runtime.Symbol symbol = lexer.next_token();
           while (symbol.sym != sym.EOF) {
               System.out.print("symbol: " + symbol + "  symbolValue: ");
@@ -46,11 +46,11 @@ public class MJPA2Driver {
               }
               symbol = lexer.next_token();
           }
-          
+
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
-        }  
+        }
       }
 
 }

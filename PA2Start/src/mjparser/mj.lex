@@ -34,6 +34,9 @@ import java_cup.runtime.Symbol;
 
 
 EOL=(\r|\n|\r\n)
+IDENTIFIER=[_A-Za-z][_A-Za-z0-9]*
+DIGIT=[0-9]
+INT_LITERAL=({DIGIT}+)
 
 %%
 "+"                  {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -53,6 +56,7 @@ EOL=(\r|\n|\r\n)
 "["			         {return new Symbol(sym.LBRACKET,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "]"			         {return new Symbol(sym.RBRACKET,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "."			         {return new Symbol(sym.DOT,new SymbolValue(yyline+1, yychar+1, yytext()));}
+
 "main"               {return new Symbol(sym.MAIN,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "boolean"            {return new Symbol(sym.BOOLEAN,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "int"                {return new Symbol(sym.INT,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -73,6 +77,7 @@ EOL=(\r|\n|\r\n)
 "new"                {return new Symbol(sym.NEW,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "length"             {return new Symbol(sym.LEGNTH,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "import"             {return new Symbol(sym.IMPORT,new SymbolValue(yyline+1, yychar+1, yytext()));}
+
 "meggy.Meggy"        {return new Symbol(sym.MEGGY,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "Meggy.setPixel"     {return new Symbol(sym.MEGGYSETPIXEL,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "Meggy.setAuxLEDs"   {return new Symbol(sym.MEGGYSETAUXLEDS,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -80,6 +85,7 @@ EOL=(\r|\n|\r\n)
 "Meggy.delay"        {return new Symbol(sym.MEGGYDELAY,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "Meggy.getPixel"     {return new Symbol(sym.MEGGYGETPIXEL,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "Meggy.checkButton"  {return new Symbol(sym.MEGGYCHECKBUTTON,new SymbolValue(yyline+1, yychar+1, yytext()));}
+
 "Meggy.Color.DARK"   {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 0));}
 "Meggy.Color.RED"    {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 1));}
 "Meggy.Color.ORANGE" {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 2));}
@@ -88,12 +94,14 @@ EOL=(\r|\n|\r\n)
 "Meggy.Color.BLUE"   {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 5));}
 "Meggy.Color.VIOLET" {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 6));}
 "Meggy.Color.WHITE"  {return new Symbol(sym.COLOR_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 7));}
+
 "Meggy.Button.B"     {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 1));}
 "Meggy.Button.A"     {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 2));}
 "Meggy.Button.Up"    {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 4));}
 "Meggy.Button.Down"  {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 8));}
 "Meggy.Button.Left"  {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 16));}
 "Meggy.Button.Right" {return new Symbol(sym.BUTTON_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 32));}
+
 "Meggy.Tone.C3"      {return new Symbol(sym.TONE_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 61157));}
 "Meggy.Tone.Cs3"     {return new Symbol(sym.TONE_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 57724));}
 "Meggy.Tone.D3"      {return new Symbol(sym.TONE_LITERAL,new SymbolValue(yyline+1, yychar+1, yytext(), 54485));}
@@ -111,6 +119,11 @@ EOL=(\r|\n|\r\n)
 "Meggy.Tone"         {return new Symbol(sym.MEGGYTONE,new SymbolValue(yyline+1, yychar+1, yytext()));}
 
 {EOL} {/*reset pos to -1, if 0, otherwise line 1 starts at 0, rest start at 1 */ yychar=-1;}
+{IDENTIFIER} {return new Symbol(sym.ID,new SymbolValue(yyline+1, yychar+1, yytext()))}
+{INT_LITERAL} {
+	int num = Integer.parseInt(yytext());
+	return new Symbol(sym.INT_LITERAL, new SymbolValue(yyline+1, yychar+1, yytext(), num));
+	}
 [ \t\r\n\f] { /* ignore white space. */ }
 . { System.err.println("Illegal character: "+yytext()); }
 

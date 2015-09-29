@@ -1,0 +1,19 @@
+PA2 Requirements
+
+25 points: Part I: Scanner for PA2 Grammar
+        10 points: Extension of mj.lex to correctly scan all tokens in PA2 grammar demonstrated with all test 		cases running correctly for PA2 tokens
+        5 points: All original test cases from regress.sh run correctly
+        5 points: Added sufficient test cases for non-provided token types
+        5 points: Added error cases for all token types  
+
+35 points: Part II: Syntax-directed compiler for PA2 grammar
+        5 points: parses correctly for PA2 grammar, irregardless of code generation capability
+        5 points: generates correct code for the smallest possible MeggyJava program, no statements
+        5 points: generates correct code for PA2 subset for setting pixels with at least 2 different constant 		integer expressions
+        5 points: generates correct code for PA2 subset for setting pixels with at least 2 different color 		literals
+        5 points: generates correct code for PA2 subset for setting pixels with byte casting
+        5 points: generates correct code for a sequence of (at least 10) setPixel calls
+        5 points: awesome test cases to show off what your first compiler can do!
+        Note: no error handling is required. However, if you include error handling with error messages and test         	cases to demonstrate, you can earn up to 5 extra credit points. 
+    	5 points: README explaining the file structure (your test files) and other comments you want your TA to 		know (e.g. features not implemented)
+    	5 points: Followed instructions for deliverable and submission format/files 

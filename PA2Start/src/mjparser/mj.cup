@@ -85,7 +85,7 @@ non terminal statement;
 non terminal statement_list;
 non terminal main_class;
 
-/* Declare precedence and associativity  here */
+/* Declare precedence and associativity here */
 precedence left TIMES;
 precedence right UMINUS;
 
