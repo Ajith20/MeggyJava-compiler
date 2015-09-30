@@ -35,12 +35,13 @@ import java_cup.runtime.Symbol;
 
 EOL=(\r|\n|\r\n)
 IDENTIFIER=[_A-Za-z][_A-Za-z0-9]*
-DIGIT=[0-9]
-INT_LITERAL=({DIGIT}+)
+NOT_STAR=[^*]
+NOT_STAR_OR_SLASH=[^*/]
+C_COMMENT="/*"{NOT_STAR}*("*"({NOT_STAR_OR_SLASH}{NOT_STAR}*)?)*"*/"
 
 %%
-"+"                  {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
-"-"			         {return new Symbol(sym.MINUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
+"+"         {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
+"-"			       {return new Symbol(sym.MINUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "*"                  {return new Symbol(sym.TIMES,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "("			         {return new Symbol(sym.LPAREN,new SymbolValue(yyline+1, yychar+1, yytext()));}
 ")"			         {return new Symbol(sym.RPAREN,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -75,7 +76,7 @@ INT_LITERAL=({DIGIT}+)
 "class"              {return new Symbol(sym.CLASS,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "extends"            {return new Symbol(sym.EXTENDS,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "new"                {return new Symbol(sym.NEW,new SymbolValue(yyline+1, yychar+1, yytext()));}
-"length"             {return new Symbol(sym.LEGNTH,new SymbolValue(yyline+1, yychar+1, yytext()));}
+"length"             {return new Symbol(sym.LENGTH,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "import"             {return new Symbol(sym.IMPORT,new SymbolValue(yyline+1, yychar+1, yytext()));}
 
 "meggy.Meggy"        {return new Symbol(sym.MEGGY,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -119,12 +120,10 @@ INT_LITERAL=({DIGIT}+)
 "Meggy.Tone"         {return new Symbol(sym.MEGGYTONE,new SymbolValue(yyline+1, yychar+1, yytext()));}
 
 {EOL} {/*reset pos to -1, if 0, otherwise line 1 starts at 0, rest start at 1 */ yychar=-1;}
-{IDENTIFIER} {return new Symbol(sym.ID,new SymbolValue(yyline+1, yychar+1, yytext()))}
-{INT_LITERAL} {
-	int num = Integer.parseInt(yytext());
-	return new Symbol(sym.INT_LITERAL, new SymbolValue(yyline+1, yychar+1, yytext(), num));
-	}
 [ \t\r\n\f] { /* ignore white space. */ }
+{IDENTIFIER} {return new Symbol(sym.ID,new SymbolValue(yyline+1, yychar+1, yytext()));}
+[0-9]+ {return new Symbol(sym.INT_LITERAL,new SymbolValue(yyline+1, yychar+1,yytext()));}
+{C_COMMENT} {/* Ignore Comments */}
 . { System.err.println("Illegal character: "+yytext()); }
 
 

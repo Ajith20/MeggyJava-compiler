@@ -52,18 +52,19 @@ clean:
 
 ### Final jar files
 $(SCANNER).jar: $(SRC_DIR)/$(SCANNER)Driver.class
-	cd $(SRC_DIR); $(JAR) cmf $(SCANNER)MainClass.txt $(SCANNER).jar *.class */*.class -C $(JAVA_CUP_RUNTIME) java_cup 
+	cd $(SRC_DIR); $(JAR) cmf $(SCANNER)MainClass.txt $(SCANNER).jar *.class */*.class -C $(JAVA_CUP_RUNTIME) java_cup  
 	cd ..
 	mv $(SRC_DIR)/$(SCANNER).jar .
 
 $(PROG).jar: $(SRC_DIR)/$(PROG)Driver.class
-	cd $(SRC_DIR); $(JAR) cmf $(PROG)MainClass.txt $(PROG).jar *.class */*.class avrH.rtl.s avrF.rtl.s -C $(JAVA_CUP_RUNTIME) java_cup
+	cd $(SRC_DIR); $(JAR) cmf $(PROG)MainClass.txt $(PROG).jar *.class */*.class avrH.rtl.s avrF.rtl.s -C $(JAVA_CUP_RUNTIME) java_cup  
 	cd ..
 	mv $(SRC_DIR)/$(PROG).jar .
 
 #### mj parser
 $(PARSE_DIR)/mj.java: $(PARSE_DIR)/mj.cup
-	java -jar java-cup-11a.jar -parser  mj -dump $(PARSE_DIR)/mj.cup >& javacup.dump
+	### java -jar java-cup-11a.jar -parser  mj -dump $(PARSE_DIR)/mj.cup 2>&1 javacup.dump
+	java -jar java-cup-11a.jar -parser  mj -dump $(PARSE_DIR)/mj.cup &> javacup.dump
 	mv -f sym.java $(PARSE_DIR)/
 	mv -f mj.java $(PARSE_DIR)/
 
