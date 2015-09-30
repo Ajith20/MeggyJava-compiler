@@ -37,7 +37,7 @@ EOL=(\r|\n|\r\n)
 IDENTIFIER=[_A-Za-z][_A-Za-z0-9]*
 NOT_STAR=[^*]
 NOT_STAR_OR_SLASH=[^*/]
-C_COMMENT="/*"{NOT_STAR}*("*"({NOT_STAR_OR_SLASH}{NOT_STAR}*)?)*"*/"
+C_COMMENT="/*"{NOT_STAR}*("*"({NOT_STAR_OR_SLASH}{NOT_STAR}*)?)*"*/"|(//.*)
 
 %%
 "+"         {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
@@ -122,8 +122,8 @@ C_COMMENT="/*"{NOT_STAR}*("*"({NOT_STAR_OR_SLASH}{NOT_STAR}*)?)*"*/"
 {EOL} {/*reset pos to -1, if 0, otherwise line 1 starts at 0, rest start at 1 */ yychar=-1;}
 [ \t\r\n\f] { /* ignore white space. */ }
 {IDENTIFIER} {return new Symbol(sym.ID,new SymbolValue(yyline+1, yychar+1, yytext()));}
-[0-9]+ {return new Symbol(sym.INT_LITERAL,new SymbolValue(yyline+1, yychar+1,yytext()));}
-{C_COMMENT} {/* Ignore Comments */}
+[0-9]+ {return new Symbol(sym.INT_LITERAL,new SymbolValue(yyline+1, yychar+1,yytext(), Integer.parseInt(yytext()) ));}
+(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|(//.*) {/* Ignore Comments */}
 . { System.err.println("Illegal character: "+yytext()); }
 
 

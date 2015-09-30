@@ -1,9 +1,9 @@
 symbol: #46  symbolValue:  [4  at: (1,1)  value: 4]
 Illegal character: >
-symbol: #46  symbolValue:  [3  at: (1,2)  value: 3]
+symbol: #46  symbolValue:  [3  at: (1,3)  value: 3]
 symbol: #47  symbolValue:  [maain  at: (2,1)  value: -1]
-symbol: #35  symbolValue:  [= at: (2, 6) value -1]
-symbol: #46  symbolValue:  [3 at: (2, 7) value  3]
-symbol: #34  symbolValue:  [; at: (2, 8) value -1]
+symbol: #35  symbolValue:  [=  at: (2,6)  value: -1]
+symbol: #46  symbolValue:  [3  at: (2,7)  value: 3]
+symbol: #34  symbolValue:  [;  at: (2,8)  value: -1]
 Illegal character: ^
-symbol: #4  symbolValue: [* at: (3, 1) value -1]
+symbol: #4  symbolValue:  [*  at: (3,2)  value: -1]
