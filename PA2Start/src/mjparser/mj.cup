@@ -104,7 +104,11 @@ main_class ::=
                         new java.io.FileOutputStream(name.lexeme+".java.s"));
                 parser.out = new PrintWriter(sout);
                 // Check filename is class name, if not exit with error message
+<<<<<<< HEAD
                 //System.exit(0);   
+=======
+                // System.exit(0);   
+>>>>>>> 078aaa52738943b07776633166cc5b20571f4941
             :}
         LBRACE PUBLIC STATIC VOID MAIN 
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
@@ -147,9 +151,36 @@ main_class ::=
 	RBRACE
 	;
           {:
+		  // I think this is where the rules for meggy.setPixel go. - Joe
           :}
         RBRACE 
           {:
+			System.out.println("Generate epilogue using avrF.rtl.s");
+            InputStream mainEpilogue=null;
+            BufferedReader reader=null;
+            try {
+                mainEpilogue
+                    = this.getClass().getClassLoader().getResourceAsStream(
+                        "avrF.rtl.s");
+                reader = new BufferedReader(new 
+                    InputStreamReader(mainEpilogue));
+
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                  parser.out.println(line);
+                }
+            } catch ( Exception e2) {
+                e2.printStackTrace();
+            }
+            finally{
+                try{
+                    if(mainEpilogue!=null) mainEpilogue.close();
+                    if(reader!=null) reader.close();
+                }
+                catch (IOException e) {
+                   e.printStackTrace();
+                }
+            }
             parser.out.flush();
           :}
     ;
