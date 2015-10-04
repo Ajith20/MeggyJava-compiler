@@ -140,12 +140,7 @@ main_class ::=
                 }
             }
           :}
-	statement ::=
-		Meggy.setPixel LPAREN 
-        statement_list:list 
-	
-	RBRACE
-	;
+        statement_list:list RBRACE
           {:
           :}
         RBRACE 
