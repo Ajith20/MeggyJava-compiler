@@ -89,7 +89,6 @@ non terminal main_class;
 precedence left TIMES;
 precedence right UMINUS;
 
-
 /* Meggy Java Grammar */
 start with program;
 
@@ -140,24 +139,10 @@ main_class ::=
                 }
             }
           :}
-     	statement_list ::=
-        //statement_list:list RBRACE
-	MEGGYSETPIXEL LPAREN 
-			BYTE LPAREN INT:num1 RPAREN COMMA
-			BYTE LPAREN INT:num2 RPAREN COMMA
-			MEGGYCOLOR:color
-			RPAREN SEMI
-	{:
-         
-		//Uncomment this block
-			//MEGGYSETPIXEL LPAREN 
-		//This is where the Meggy.setPixel grammar goes.
-			
-	:} //RBRACE 
-			
+
+        statement_list:list 
 	RBRACE
-	RBRACE
-        
+        RBRACE 
           {:
 			System.out.println("Generate epilogue using avrF.rtl.s");
             InputStream mainEpilogue=null;
@@ -186,6 +171,28 @@ main_class ::=
                 }
             }
             parser.out.flush();
-          :}
+          :};
 	
-    ;
+statement ::= MEGGYSETPIXEL LPAREN 
+
+			LPAREN BYTE RPAREN INT_LITERAL:num1 COMMA
+			LPAREN BYTE RPAREN INT_LITERAL:num2 COMMA
+			COLOR_LITERAL:color
+			RPAREN SEMI
+	
+        
+          {:
+			
+				/* parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") "); */
+				
+			/* parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") \n ldi    r25,hi8(" + num1.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Casting num1 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Load constant int num2 \n ldi    r24,lo8(" + num2.lexeme + ") \n ldi    r25,hi8(" + num2.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Cast num2 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Color expression Meggy.Color.X \n ldi    r22," + color.value  + " \n # push one byte expression onto stack \n push   r22 \n ### Meggy.setPixel(num1,num2,color) call \n # load a one byte expression off stack \n pop    r20 \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6DrawPxhhh \n call   _Z12DisplaySlatev \n "); 		
+			:}; 
+
+statement_list ::= statement:s1 statement_list:s2 
+	{:
+	
+	:}
+	/* statement_list can be null */
+	| ;
+	
+
