@@ -140,57 +140,24 @@ main_class ::=
                 }
             }
           :}
-        statement_list:list RBRACE
-          {:
-			MEGGYSETPIXEL LPAREN 
+     	statement_list ::=
+        //statement_list:list RBRACE
+	MEGGYSETPIXEL LPAREN 
 			BYTE LPAREN INT:num1 RPAREN COMMA
 			BYTE LPAREN INT:num2 RPAREN COMMA
 			MEGGYCOLOR:color
-			RPAREN SEMI {:
+			RPAREN SEMI
+	{:
+         
+		//Uncomment this block
+			//MEGGYSETPIXEL LPAREN 
+		//This is where the Meggy.setPixel grammar goes.
 			
-			parser.out.println("
-				# Load constant int num1
-				ldi    r24,lo8(" + num1.lexeme + ")
-				ldi    r25,hi8(" + num1.lexeme + ")
-				# push two byte expression onto stack
-				push   r25
-				push   r24
-	
-				# Casting num1 to byte
-				pop    r24
-				pop    r25
-				push   r24
-
-				# Load constant int num2
-				ldi    r24,lo8(" + num2.lexeme + ")
-				ldi    r25,hi8(" + num2.lexeme + ")
-				# push two byte expression onto stack
-				push   r25
-				push   r24
-
-				# Cast num2 to byte
-    			pop    r24
-    			pop    r25
-    			push   r24
-
-    			# Color expression Meggy.Color.X
-    			ldi    r22," + color.value + "
-    			# push one byte expression onto stack
-    			push   r22
-
-    			### Meggy.setPixel(num1,num2,color) call
-    			# load a one byte expression off stack
-    			pop    r20
-    			# load a one byte expression off stack
-    			pop    r22
-    			# load a one byte expression off stack
-    			pop    r24
-    			call   _Z6DrawPxhhh
-    			call   _Z12DisplaySlatev
-			");
-			:}
-          :}
-        RBRACE 
+	:} ; //RBRACE 
+			
+	RBRACE
+	RBRACE
+        
           {:
 			System.out.println("Generate epilogue using avrF.rtl.s");
             InputStream mainEpilogue=null;
@@ -220,4 +187,5 @@ main_class ::=
             }
             parser.out.flush();
           :}
+	
     ;
