@@ -89,7 +89,6 @@ non terminal main_class;
 precedence left TIMES;
 precedence right UMINUS;
 
-
 /* Meggy Java Grammar */
 start with program;
 
@@ -141,8 +140,38 @@ main_class ::=
             }
           :}
         statement_list:list RBRACE
+        RBRACE 
           {:
-			MEGGYSETPIXEL LPAREN 
+			System.out.println("Generate epilogue using avrF.rtl.s");
+            InputStream mainEpilogue=null;
+            BufferedReader reader=null;
+            try {
+                mainEpilogue
+                    = this.getClass().getClassLoader().getResourceAsStream(
+                        "avrF.rtl.s");
+                reader = new BufferedReader(new 
+                    InputStreamReader(mainEpilogue));
+
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                  parser.out.println(line);
+                }
+            } catch ( Exception e2) {
+                e2.printStackTrace();
+            }
+            finally{
+                try{
+                    if(mainEpilogue!=null) mainEpilogue.close();
+                    if(reader!=null) reader.close();
+                }
+                catch (IOException e) {
+                   e.printStackTrace();
+                }
+            }
+            parser.out.flush();
+          :};
+	
+statement ::= MEGGYSETPIXEL LPAREN 
 			BYTE LPAREN INT:num1 RPAREN COMMA
 			BYTE LPAREN INT:num2 RPAREN COMMA
 			MEGGYCOLOR:color
@@ -188,36 +217,12 @@ main_class ::=
     			call   _Z6DrawPxhhh
     			call   _Z12DisplaySlatev
 			");
-			:}
-          :}
-        RBRACE 
-          {:
-			System.out.println("Generate epilogue using avrF.rtl.s");
-            InputStream mainEpilogue=null;
-            BufferedReader reader=null;
-            try {
-                mainEpilogue
-                    = this.getClass().getClassLoader().getResourceAsStream(
-                        "avrF.rtl.s");
-                reader = new BufferedReader(new 
-                    InputStreamReader(mainEpilogue));
+			:};
 
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                  parser.out.println(line);
-                }
-            } catch ( Exception e2) {
-                e2.printStackTrace();
-            }
-            finally{
-                try{
-                    if(mainEpilogue!=null) mainEpilogue.close();
-                    if(reader!=null) reader.close();
-                }
-                catch (IOException e) {
-                   e.printStackTrace();
-                }
-            }
-            parser.out.flush();
-          :}
-    ;
+statement_list ::= statement:s1 statement_list:s2 
+	{:
+	
+	:}
+	/* statement_list can be null */
+	| ;
+	
