@@ -85,7 +85,7 @@ non terminal statement;
 non terminal statement_list;
 non terminal main_class;
 
-/* Declare precedence and associativity  here */
+/* Declare precedence and associativity here */
 precedence left TIMES;
 precedence right UMINUS;
 
@@ -125,7 +125,7 @@ main_class ::=
 
                 String line = null;
                 while ((line = reader.readLine()) != null) {
-                 parser.out.println(line);
+                  parser.out.println(line);
                 }
             } catch ( Exception e2) {
                 e2.printStackTrace();
@@ -140,11 +140,40 @@ main_class ::=
                 }
             }
           :}
-        statement_list:list RBRACE
-          {:
-          :}
-        RBRACE 
-          {:
+	/* statement_list:list RBRACE
+	{:
+		//This is where the Meggy.setPixel grammar goes.
+	:} */
+	RBRACE
+	RBRACE
+	RBRACE
+	{:
+	     System.out.println("Generate epilogue using avrF.rtl.s");
+            InputStream mainEpilogue=null;
+            BufferedReader reader=null;
+            try {
+                mainEpilogue
+                    = this.getClass().getClassLoader().getResourceAsStream(
+                        "avrF.rtl.s");
+                reader = new BufferedReader(new 
+                    InputStreamReader(mainEpilogue));
+
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                  parser.out.println(line);
+                }
+            } catch ( Exception e2) {
+                e2.printStackTrace();
+            }
+            finally{
+                try{
+                    if(mainEpilogue!=null) mainEpilogue.close();
+                    if(reader!=null) reader.close();
+                }
+                catch (IOException e) {
+                   e.printStackTrace();
+                }
+            }
             parser.out.flush();
           :}
     ;

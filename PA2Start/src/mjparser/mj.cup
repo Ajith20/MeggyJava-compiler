@@ -85,7 +85,7 @@ non terminal statement;
 non terminal statement_list;
 non terminal main_class;
 
-/* Declare precedence and associativity  here */
+/* Declare precedence and associativity here */
 precedence left TIMES;
 precedence right UMINUS;
 
@@ -104,11 +104,7 @@ main_class ::=
                         new java.io.FileOutputStream(name.lexeme+".java.s"));
                 parser.out = new PrintWriter(sout);
                 // Check filename is class name, if not exit with error message
-<<<<<<< HEAD
                 //System.exit(0);   
-=======
-                // System.exit(0);   
->>>>>>> 078aaa52738943b07776633166cc5b20571f4941
             :}
         LBRACE PUBLIC STATIC VOID MAIN 
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
@@ -129,7 +125,7 @@ main_class ::=
 
                 String line = null;
                 while ((line = reader.readLine()) != null) {
-                 parser.out.println(line);
+                  parser.out.println(line);
                 }
             } catch ( Exception e2) {
                 e2.printStackTrace();
@@ -144,18 +140,16 @@ main_class ::=
                 }
             }
           :}
-	statement ::=
-		Meggy.setPixel LPAREN 
-        statement_list:list 
-	
+	/* statement_list:list RBRACE
+	{:
+		//Uncomment this block
+		//This is where the Meggy.setPixel grammar goes.
+	:} */
 	RBRACE
-	;
-          {:
-		  // I think this is where the rules for meggy.setPixel go. - Joe
-          :}
-        RBRACE 
-          {:
-			System.out.println("Generate epilogue using avrF.rtl.s");
+	RBRACE
+	RBRACE
+	{:
+	     System.out.println("Generate epilogue using avrF.rtl.s");
             InputStream mainEpilogue=null;
             BufferedReader reader=null;
             try {
