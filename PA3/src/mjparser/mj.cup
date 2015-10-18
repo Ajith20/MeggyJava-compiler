@@ -103,7 +103,7 @@ main_class ::=
                         new java.io.FileOutputStream(name.lexeme+".java.s"));
                 parser.out = new PrintWriter(sout);
                 // Check filename is class name, if not exit with error message
-				// if(sout != name.lexeme+".java.s") System.exit(0);
+				if(sout != name.lexeme+".java.s") System.exit(0);
             :}
         LBRACE PUBLIC STATIC VOID MAIN 
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
@@ -173,26 +173,30 @@ main_class ::=
             parser.out.flush();
           :};
 	
-statement ::= MEGGYSETPIXEL LPAREN 
+statement ::= MEGGYSETPIXEL LPAREN expression COMMA expression COMMA expression RPAREN SEMI
+			| MEGGYDELAY LPAREN expression RPAREN SEMI
+			| IF LPAREN expression RPAREN statement
+			| IF LPAREN expression RPAREN statement ELSE statement
+			| WHILE LPAREN expression RPAREN statement
+			| LBRACE statement statement_list RBRACE ;
 
-			LPAREN BYTE RPAREN INT_LITERAL:num1 COMMA
-			LPAREN BYTE RPAREN INT_LITERAL:num2 COMMA
-			COLOR_LITERAL:color
-			RPAREN SEMI
-	
-        
-          {:
-			
-				/* parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") "); */
-				
-			 parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") \n ldi    r25,hi8(" + num1.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Casting num1 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Load constant int num2 \n ldi    r24,lo8(" + num2.lexeme + ") \n ldi    r25,hi8(" + num2.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Cast num2 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Color expression Meggy.Color.X \n ldi    r22," + color.value  + " \n # push one byte expression onto stack \n push   r22 \n ### Meggy.setPixel(num1,num2,color) call \n # load a one byte expression off stack \n pop    r20 \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6DrawPxhhh \n call   _Z12DisplaySlatev \n "); 		
-			:}; 
-
-statement_list ::= statement:s1 statement_list:s2 
-	{:
-	
-	:}
+statement_list ::= statement statement_list
 	/* statement_list can be null */
 	| ;
 	
-
+expression ::= expression AND expression
+			 | expression EQUAL expression
+			 | expression PLUS expression
+			 | expression MINUS expression
+			 | expression TIMES expression
+			 | UMINUS expression
+			 | MEGGYGETPIXEL LPAREN expression COMMA expression RPAREN 
+			 | MEGGYCHECKBUTTON LPAREN expression RPAREN
+			 | LPAREN BYTE RPAREN expression
+			 | INT_LITERAL
+			 | COLOR_LITERAL
+			 | BUTTON_LITERAL
+			 | TRUE
+			 | FALSE
+			 | NOT expression
+			 | LPAREN expression RPAREN ;
