@@ -40,8 +40,8 @@ NOT_STAR_OR_SLASH=[^*/]
 C_COMMENT="/*"{NOT_STAR}*("*"({NOT_STAR_OR_SLASH}{NOT_STAR}*)?)*"*/"|(//.*)
 
 %%
-"+"         {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
-"-"			       {return new Symbol(sym.MINUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
+"+"                  {return new Symbol(sym.PLUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
+"-"			         {return new Symbol(sym.MINUS,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "*"                  {return new Symbol(sym.TIMES,new SymbolValue(yyline+1, yychar+1, yytext()));}
 "("			         {return new Symbol(sym.LPAREN,new SymbolValue(yyline+1, yychar+1, yytext()));}
 ")"			         {return new Symbol(sym.RPAREN,new SymbolValue(yyline+1, yychar+1, yytext()));}
