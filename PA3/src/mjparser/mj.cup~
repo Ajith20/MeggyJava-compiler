@@ -1,4 +1,3 @@
-
 package mjparser;
 import java_cup.runtime.*;
 import java.util.*;
@@ -82,12 +81,19 @@ terminal UMINUS;
 non terminal program;
 non terminal Integer exp;
 non terminal statement;
+non terminal statement1;
 non terminal statement_list;
 non terminal main_class;
-
+non terminal expression;
+non terminal expression1;
 /* Declare precedence and associativity  here */
-precedence left TIMES;
-precedence right UMINUS;
+precedence nonassoc LT, EQUAL;
+precedence nonassoc IF, ELSE;
+precedence left PLUS,MINUS, TIMES;
+precedence left TIMES, AND;
+
+precedence right NOT, UMINUS;
+
 
 /* Meggy Java Grammar */
 start with program;
@@ -175,16 +181,15 @@ main_class ::=
 	
 statement ::= MEGGYSETPIXEL LPAREN expression COMMA expression COMMA expression RPAREN SEMI
 			| MEGGYDELAY LPAREN expression RPAREN SEMI
-			| IF LPAREN expression RPAREN statement
-			| IF LPAREN expression RPAREN statement ELSE statement
+			| IF LPAREN expression RPAREN statement 
+			/*| IF LPAREN expression RPAREN statement ELSE statement */
 			| WHILE LPAREN expression RPAREN statement
 			| LBRACE statement statement_list RBRACE ;
 
 statement_list ::= statement statement_list
 	/* statement_list can be null */
 	| ;
-	
-expression ::= expression AND expression
+	expression ::= expression AND expression
 			 | expression EQUAL expression
 			 | expression PLUS expression
 			 | expression MINUS expression
@@ -199,4 +204,6 @@ expression ::= expression AND expression
 			 | TRUE
 			 | FALSE
 			 | NOT expression
-			 | LPAREN expression RPAREN ;
+			 | LPAREN expression RPAREN ; 
+
+

@@ -1,37 +1,178 @@
 ### java -jar java-cup-11a.jar -parser  mj -dump src/mjparser/mj.cup 2>&1 javacup.dump
 java -jar java-cup-11a.jar -parser  mj -dump src/mjparser/mj.cup &> javacup.dump
 mv -f sym.java src/mjparser/
-mv -f mj.java src/mjparser/
-java -jar JLex.jar src/mjparser/mj.lex
-Processing first section -- user code.
-Processing second section -- JLex declarations.
-Processing third section -- lexical rules.
-Creating NFA machine representation.
-NFA comprised of 851 states.
-Working on character classes.:::::::::..:.::::::::::::.::....:.:..:..:........::.::...:....:......:....:......:..:..........:..................Warning : Terminal "INT" was declared but never used.
-.Warning : Terminal "LT" was declared but never used
-.Warning : Terminal "ASSIGN" was declared but never used
-..Warning : Terminal "THIS" was declared but never used.
-Warning : Terminal "DOT" was declared but never used.
-Warning : Terminal "TONE_LITERAL" was declared but never used.
-Warning : Terminal "BOOLEAN" was declared but never used:
+mv: cannot stat ‘sym.java’: No such file or directory
+make: *** [src/mjparser/mj.java] Error 1
+Warning : Terminal "INT" was declared but never used
+Warning : Terminal "LT" was declared but never used
+Warning : Terminal "ASSIGN" was declared but never used
+Warning : Terminal "THIS" was declared but never used
+Warning : Terminal "DOT" was declared but never used
+Warning : Terminal "TONE_LITERAL" was declared but never used
+Warning : Terminal "BOOLEAN" was declared but never used
 Warning : Terminal "RETURN" was declared but never used
 Warning : Terminal "NEW" was declared but never used
-Warning : Terminal "MEGGYSETAUXLEDS" was declared but never used.
-Warning : Terminal "MEGGYTONESTART" was declared but never used.
-Warning : Terminal "MEGGYCOLOR" was declared but never used.
-Warning : Terminal "MEGGYTONE" was declared but never used.
-Warning : Terminal "EXTENDS" was declared but never used.
-Warning : Terminal "MEGGYBUTTON" was declared but never used.
-Warning : Terminal "LENGTH" was declared but never used.
-.Warning : Non terminal "exp" was declared but never used
-Warning : Non terminal "expression1" was declared but never used
-Warning : Non terminal "statement1" was declared but never used
-..:.............:..:::...................................................::...........:.......::...........................:..::.............:....:...............................:.............::...:.............:..............................................................................................................:.................................................................:...................................................................................................................::..:::.:.:...........
-NFA has 70 distinct character classes.
-Creating DFA transition table.
-Working on DFA states..................................................................................===== Terminals =====
-[0]EOF [1]error [2]PLUS [3]MINUS .
+Warning : Terminal "MEGGYSETAUXLEDS" was declared but never used
+Warning : Terminal "MEGGYTONESTART" was declared but never used
+Warning : Terminal "MEGGYCOLOR" was declared but never used
+Warning : Terminal "MEGGYTONE" was declared but never used
+Warning : Terminal "EXTENDS" was declared but never used
+Warning : Terminal "MEGGYBUTTON" was declared but never used
+Warning : Terminal "LENGTH" was declared but never used
+Warning : Non terminal "exp" was declared but never used
+Warning : *** Shift/Reduce conflict found in state #54
+  between expression ::= expression AND expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #54
+  between expression ::= expression AND expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #54
+  between expression ::= expression AND expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #54
+  between expression ::= expression AND expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #52
+  between expression ::= expression EQUAL expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #52
+  between expression ::= expression EQUAL expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #52
+  between expression ::= expression EQUAL expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #52
+  between expression ::= expression EQUAL expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #51
+  between expression ::= expression MINUS expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #51
+  between expression ::= expression MINUS expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #51
+  between expression ::= expression MINUS expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #51
+  between expression ::= expression MINUS expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #58
+  between statement ::= IF LPAREN expression RPAREN statement (*) 
+  and     statement ::= IF LPAREN expression RPAREN statement (*) ELSE statement 
+  under symbol ELSE
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #56
+  between expression ::= NOT expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #56
+  between expression ::= NOT expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #56
+  between expression ::= NOT expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #56
+  between expression ::= NOT expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #44
+  between expression ::= LPAREN BYTE RPAREN expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #44
+  between expression ::= LPAREN BYTE RPAREN expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #44
+  between expression ::= LPAREN BYTE RPAREN expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #44
+  between expression ::= LPAREN BYTE RPAREN expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #53
+  between expression ::= expression PLUS expression (*) 
+  and     expression ::= expression (*) PLUS expression 
+  under symbol PLUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #53
+  between expression ::= expression PLUS expression (*) 
+  and     expression ::= expression (*) MINUS expression 
+  under symbol MINUS
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #53
+  between expression ::= expression PLUS expression (*) 
+  and     expression ::= expression (*) EQUAL expression 
+  under symbol EQUAL
+  Resolved in favor of shifting.
+
+Warning : *** Shift/Reduce conflict found in state #53
+  between expression ::= expression PLUS expression (*) 
+  and     expression ::= expression (*) AND expression 
+  under symbol AND
+  Resolved in favor of shifting.
+
+Error : *** More conflicts encountered than expected -- parser generation aborted
+===== Terminals =====
+[0]EOF [1]error [2]PLUS [3]MINUS [4]TIMES 
 [5]LPAREN [6]RPAREN [7]LBRACE [8]RBRACE [9]BOOLEAN 
 [10]INT [11]BYTE [12]MAIN [13]IMPORT [14]IF 
 [15]ELSE [16]LT [17]EQUAL [18]AND [19]NOT 
@@ -45,20 +186,19 @@ Working on DFA states...........................................................
 
 
 ===== Non terminals =====
-[0]program [1]exp [2]statement [3]statement1 [4]statement_list 
-[5]main_class [6]expression [7]expression1 [8]NT$0 [9]NT$1 
-
+[0]program [1]exp [2]statement [3]statement_list [4]main_class 
+[5]expression [6]NT$0 [7]NT$1 
 
 ===== Productions =====
 [0] $START ::= program EOF 
 [1] program ::= IMPORT MEGGY SEMI main_class 
 [2] NT$0 ::= 
 [3] NT$1 ::= 
-[4] main_class ::= CLASS ID NT$0 LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET .ID RPAREN LBRACE NT$1 statement_list RBRACE RBRACE 
+[4] main_class ::= CLASS ID NT$0 LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN LBRACE NT$1 statement_list RBRACE RBRACE 
 [5] statement ::= MEGGYSETPIXEL LPAREN expression COMMA expression COMMA expression RPAREN SEMI 
 [6] statement ::= MEGGYDELAY LPAREN expression RPAREN SEMI 
 [7] statement ::= IF LPAREN expression RPAREN statement 
-[8] statement ::= IF LPAREN expression RPAREN statement ELSE .statement 
+[8] statement ::= IF LPAREN expression RPAREN statement ELSE statement 
 [9] statement ::= WHILE LPAREN expression RPAREN statement 
 [10] statement ::= LBRACE statement statement_list RBRACE 
 [11] statement_list ::= statement statement_list 
@@ -66,7 +206,7 @@ Working on DFA states...........................................................
 [13] expression ::= expression AND expression 
 [14] expression ::= expression EQUAL expression 
 [15] expression ::= expression PLUS expression 
-[16] expression ::= expression MINUS expression .
+[16] expression ::= expression MINUS expression 
 [17] expression ::= expression TIMES expression 
 [18] expression ::= UMINUS expression 
 [19] expression ::= MEGGYGETPIXEL LPAREN expression COMMA expression RPAREN 
@@ -75,7 +215,7 @@ Working on DFA states...........................................................
 [22] expression ::= INT_LITERAL 
 [23] expression ::= COLOR_LITERAL 
 [24] expression ::= BUTTON_LITERAL 
-.[25] expression ::= TRUE 
+[25] expression ::= TRUE 
 [26] expression ::= FALSE 
 [27] expression ::= NOT expression 
 [28] expression ::= LPAREN expression RPAREN 
@@ -89,7 +229,7 @@ transition on IMPORT to state [2]
 transition on program to state [1]
 
 -------------------
-.lalr_state [1]: {
+lalr_state [1]: {
   [$START ::= program (*) EOF , {EOF }]
 }
 transition on EOF to state [92]
@@ -115,7 +255,7 @@ transition on main_class to state [6]
 transition on CLASS to state [5]
 
 -------------------
-.lalr_state [5]: {
+lalr_state [5]: {
   [main_class ::= CLASS (*) ID NT$0 LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN LBRACE NT$1 statement_list RBRACE RBRACE , {EOF }]
 }
 transition on ID to state [7]
@@ -163,7 +303,7 @@ lalr_state [12]: {
 transition on MAIN to state [13]
 
 -------------------
-.lalr_state [13]: {
+lalr_state [13]: {
   [main_class ::= CLASS ID NT$0 LBRACE PUBLIC STATIC VOID MAIN (*) LPAREN STRING LBRACKET RBRACKET ID RPAREN LBRACE NT$1 statement_list RBRACE RBRACE , {EOF }]
 }
 transition on LPAREN to state [14]
@@ -212,7 +352,7 @@ lalr_state [20]: {
 transition on NT$1 to state [21]
 
 -------------------
-.lalr_state [21]: {
+lalr_state [21]: {
   [statement_list ::= (*) statement statement_list , {RBRACE }]
   [statement ::= (*) IF LPAREN expression RPAREN statement ELSE statement , {LBRACE RBRACE IF WHILE MEGGYSETPIXEL MEGGYDELAY }]
   [statement ::= (*) MEGGYSETPIXEL LPAREN expression COMMA expression COMMA expression RPAREN SEMI , {LBRACE RBRACE IF WHILE MEGGYSETPIXEL MEGGYDELAY }]
@@ -255,7 +395,7 @@ transition on statement to state [87]
 transition on LBRACE to state [23]
 
 -------------------
-.lalr_state [24]: {
+lalr_state [24]: {
   [statement_list ::= statement (*) statement_list , {RBRACE }]
   [statement_list ::= (*) statement statement_list , {RBRACE }]
   [statement ::= (*) IF LPAREN expression RPAREN statement ELSE statement , {LBRACE RBRACE IF WHILE MEGGYSETPIXEL MEGGYDELAY }]
@@ -300,7 +440,7 @@ lalr_state [28]: {
 transition on LPAREN to state [29]
 
 -------------------
-.lalr_state [29]: {
+lalr_state [29]: {
   [expression ::= (*) expression PLUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) TRUE , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -339,7 +479,7 @@ lalr_state [30]: {
 transition on LPAREN to state [67]
 
 -------------------
-..lalr_state [31]: {
+lalr_state [31]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -386,7 +526,7 @@ lalr_state [34]: {
 }
 
 -------------------
-.lalr_state [35]: {
+lalr_state [35]: {
   [expression ::= MEGGYGETPIXEL (*) LPAREN expression COMMA expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
 }
 transition on LPAREN to state [61]
@@ -408,8 +548,8 @@ transition on PLUS to state [46]
 transition on AND to state [45]
 transition on RPAREN to state [57]
 
-.-------------------
-.lalr_state [37]: {
+-------------------
+lalr_state [37]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -445,8 +585,8 @@ lalr_state [38]: {
   [expression ::= COLOR_LITERAL (*) , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
 }
 
-.-------------------
-.lalr_state [39]: {
+-------------------
+lalr_state [39]: {
   [expression ::= (*) expression PLUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) TRUE , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -480,7 +620,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [40]: {
+lalr_state [40]: {
   [expression ::= BUTTON_LITERAL (*) , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
 }
 
@@ -507,7 +647,7 @@ lalr_state [42]: {
 transition on RPAREN to state [43]
 
 -------------------
-.lalr_state [43]: {
+lalr_state [43]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -552,9 +692,9 @@ transition on MINUS to state [48]
 transition on EQUAL to state [47]
 transition on PLUS to state [46]
 transition on AND to state [45]
-.
+
 -------------------
-.lalr_state [45]: {
+lalr_state [45]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -586,7 +726,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [46]: {
+lalr_state [46]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -618,7 +758,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [47]: {
+lalr_state [47]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= expression EQUAL (*) expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -650,7 +790,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [48]: {
+lalr_state [48]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -682,7 +822,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [49]: {
+lalr_state [49]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -744,7 +884,7 @@ transition on PLUS to state [46]
 transition on AND to state [45]
 
 -------------------
-.lalr_state [52]: {
+lalr_state [52]: {
   [expression ::= expression (*) MINUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= expression (*) AND expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
   [expression ::= expression (*) PLUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -774,7 +914,20 @@ transition on PLUS to state [46]
 transition on AND to state [45]
 
 -------------------
-.
+lalr_state [54]: {
+  [expression ::= expression (*) MINUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+  [expression ::= expression (*) AND expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+  [expression ::= expression (*) PLUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+  [expression ::= expression (*) TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+  [expression ::= expression (*) EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+  [expression ::= expression AND expression (*) , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
+}
+transition on TIMES to state [49]
+transition on MINUS to state [48]
+transition on EQUAL to state [47]
+transition on PLUS to state [46]
+transition on AND to state [45]
+
 -------------------
 lalr_state [55]: {
   [expression ::= LPAREN expression RPAREN (*) , {PLUS MINUS TIMES RPAREN EQUAL AND COMMA }]
@@ -843,7 +996,7 @@ lalr_state [60]: {
 }
 
 -------------------
-.lalr_state [61]: {
+lalr_state [61]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES EQUAL AND COMMA }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES EQUAL AND COMMA }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES EQUAL AND COMMA }]
@@ -959,7 +1112,7 @@ transition on PLUS to state [46]
 transition on AND to state [45]
 
 -------------------
-.lalr_state [67]: {
+lalr_state [67]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -1060,7 +1213,7 @@ transition on AND to state [45]
 transition on COMMA to state [72]
 
 -------------------
-..lalr_state [72]: {
+lalr_state [72]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES EQUAL AND COMMA }]
   [statement ::= MEGGYSETPIXEL LPAREN expression COMMA (*) expression COMMA expression RPAREN SEMI , {LBRACE RBRACE IF ELSE WHILE MEGGYSETPIXEL MEGGYDELAY }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES EQUAL AND COMMA }]
@@ -1108,7 +1261,7 @@ transition on AND to state [45]
 transition on COMMA to state [74]
 
 -------------------
-.lalr_state [74]: {
+lalr_state [74]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -1140,7 +1293,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [75]: {
+lalr_state [75]: {
   [expression ::= expression (*) MINUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= expression (*) AND expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= expression (*) PLUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -1167,7 +1320,7 @@ lalr_state [77]: {
 }
 
 -------------------
-.lalr_state [78]: {
+lalr_state [78]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -1199,7 +1352,7 @@ transition on UMINUS to state [31]
 transition on MEGGYCHECKBUTTON to state [30]
 
 -------------------
-.lalr_state [79]: {
+lalr_state [79]: {
   [expression ::= expression (*) MINUS expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= expression (*) AND expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [statement ::= WHILE LPAREN expression (*) RPAREN statement , {LBRACE RBRACE IF ELSE WHILE MEGGYSETPIXEL MEGGYDELAY }]
@@ -1237,7 +1390,7 @@ lalr_state [81]: {
 }
 
 -------------------
-..lalr_state [82]: {
+lalr_state [82]: {
   [expression ::= (*) MEGGYCHECKBUTTON LPAREN expression RPAREN , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression TIMES expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
   [expression ::= (*) expression EQUAL expression , {PLUS MINUS TIMES RPAREN EQUAL AND }]
@@ -1295,7 +1448,7 @@ lalr_state [85]: {
   [statement ::= MEGGYDELAY LPAREN expression RPAREN SEMI (*) , {LBRACE RBRACE IF ELSE WHILE MEGGYSETPIXEL MEGGYDELAY }]
 }
 
-.-------------------
+-------------------
 lalr_state [86]: {
   [statement_list ::= statement statement_list (*) , {RBRACE }]
 }
@@ -1348,467 +1501,13 @@ lalr_state [92]: {
 }
 
 -------------------
-........................................................................-------- ACTION_TABLE --------
-From state #0
- [term 13:SHIFT(to state 2)]
-From state #1
- [term 0:SHIFT(to state 92)]
-From state #2
- [term 36:SHIFT(to state 3)]
-From state #3
- [term 34:SHIFT(to state 4)]
-From state #4
- [term 29:SHIFT(to state 5)]
-From state #5
- [term 47:SHIFT(to state 7)]
-From state #6
- [term 0:REDUCE(with prod 1)]
-From state #7
- [term 7:REDUCE(with prod 2)]
-From state #8
- [term 7:SHIFT(to state 9)]
-From state #9
- [term 24:SHIFT(to state 10)]
-From state #10
- [term 26:SHIFT(to state 11)]
-From state #11
- [term 28:SHIFT(to state 12)]
-From state #12
- [term 12:SHIFT(to state 13)]
-From state #13
- [term 5:SHIFT(to state 14)]
-From state #14
- [term 27:SHIFT(to state 15)]
-From state #15
- [term 31:SHIFT(to state 16)]
-From state #16
- [term 32:SHIFT(to state 17)]
-From state #17
- [term 47:SHIFT(to state 18)]
-From state #18
- [term 6:SHIFT(to state 19)]
-From state #19
- [term 7:SHIFT(to state 20)]
-From state #20
- [term 7:REDUCE(with prod 3)] [term 8:REDUCE(with prod 3)]
- [term 14:REDUCE(with prod 3)] [term 20:REDUCE(with prod 3)]
- [term 40:REDUCE(with prod 3)] [term 43:REDUCE(with prod 3)]
-From state #21
- [term 7:SHIFT(to state 23)] [term 8:REDUCE(with prod 12)]
- [term 14:SHIFT(to state 28)] [term 20:SHIFT(to state 26)]
- [term 40:SHIFT(to state 27)] [term 43:SHIFT(to state 25)]
-From state #22
- [term 8:SHIFT(to state 90)]
-From state #23
- [term 7:SHIFT(to state 23)] [term 14:SHIFT(to state 28)]
- [term 20:SHIFT(to state 26)] [term 40:SHIFT(to state 27)]
- [term 43:SHIFT(to state 25)]
-From state #24
- [term 7:SHIFT(to state 23)] [term 8:REDUCE(with prod 12)]
- [term 14:SHIFT(to state 28)] [term 20:SHIFT(to state 26)]
- [term 40:SHIFT(to state 27)] [term 43:SHIFT(to state 25)]
-From state #25
- [term 5:SHIFT(to state 82)]
-From state #26
- [term 5:SHIFT(to state 78)]
-From state #27
- [term 5:SHIFT(to state 70)]
-From state #28
- [term 5:SHIFT(to state 29)]
-From state #29
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #30
- [term 5:SHIFT(to state 67)]
-From state #31
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #32
- [term 2:REDUCE(with prod 25)] [term 3:REDUCE(with prod 25)]
- [term 4:REDUCE(with prod 25)] [term 6:REDUCE(with prod 25)]
- [term 17:REDUCE(with prod 25)] [term 18:REDUCE(with prod 25)]
- [term 21:REDUCE(with prod 25)]
-From state #33
- [term 2:REDUCE(with prod 22)] [term 3:REDUCE(with prod 22)]
- [term 4:REDUCE(with prod 22)] [term 6:REDUCE(with prod 22)]
- [term 17:REDUCE(with prod 22)] [term 18:REDUCE(with prod 22)]
- [term 21:REDUCE(with prod 22)]
-From state #34
- [term 2:REDUCE(with prod 26)] [term 3:REDUCE(with prod 26)]
- [term 4:REDUCE(with prod 26)] [term 6:REDUCE(with prod 26)]
- [term 17:REDUCE(with prod 26)] [term 18:REDUCE(with prod 26)]
- [term 21:REDUCE(with prod 26)]
-From state #35
- [term 5:SHIFT(to state 61)]
-From state #36
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 57)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #37
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #38
- [term 2:REDUCE(with prod 23)] [term 3:REDUCE(with prod 23)]
- [term 4:REDUCE(with prod 23)] [term 6:REDUCE(with prod 23)]
- [term 17:REDUCE(with prod 23)] [term 18:REDUCE(with prod 23)]
- [term 21:REDUCE(with prod 23)]
-From state #39
- [term 5:SHIFT(to state 39)] [term 11:SHIFT(to state 42)]
- [term 19:SHIFT(to state 37)] [term 44:SHIFT(to state 35)]
- [term 45:SHIFT(to state 30)] [term 46:SHIFT(to state 33)]
- [term 48:SHIFT(to state 32)] [term 49:SHIFT(to state 34)]
- [term 50:SHIFT(to state 38)] [term 51:SHIFT(to state 40)]
- [term 54:SHIFT(to state 31)]
-From state #40
- [term 2:REDUCE(with prod 24)] [term 3:REDUCE(with prod 24)]
- [term 4:REDUCE(with prod 24)] [term 6:REDUCE(with prod 24)]
- [term 17:REDUCE(with prod 24)] [term 18:REDUCE(with prod 24)]
- [term 21:REDUCE(with prod 24)]
-From state #41
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 55)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #42
- [term 6:SHIFT(to state 43)]
-From state #43
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #44
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:REDUCE(with prod 21)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
- [term 21:REDUCE(with prod 21)]
-From state #45
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #46
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #47
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #48
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #49
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #50
- [term 2:REDUCE(with prod 17)] [term 3:REDUCE(with prod 17)]
- [term 4:REDUCE(with prod 17)] [term 6:REDUCE(with prod 17)]
- [term 17:REDUCE(with prod 17)] [term 18:REDUCE(with prod 17)]
- [term 21:REDUCE(with prod 17)]
-From state #51
- [term 2:REDUCE(with prod 16)] [term 3:REDUCE(with prod 16)]
- [term 4:SHIFT(to state 49)] [term 6:REDUCE(with prod 16)]
- [term 17:REDUCE(with prod 16)] [term 18:SHIFT(to state 45)]
- [term 21:REDUCE(with prod 16)]
-From state #52
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:REDUCE(with prod 14)]
- [term 17:NONASSOC] [term 18:SHIFT(to state 45)]
- [term 21:REDUCE(with prod 14)]
-From state #53
- [term 2:REDUCE(with prod 15)] [term 3:REDUCE(with prod 15)]
- [term 4:SHIFT(to state 49)] [term 6:REDUCE(with prod 15)]
- [term 17:REDUCE(with prod 15)] [term 18:SHIFT(to state 45)]
- [term 21:REDUCE(with prod 15)]
-From state #54
- [term 2:REDUCE(with prod 13)] [term 3:REDUCE(with prod 13)]
- [term 4:REDUCE(with prod 13)] [term 6:REDUCE(with prod 13)]
- [term 17:REDUCE(with prod 13)] [term 18:REDUCE(with prod 13)]
- [term 21:REDUCE(with prod 13)]
-From state #55
- [term 2:REDUCE(with prod 28)] [term 3:REDUCE(with prod 28)]
- [term 4:REDUCE(with prod 28)] [term 6:REDUCE(with prod 28)]
- [term 17:REDUCE(with prod 28)] [term 18:.REDUCE(with prod 28)]
- [term 21:REDUCE(with prod 28)]
-From state #56
- [term 2:REDUCE(with prod 27)] [term 3:REDUCE(with prod 27)]
- [term 4:REDUCE(with prod 27)] [term 6:REDUCE(with prod 27)]
- [term 17:REDUCE(with prod 27)] [term 18:REDUCE(with prod 27)]
- [term 21:REDUCE(with prod 27)]
-From state #57
- [term 7:SHIFT(to state 23)] [term 14:SHIFT(to state 28)]
- [term 20:SHIFT(to state 26)] [term 40:SHIFT(to state 27)]
- [term 43:SHIFT(to state 25)]
-From state #58
- [term 7:REDUCE(with prod 7)] [term 8:REDUCE(with prod 7)]
- [term 14:REDUCE(with prod 7)] [term 15:SHIFT(to state 59)]
- [term 20:REDUCE(with prod 7)] [term 40:REDUCE(with prod 7)]
- [term 43:REDUCE(with prod 7)]
-From state #59
- [term 7:SHIFT(to state 23)] [term 14:SHIFT(to state 28)]
- [term 20:SHIFT(to state 26)] [term 40:SHIFT(to state 27)]
- [term 43:SHIFT(to state 25)]
-From state #60
- [term 7:REDUCE(with prod 8)] [term 8:REDUCE(with prod 8)]
- [term 14:REDUCE(with prod 8)] [term 15:REDUCE(with prod 8)]
- [term 20:REDUCE(with prod 8)] [term 40:REDUCE(with prod 8)]
- [term 43:REDUCE(with prod 8)]
-From state #61
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #62
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 17:SHIFT(to state 47)]
- [term 18:SHIFT(to state 45)] [term 21:SHIFT(to state 63)]
-From state #63
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #64
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 65)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #65
- [term 2:REDUCE(with prod 19)] [term 3:REDUCE(with prod 19)]
- [term 4:REDUCE(with prod 19)] [term 6:REDUCE(with prod 19)]
- [term 17:REDUCE(with prod 19)] [term 18:REDUCE(with prod 19)]
- [term 21:REDUCE(with prod 19)]
-From state #66
- [term 2:REDUCE(with prod 18)] [term 3:REDUCE(with prod 18)]
- [term 4:REDUCE(with prod 18)] [term 6:REDUCE(with prod 18)]
- [term 17:REDUCE(with prod 18)] [term 18:REDUCE(with prod 18)]
- [term 21:REDUCE(with prod 18)]
-From state #67
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #68
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 69)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #69
- [term 2:REDUCE(with prod 20)] [term 3:REDUCE(with prod 20)]
- [term 4:REDUCE(with prod 20)] [term 6:REDUCE(with prod 20)]
- [term 17:REDUCE(with prod 20)] [term 18:REDUCE(with prod 20)]
- [term 21:REDUCE(with prod 20)]
-From state #70
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #71
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 17:SHIFT(to state 47)]
- [term 18:SHIFT(to state 45)] [term 21:SHIFT(to state 72)]
-From state #72
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #73
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 17:SHIFT(to state 47)]
- [term 18:SHIFT(to state 45)] [term 21:SHIFT(to state 74)]
-From state #74
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #75
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 76)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #76
- [term 34:SHIFT(to state 77)]
-From state #77
- [term 7:REDUCE(with prod 5)] [term 8:REDUCE(with prod 5)]
- [term 14:REDUCE(with prod 5)] [term 15:REDUCE(with prod 5)]
- [term 20:REDUCE(with prod 5)] [term 40:REDUCE(with prod 5)]
- [term 43:REDUCE(with prod 5)]
-From state #78
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #79
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 80)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #80
- [term 7:SHIFT(to state 23)] [term 14:SHIFT(to state 28)]
- [term 20:SHIFT(to state 26)] [term 40:SHIFT(to state 27)]
- [term 43:SHIFT(to state 25)]
-From state #81
- [term 7:REDUCE(with prod 9)] [term 8:REDUCE(with prod 9)]
- [term 14:REDUCE(with prod 9)] [term 15:REDUCE(with prod 9)]
- [term 20:REDUCE(with prod 9)] [term 40:REDUCE(with prod 9)]
- [term 43:REDUCE(with prod 9)]
-From state #82
- [term 5:SHIFT(to state 39)] [term 19:SHIFT(to state 37)]
- [term 44:SHIFT(to state 35)] [term 45:SHIFT(to state 30)]
- [term 46:SHIFT(to state 33)] [term 48:SHIFT(to state 32)]
- [term 49:SHIFT(to state 34)] [term 50:SHIFT(to state 38)]
- [term 51:SHIFT(to state 40)] [term 54:SHIFT(to state 31)]
-From state #83
- [term 2:SHIFT(to state 46)] [term 3:SHIFT(to state 48)]
- [term 4:SHIFT(to state 49)] [term 6:SHIFT(to state 84)]
- [term 17:SHIFT(to state 47)] [term 18:SHIFT(to state 45)]
-From state #84
- [term 34:SHIFT(to state 85)]
-From state #85
- [term 7:REDUCE(with prod 6)] [term 8:REDUCE(with prod 6)]
- [term 14:REDUCE(with prod 6)] [term 15:REDUCE(with prod 6)]
- [term 20:REDUCE(with prod 6)] [term 40:REDUCE(with prod 6)]
- [term 43:REDUCE(with prod 6)]
-From state #86
- [term 8:REDUCE(with prod 11)]
-From state #87
- [term 7:SHIFT(to state 23)] [term 8:REDUCE(with prod 12)]
- [term 14:SHIFT(to state 28)] [term 20:SHIFT(to state 26)]
- [term 40:SHIFT(to state 27)] [term 43:SHIFT(to state 25)]
-From state #88
- [term 8:SHIFT(to state 89)]
-From state #89
- [term 7:REDUCE(with prod 10)] [term 8:REDUCE(with prod 10)]
- [term 14:REDUCE(with prod 10)] [term 15:REDUCE(with prod 10)]
- [term 20:REDUCE(with prod 10)] [term 40:REDUCE(with prod 10)]
- [term 43:REDUCE(with prod 10)]
-From state #90
- [term 8:SHIFT(to state 91)]
-From state #91
- [term 0:REDUCE(with prod 4)]
-From state #92
- [term 0:REDUCE(with prod 0)]
-------------------------------
-......
-..------- CUP v0.11a beta 20060608 Parser Generation Summary -------
-  0 errors and 19 warnings
-  55 terminals, 10 non-terminals, and 29 productions declared, 
+------- CUP v0.11a beta 20060608 Parser Generation Summary -------
+  1 error and 42 warnings
+  55 terminals, 8 non-terminals, and 29 productions declared, 
   producing 93 unique parse states.
-  19 terminals declared but not used.
+  17 terminals declared but not used.
   0 non-terminals declared but not used.
   0 productions never reduced.
-  0 conflicts detected (0 expected).
-  Code written to "mj.java", and "sym.java".
+  25 conflicts detected (0 expected).
+  No code produced.
 ---------------------------------------------------- (v0.11a beta 20060608)
-....................................................................................
-Minimizing DFA transition table.
-285 states after removal of redundant states.
-Outputting lexical analyzer code.
-mv src/mjparser/mj.lex.java src/mjparser/Yylex.java
- #30
-From state #31
- [non term 6->state 66]
-From state #32
-From state #33
-From state #34
-From state #35
-From state #36
-From state #37
- [non term 6->state 56]
-From state #38
-From state #39
- [non term 6->state 41]
-From state #40
-From state #41
-From state #42
-From state #43
- [non term 6->state 44]
-From state #44
-From state #45
- [non term 6->state 54]
-From state #46
- [non term 6->state 53]
-From state #47
- [non term 6->state 52]
-From state #48
- [non term 6->state 51]
-From state #49
- [non term 6->state 50]
-From state #50
-From state #51
-From state #52
-From state #53
-From state #54
-From state #55
-From state #56
-From state #57
- [non term 2->state 58]
-From state #58
-From state #59
- [non term 2->state 60]
-From state #60
-From state #61
- [non term 6->state 62]
-From state #62
-From state #63
- [non term 6->state 64]
-From state #64
-From state #65
-From state #66
-From state #67
- [non term 6->state 68]
-From state #68
-From state #69
-From state #70
- [non term 6->state 71]
-From state #71
-From state #72
- [non term 6->state 73]
-From state #73
-From state #74
- [non term 6->state 75]
-From state #75
-From state #76
-From state #77
-From state #78
- [non term 6->state 79]
-From state #79
-From state #80
- [non term 2->state 81]
-From state #81
-From state #82
- [non term 6->state 83]
-From state #83
-From state #84
-From state #85
-From state #86
-From state #87
- [non term 2->state 24] [non term 4->state 88]
-From state #88
-From state #89
-From state #90
-From state #91
-From state #92
------------------------------
