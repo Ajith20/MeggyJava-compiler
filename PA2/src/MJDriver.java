@@ -13,7 +13,9 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 
 import mjparser.*;
-//import ast_visitors.*;
+import ast_visitors.*;
+import ast.node.*;
+import ast.visitor.*;
 
 public class MJDriver {
 
@@ -47,9 +49,14 @@ public class MJDriver {
 
           // and parse
           parser.parse();
-          /*
-                
-          // print ast to file
+          
+	  // Creating AST 
+	  //mj_ast_parser parser = new mj_ast_parser(lexer);
+	  ast.node.Node ast_root = (ast.node.Node)parser.parse().value;
+
+	 
+          /*      
+         // print ast to file
           java.io.PrintStream astout =
             new java.io.PrintStream(
                 new java.io.FileOutputStream(filename + ".ast.dot"));
