@@ -84,6 +84,7 @@ non terminal Integer exp;
 non terminal statement;
 non terminal statement_list;
 non terminal main_class;
+non terminal expression;
 
 /* Declare precedence and associativity  here */
 precedence left TIMES;
