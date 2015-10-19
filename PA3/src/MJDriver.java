@@ -49,7 +49,7 @@ public class MJDriver {
 
           // and parse
           parser.parse();
-          
+          System.out.println("Point 1");
 	  //Create AST 
 	  ast.node.Node ast_root = (ast.node.Node)parser.parse().value; 
 

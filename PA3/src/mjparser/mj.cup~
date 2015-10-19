@@ -80,14 +80,13 @@ terminal SymbolValue THIS;
 /* bogus terminal for unary precedence declaration */
 terminal UMINUS;
 
-non terminal program;
+non terminal Program program;
 non terminal Integer exp;
-non terminal statement;
-non terminal statement1;
-non terminal statement_list;
-non terminal main_class;
-non terminal expression;
-non terminal expression1;
+non terminal IStatement statement;
+non terminal List<IStatement> statement_list;
+non terminal MainClass main_class;
+non terminal IExp expression;
+non terminal List<IClassDecl> class_dec;
 /* Declare precedence and associativity  here */
 precedence nonassoc LT, EQUAL;
 precedence nonassoc IF, ELSE;
@@ -101,11 +100,12 @@ precedence right NOT, UMINUS;
 start with program;
 
 program ::= 
-    IMPORT MEGGY SEMI main_class
+    IMPORT:op MEGGY:b SEMI main_class:a class_dec:c
+	{: RESULT = new Program(op.line, op.pos, (MainClass)a, c ); :}
     ;
-    
+    class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ;
 main_class ::=
-        CLASS ID:name         
+        CLASS:op ID:name         
             {:  
 		java.io.PrintStream sout 
                     = new java.io.PrintStream(
@@ -114,6 +114,7 @@ main_class ::=
 		
                 // Check filename is class name, if not exit with error message
 				//if(sout != name.lexeme+".java.s") System.exit(0);
+		RESULT = new MainClass(op.line, op.pos, name.lexeme, name.lexeme, (IStatement)null);
             :}
         LBRACE PUBLIC STATIC VOID MAIN 
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
@@ -199,7 +200,7 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 
 statement_list ::= statement:s statement_list:list
 	/* statement_list can be null */
-	{: RESULT = new CallStatement(1,1,(List<IStatement>)list); :}
+	{: if(s!=null) { list.add(s); }; RESULT = list; :}
 	| 
 	{: RESULT = new LinkedList<IStatement>(); :}		
 ;
@@ -220,7 +221,7 @@ statement_list ::= statement:s statement_list:list
 			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN
 			{: RESULT = new MeggyCheckButton(op.line, op.pos, (IExp)a); :}
 			 | LPAREN:op BYTE RPAREN expression:a
-			{: RESULT = new ByteType(op.line, op.pos); :}
+			{: RESULT = new ByteCast(op.line, op.pos, a); :}
 			 | INT_LITERAL:a
 			{: RESULT = new IntLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | COLOR_LITERAL:a
@@ -228,13 +229,13 @@ statement_list ::= statement:s statement_list:list
 			 | BUTTON_LITERAL:a
 			{: RESULT = new ButtonLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | TRUE:a
-			{: RESULT = new BoolType(a.line, a.pos); :}
+			{: RESULT = new TrueLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | FALSE:a
-			{: RESULT = new BoolType(a.line, a.pos); :}
+			{: RESULT = new FalseLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | NOT:op expression:a
 			{: RESULT = new NotExp(1, 1, (IExp)a); :}
 			 | LPAREN:op expression:a RPAREN 
-			{: RESULT = new IdLiteral(op.line, op.pos, (String)a); :} 				
+			{: RESULT = a; :} 				
 ; 
 
 
