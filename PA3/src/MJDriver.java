@@ -55,7 +55,7 @@ public class MJDriver {
 
 
 	
-                
+          /*      
           // print ast to file
           java.io.PrintStream astout =
             new java.io.PrintStream(
@@ -102,7 +102,7 @@ public class MJDriver {
               new java.io.PrintStream(
                       new java.io.FileOutputStream(filename + ".s"));
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
-          System.out.println("Printing Atmel assembly to " + filename + ".s");
+          System.out.println("Printing Atmel assembly to " + filename + ".s"); */
           
 
         } catch(exceptions.SemanticException e) {

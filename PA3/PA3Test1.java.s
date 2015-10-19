@@ -19,82 +19,7 @@ main:
     /* Need to call this so that the meggy library gets set up */
 
 
-    #### if statement
-
-    # Load constant int 5
-    ldi    r24,lo8(5)
-    ldi    r25,hi8(5)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    # Load constant int 5
-    ldi    r24,lo8(5)
-    ldi    r25,hi8(5)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    # equality check expression
-    # load a two byte expression off stack
-    pop    r18
-    pop    r19
-    # load a two byte expression off stack
-    pop    r24
-    pop    r25
-    cp    r24, r18
-    cpc   r25, r19
-    breq MJ_L4
-
-    # result is false
-MJ_L3:
-    ldi     r24, 0
-    jmp      MJ_L5
-
-    # result is true
-MJ_L4:
-    ldi     r24, 1
-
-    # store result of equal expression
-MJ_L5:
-    # push one byte expression onto stack
-    push   r24
-
-    # load condition and branch if false
-    # load a one byte expression off stack
-    pop    r24
-    #load zero into reg
-    ldi    r25, 0
-
-    #use cp to set SREG
-    cp     r24, r25
-    #WANT breq MJ_L0
-    brne   MJ_L1
-    jmp    MJ_L0
-
-    # then label for if
-MJ_L1:
-
-    # Load constant int 1
-    ldi    r24,lo8(1)
-    ldi    r25,hi8(1)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    ### Meggy.delay() call
-    # load delay parameter
-    # load a two byte expression off stack
-    pop    r24
-    pop    r25
-    call   _Z8delay_msj
-    jmp    MJ_L2
-
-    # else label for if
-MJ_L0:
-
-    # done label for if
-MJ_L2:
+	
 
 
 /* epilogue start */
@@ -102,5 +27,4 @@ MJ_L2:
     jmp endLabel
     ret
     .size   main, .-main
-
 
