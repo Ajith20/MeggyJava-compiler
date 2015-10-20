@@ -114,11 +114,11 @@ main_class ::=
         RBRACE 
           {:
 		RESULT = new MainClass(op.line, op.pos, name.lexeme, param.lexeme, new BlockStatement(op.line, op.pos, list));
-		System.out.println("Check point 0");
+		//System.out.println("Check point 0");
           :};
 	
 statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expression:c RPAREN SEMI
-			{:      System.out.println("Check point 1");
+			{:      //System.out.println("Check point 1");
 				RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
 			| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
 			{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
@@ -128,8 +128,8 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 			{: RESULT = new IfStatement(op.line, op.pos, (IExp)a, (IStatement)s1, (IStatement)s2); :}
 			| WHILE LPAREN:op expression:a RPAREN statement:s1
 			{: RESULT = new WhileStatement(op.line, op.pos, (IExp)a, (IStatement)s1); :}
-			| LBRACE:op statement:s1 statement_list:list RBRACE 
-			 {:     System.out.println("Check point 2");
+			| LBRACE:op statement_list:list RBRACE 
+			 {:     //System.out.println("Check point 2");
 				RESULT = new BlockStatement(op.line, op.pos, list); :}
  	
 			
@@ -138,11 +138,11 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 statement_list ::=  statement_list:list statement:s
 	/* statement_list can be null */
 	{: if(s!=null) { list.add(s); } RESULT = list; 
-		System.out.println("Check point 4"); :}
+		//System.out.println("Check point 4"); :}
 	| 
-	{:      System.out.println("Check point 3");
+	{:      //System.out.println("Check point 3");
 		RESULT = new LinkedList<IStatement>(); 
-		System.out.println("Check point 5"); :}		
+		//System.out.println("Check point 5"); :}		
 ;
 	expression ::= expression:a AND:op expression:b
 			{: RESULT = new AndExp(op.line, op.pos, (IExp)a, (IExp)b); :}
@@ -154,8 +154,10 @@ statement_list ::=  statement_list:list statement:s
 			{: RESULT = new MinusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | expression:a TIMES:op expression:b
 			{: RESULT = new MulExp(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | UMINUS:op expression:a
-			{: RESULT = new NegExp(1, 1, (IExp)a); :}
+			 | MINUS:op expression:a
+			{: 	System.out.println("CP 1");
+				RESULT = new NegExp(1, 1, a); 
+				System.out.println("CP 2"); :}
 			 | MEGGYGETPIXEL:op LPAREN expression:a COMMA expression:b RPAREN 
 			{: RESULT = new MeggyGetPixel(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN

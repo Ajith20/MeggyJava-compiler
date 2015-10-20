@@ -1,0 +1,39 @@
+digraph ASTGraph {
+0 [ label="Program" ];
+1 [ label="MainClass" ];
+0 -> 1
+2 [ label="BlockStatement" ];
+1 -> 2
+3 [ label="WhileStatement" ];
+2 -> 3
+4 [ label="TrueLiteral\ntrue" ];
+3 -> 4
+5 [ label="BlockStatement" ];
+3 -> 5
+6 [ label="IfStatement" ];
+5 -> 6
+7 [ label="MeggyCheckButton" ];
+6 -> 7
+8 [ label="ButtonLiteral\nMeggy.Button.Up" ];
+7 -> 8
+9 [ label="BlockStatement" ];
+6 -> 9
+10 [ label="MeggyDelay" ];
+9 -> 10
+11 [ label="ByteCast" ];
+10 -> 11
+12 [ label="MulExp" ];
+11 -> 12
+13 [ label="IntLiteral\n10" ];
+12 -> 13
+14 [ label="ByteCast" ];
+12 -> 14
+15 [ label="IntLiteral\n20" ];
+14 -> 15
+16 [ label="IfStatement" ];
+5 -> 16
+17 [ label="FalseLiteral\nfalse" ];
+16 -> 17
+18 [ label="BlockStatement" ];
+16 -> 18
+}

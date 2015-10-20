@@ -1,0 +1,85 @@
+digraph ASTGraph {
+0 [ label="Program" ];
+1 [ label="MainClass" ];
+0 -> 1
+2 [ label="BlockStatement" ];
+1 -> 2
+3 [ label="MeggySetPixel" ];
+2 -> 3
+4 [ label="ByteCast" ];
+3 -> 4
+5 [ label="IntLiteral\n5" ];
+4 -> 5
+6 [ label="ByteCast" ];
+3 -> 6
+7 [ label="IntLiteral\n3" ];
+6 -> 7
+8 [ label="ColorLiteral\nMeggy.Color.WHITE" ];
+3 -> 8
+9 [ label="IfStatement" ];
+2 -> 9
+10 [ label="TrueLiteral\ntrue" ];
+9 -> 10
+11 [ label="BlockStatement" ];
+9 -> 11
+12 [ label="MeggySetPixel" ];
+11 -> 12
+13 [ label="ByteCast" ];
+12 -> 13
+14 [ label="MinusExp" ];
+13 -> 14
+15 [ label="IntLiteral\n8" ];
+14 -> 15
+16 [ label="IntLiteral\n3" ];
+14 -> 16
+17 [ label="ByteCast" ];
+12 -> 17
+18 [ label="IntLiteral\n3" ];
+17 -> 18
+19 [ label="ColorLiteral\nMeggy.Color.BLUE" ];
+12 -> 19
+20 [ label="BlockStatement" ];
+9 -> 20
+21 [ label="IfStatement" ];
+20 -> 21
+22 [ label="EqualExp" ];
+21 -> 22
+23 [ label="MeggyGetPixel" ];
+22 -> 23
+24 [ label="ByteCast" ];
+23 -> 24
+25 [ label="IntLiteral\n5" ];
+24 -> 25
+26 [ label="ByteCast" ];
+23 -> 26
+27 [ label="IntLiteral\n3" ];
+26 -> 27
+28 [ label="ColorLiteral\nMeggy.Color.BLUE" ];
+22 -> 28
+29 [ label="BlockStatement" ];
+21 -> 29
+30 [ label="MeggyDelay" ];
+29 -> 30
+31 [ label="IntLiteral\n300" ];
+30 -> 31
+32 [ label="IfStatement" ];
+20 -> 32
+33 [ label="EqualExp" ];
+32 -> 33
+34 [ label="IntLiteral\n1" ];
+33 -> 34
+35 [ label="NegExp" ];
+33 -> 35
+36 [ label="IntLiteral\n2" ];
+35 -> 36
+37 [ label="BlockStatement" ];
+32 -> 37
+38 [ label="IfStatement" ];
+20 -> 38
+39 [ label="NotExp" ];
+38 -> 39
+40 [ label="FalseLiteral\nfalse" ];
+39 -> 40
+41 [ label="BlockStatement" ];
+38 -> 41
+}
