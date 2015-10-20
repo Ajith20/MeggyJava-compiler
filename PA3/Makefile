@@ -65,8 +65,8 @@ $(PROG).jar: $(SRC_DIR)/$(PROG)Driver.class
 $(PARSE_DIR)/mj.java: $(PARSE_DIR)/mj.cup
 	### java -jar java-cup-11a.jar -parser  mj -dump $(PARSE_DIR)/mj.cup 2>&1 javacup.dump
 	java -jar java-cup-11a.jar -parser  mj -dump $(PARSE_DIR)/mj.cup &> javacup.dump
-	mv -f sym.java $(PARSE_DIR)/
-	mv -f mj.java $(PARSE_DIR)/
+	mv  sym.java $(PARSE_DIR)/
+	mv  mj.java $(PARSE_DIR)/
 
 #### lexer
 $(PARSE_DIR)/Yylex.java: $(PARSE_DIR)/mj.lex $(PARSE_DIR)/mj.java 

@@ -101,108 +101,48 @@ start with program;
 
 program ::= 
     IMPORT:op MEGGY:b SEMI main_class:a class_dec:c
-	{: RESULT = new Program(op.line, op.pos, (MainClass)a, c ); :}
+	{: RESULT = new Program(op.line, op.pos, a, c ); :}
     ;
     class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ;
 main_class ::=
         CLASS:op ID:name         
-            {:  
-		java.io.PrintStream sout 
-                    = new java.io.PrintStream(
-                        new java.io.FileOutputStream(name.lexeme+".java.s"));
-                parser.out = new PrintWriter(sout);
-		
-                // Check filename is class name, if not exit with error message
-				//if(sout != name.lexeme+".java.s") System.exit(0);
-		RESULT = new MainClass(op.line, op.pos, name.lexeme, name.lexeme, (IStatement)null);
-            :}
         LBRACE PUBLIC STATIC VOID MAIN 
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
         LBRACE 
-          {: 
-            System.out.println("Generate prolog using avrH.rtl.s");
-            InputStream mainPrologue=null;
-            BufferedReader reader=null;
-            try {
-                // The syntax for loading a text resource file 
-                // from a jar file here:
-                // http://www.rgagnon.com/javadetails/java-0077.html
-                mainPrologue 
-                    = this.getClass().getClassLoader().getResourceAsStream(
-                        "avrH.rtl.s");
-                reader = new BufferedReader(new 
-                    InputStreamReader(mainPrologue));
-
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                  parser.out.println(line);
-                }
-            } catch ( Exception e2) {
-                e2.printStackTrace();
-            }
-            finally{
-                try{
-                    if(mainPrologue!=null) mainPrologue.close();
-                    if(reader!=null) reader.close();
-                }
-                catch (IOException e) {
-                   e.printStackTrace();
-                }
-            }
-          :}
-
         statement_list:list 
 	RBRACE
         RBRACE 
           {:
-			System.out.println("Generate epilogue using avrF.rtl.s");
-            InputStream mainEpilogue=null;
-            BufferedReader reader=null;
-            try {
-                mainEpilogue
-                    = this.getClass().getClassLoader().getResourceAsStream(
-                        "avrF.rtl.s");
-                reader = new BufferedReader(new 
-                    InputStreamReader(mainEpilogue));
-
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                  parser.out.println(line);
-                }
-            } catch ( Exception e2) {
-                e2.printStackTrace();
-            }
-            finally{
-                try{
-                    if(mainEpilogue!=null) mainEpilogue.close();
-                    if(reader!=null) reader.close();
-                }
-                catch (IOException e) {
-                   e.printStackTrace();
-                }
-            }
-            parser.out.flush();
+		RESULT = new MainClass(op.line, op.pos, name.lexeme, param.lexeme, new BlockStatement(op.line, op.pos, list));
+		//System.out.println("Check point 0");
           :};
 	
 statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expression:c RPAREN SEMI
-			{: RESULT = new MeggySetPixel(op.line, op.pos, (IExp)a, (IExp)b, (IExp)c); :}
+			{:      System.out.println("Check point 1");
+				RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
 			| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
-			{: RESULT = new MeggyDelay(op.line, op.pos, (IExp)a); :}
+			{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
 			| IF LPAREN:op expression:a RPAREN statement:s1
-			{: RESULT = new IfStatement(op.line, op.pos, (IExp)a, (IStatement)s1, (IStatement)null); :} 
+			{: RESULT = new IfStatement(op.line, op.pos, a, s1, (IStatement)null); :} 
 			| IF LPAREN:op expression:a RPAREN statement:s1 ELSE statement:s2
 			{: RESULT = new IfStatement(op.line, op.pos, (IExp)a, (IStatement)s1, (IStatement)s2); :}
 			| WHILE LPAREN:op expression:a RPAREN statement:s1
 			{: RESULT = new WhileStatement(op.line, op.pos, (IExp)a, (IStatement)s1); :}
-			| LBRACE:op statement:s1 statement_list:list RBRACE
-			{: RESULT = new BlockStatement(op.line, op.pos, (List<IStatement>)list); :} 			
+			| LBRACE:op statement:s1 statement_list:list RBRACE 
+			 {:     System.out.println("Check point 2");
+				RESULT = new BlockStatement(op.line, op.pos, list); :}
+ 	
+			
  ;
 
-statement_list ::= statement:s statement_list:list
+statement_list ::=  statement_list:list statement:s
 	/* statement_list can be null */
-	{: if(s!=null) { list.add(s); }; RESULT = list; :}
+	{: if(s!=null) { list.add(s); } RESULT = list; 
+		//System.out.println("Check point 4"); :}
 	| 
-	{: RESULT = new LinkedList<IStatement>(); :}		
+	{:      //System.out.println("Check point 3");
+		RESULT = new LinkedList<IStatement>(); 
+		//System.out.println("Check point 5"); :}		
 ;
 	expression ::= expression:a AND:op expression:b
 			{: RESULT = new AndExp(op.line, op.pos, (IExp)a, (IExp)b); :}
