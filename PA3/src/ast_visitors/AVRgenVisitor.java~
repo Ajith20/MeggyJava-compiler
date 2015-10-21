@@ -109,7 +109,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
         if(node.getElseStatement() != null)
         {
 	     
-	   // out.println(b + ":");
+	    out.println(b + ":");
             node.getElseStatement().accept(this);
 	    out.println("jump " + c);
         }

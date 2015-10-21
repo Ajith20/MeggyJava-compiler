@@ -58,19 +58,19 @@ public class MJDriver {
                 new java.io.FileOutputStream(filename + ".ast.dot"));
           ast_root.accept(new DotVisitor(new PrintWriter(astout)));
           System.out.println("Printing AST to " + filename + ".ast.dot");
-<<<<<<< HEAD
+
 
 	   //create the symbol table
          /* BuildSymTable stVisitor = new BuildSymTable();
           ast_root.accept(stVisitor); */
           //
           
-       /*   // print ast to file
+         /* // print ast to file
           java.io.PrintStream STout =
             new java.io.PrintStream(
                 new java.io.FileOutputStream(filename + ".ST.dot"));
           System.out.println("Printing symbol table to " + filename + ".ST.dot"); 
-          globalST.outputDot(STout);*/
+          globalST.outputDot(STout);
                     
           // perform type checking
 	   SymTable globalST = new SymTable(); 
@@ -80,7 +80,7 @@ public class MJDriver {
 =======
 	   
           /*/// create the symbol table
-=======
+
 	   
           /* create the symbol table
 >>>>>>> 1534ba81f3d5f855890f2ee4e66973f2ae1e91e6
@@ -88,12 +88,12 @@ public class MJDriver {
           ast_root.accept(stVisitor);
           symtable.SymTable globalST = stVisitor.getSymTable();
           
-          /*// print ast to file
-          java.io.PrintStream STout =
+          /*/// print ast to file
+         /* java.io.PrintStream STout =
             new java.io.PrintStream(
                 new java.io.FileOutputStream(filename + ".ST.dot"));
           System.out.println("Printing symbol table to " + filename + ".ST.dot");
-          globalST.outputDot(STout);*/
+          globalST.outputDot(STout); */
                     
           // perform type checking 
           SymTable globalST = new SymTable();
@@ -125,13 +125,12 @@ public class MJDriver {
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
 
           System.out.println("Printing Atmel assembly to " + filename + ".s"); 
-<<<<<<< HEAD
 
-          System.out.println("Printing Atmel assembly to " + filename + ".s");
+
+         // System.out.println("Printing Atmel assembly to " + filename + ".s");
 
           
-=======
->>>>>>> 1534ba81f3d5f855890f2ee4e66973f2ae1e91e6
+
 
         } catch(exceptions.SemanticException e) {
             System.err.println(e.getMessage());

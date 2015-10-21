@@ -20,6 +20,10 @@
 
 
  
+ # True/1 expression 
+ ldi    r22, 1 
+ # push one byte expression onto stack 
+ push   r22 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
