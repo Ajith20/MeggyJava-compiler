@@ -90,7 +90,8 @@ non terminal List<IClassDecl> class_dec;
 /* Declare precedence and associativity  here */
 precedence nonassoc LT, EQUAL;
 precedence nonassoc IF, ELSE;
-precedence left PLUS,MINUS, TIMES;
+precedence left PLUS,MINUS; 
+precedence left	TIMES;
 precedence left TIMES, AND;
 
 precedence right NOT, UMINUS;
@@ -151,7 +152,7 @@ statement_list ::=  statement_list:list statement:s
 			 | expression:a PLUS:op expression:b
 			{: RESULT = new PlusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | expression:a MINUS:op expression:b
-			{: RESULT = new MinusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			{: RESULT = new MinusExp(op.line, op.pos, a, b); :}
 			 | expression:a TIMES:op expression:b
 			{: RESULT = new MulExp(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | MINUS:op expression:a

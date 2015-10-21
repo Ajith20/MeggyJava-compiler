@@ -27,7 +27,7 @@ public class DotVisitor extends DepthFirstVisitor {
    public DotVisitor(PrintWriter out) {
       this.out = out;
       this.nodeStack = new Stack<Integer>();
-   }	
+   }
 
    
    /** Upon entering each node in AST, check of this node is the root

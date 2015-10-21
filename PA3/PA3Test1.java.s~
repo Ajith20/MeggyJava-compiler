@@ -97,6 +97,7 @@ MJ_L1:
  pop    r25 
  call   _Z8delay_msj 
  
+jump MJ_L2
 MJ_L2:
   
 

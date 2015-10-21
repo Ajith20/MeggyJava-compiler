@@ -510,7 +510,7 @@ public class DepthFirstVisitor extends Visitor
         {
             node.getElseStatement().accept(this);
         }
-        outIfStatement(node,a,b);
+        outIfStatement(node);
     }
 
     public void inIntArrayType(IntArrayType node)
