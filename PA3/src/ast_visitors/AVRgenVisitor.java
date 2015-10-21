@@ -58,12 +58,12 @@ public class AVRgenVisitor extends DepthFirstVisitor
 
    public void outNegExp(NegExp node)
    {
-       
+       out.println(" # neg int \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n ldi     r22, 0 \n ldi     r23, 0 \n sub     r22, r24 \n sbc     r23, r25 \n # push two byte expression onto stack \n push   r23 \n push   r22 ");
    }
 
    public void outNotExp(NotExp node)
    {
-       
+       out.println("  # not operation \n # load a one byte expression off stack \n pop    r24 \n ldi     r22, 1 \n eor     r24,r22 \n # push one byte expression onto stack \n push   r24  ");
    }
 
    public void outMeggySetPixel(MeggySetPixel node)
