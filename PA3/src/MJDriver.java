@@ -48,7 +48,7 @@ public class MJDriver {
           System.out.println("Driver finds input filename: " + parser.programName);
 
           // and parse
-                 //  System.out.println("Point 0");
+          
 	  //Create AST 
 	   ast.node.Node ast_root = (ast.node.Node)(parser.parse().value); 
           
@@ -58,6 +58,7 @@ public class MJDriver {
                 new java.io.FileOutputStream(filename + ".ast.dot"));
           ast_root.accept(new DotVisitor(new PrintWriter(astout)));
           System.out.println("Printing AST to " + filename + ".ast.dot");
+<<<<<<< HEAD
 
 	   //create the symbol table
          /* BuildSymTable stVisitor = new BuildSymTable();
@@ -79,6 +80,10 @@ public class MJDriver {
 =======
 	   
           /*/// create the symbol table
+=======
+	   
+          /* create the symbol table
+>>>>>>> 1534ba81f3d5f855890f2ee4e66973f2ae1e91e6
           BuildSymTable stVisitor = new BuildSymTable();
           ast_root.accept(stVisitor);
           symtable.SymTable globalST = stVisitor.getSymTable();
@@ -95,7 +100,6 @@ public class MJDriver {
           ast_root.accept(new CheckTypes(globalST));
           
           /*// Determine whether to do register allocation or not.
->>>>>>> f6b6c47fc6551aca0de8e30f16edbc4ed556a040
           if ( args.length == 2 && args[0].equals("--regalloc") ) {
               // trying out register allocation
               AVRregAlloc regVisitor = new AVRregAlloc(globalST);
@@ -121,10 +125,13 @@ public class MJDriver {
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
 
           System.out.println("Printing Atmel assembly to " + filename + ".s"); 
+<<<<<<< HEAD
 
           System.out.println("Printing Atmel assembly to " + filename + ".s");
 
           
+=======
+>>>>>>> 1534ba81f3d5f855890f2ee4e66973f2ae1e91e6
 
         } catch(exceptions.SemanticException e) {
             System.err.println(e.getMessage());

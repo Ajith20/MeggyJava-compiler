@@ -20,42 +20,6 @@
 
 
  
-  # Load constant int  
- ldi    r24,lo8(1) 
- ldi    r25,hi8(1) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Load constant int  
- ldi    r24,lo8(1) 
- ldi    r25,hi8(1) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
- # equality check expression 
- # load a two byte expression off stack 
- pop    r18 
- pop    r19 
- # load a two byte expression off stack 
- pop    r24 
- pop    r25 
- cp    r24, r18 
- cpc   r25, r19 
- breq MJ_L4 
- # result is false 
- MJ_L3: 
- ldi     r24, 0 
- jmp      MJ_L5 
- # result is true 
- MJ_L4: 
- ldi     r24, 1 
- # store result of equal expression 
- MJ_L5: 
- # push one byte expression onto stack 
- push   r24 
- 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 

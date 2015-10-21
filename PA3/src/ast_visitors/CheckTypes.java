@@ -271,7 +271,7 @@ public class CheckTypes extends DepthFirstVisitor
         }
    }
 
-   public void outIfStatement(IfStatement node) 
+   public void outIfStatement(IfStatement node, String a, String b) 
    {
        Type expType = this.mCurrentST.getExpType(node.getExp());
        if (expType==Type.BOOL)
