@@ -137,4 +137,12 @@ public class AVRgenVisitor extends DepthFirstVisitor
     {
          out.println("  # Color expression Meggy.Color.BLUE \n ldi    r22," + node.getIntValue() + " \n  # push one byte expression onto stack \n push   r22 ");
     }
+    public void outTrueExp(TrueLiteral node)
+    {
+        out.println(" # True/1 expression \n ldi    r22, 1 \n # push one byte expression onto stack \n push   r22 ");
+    }
+     public void outFalseExp(FalseLiteral node)
+    {
+        out.println("   ");
+    }
 }

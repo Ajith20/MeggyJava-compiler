@@ -66,7 +66,7 @@
  #WANT breq MJ_L0 
  brne  MJ_L1 
  jmp    MJ_L0
-MJ_L0:
+MJ_L1:
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -80,9 +80,8 @@ MJ_L0:
  pop    r24 
  pop    r25 
  call   _Z8delay_msj 
- 
-jump MJ_L2
-MJ_L1:
+ jump MJ_L2
+MJ_L0:
   # Load constant int  
  ldi    r24,lo8(2) 
  ldi    r25,hi8(2) 
@@ -97,7 +96,6 @@ MJ_L1:
  pop    r25 
  call   _Z8delay_msj 
  
-jump MJ_L2
 MJ_L2:
   
 
