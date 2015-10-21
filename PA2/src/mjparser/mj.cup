@@ -1,4 +1,3 @@
-
 package mjparser;
 import java_cup.runtime.*;
 import java.util.*;
@@ -10,6 +9,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import ast.node.*;
+import ast.visitor.*;
+import symtable.*;
+import ast_visitors.*;
+import java.util.LinkedList;
+import java.util.List;
 
 
 parser code {:
@@ -141,8 +146,8 @@ main_class ::=
           :}
 
         statement_list:list 
-	RBRACE
-        RBRACE 
+	RBRACE 
+	RBRACE 
           {:
 			System.out.println("Generate epilogue using avrF.rtl.s");
             InputStream mainEpilogue=null;
@@ -181,15 +186,19 @@ statement ::= MEGGYSETPIXEL LPAREN
 			RPAREN SEMI
 	
         
-          {: parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") \n ldi    r25,hi8(" + num1.lexeme + ") \n
-# push two byte expression onto stack \n push   r25 \n push   r24 \n # Casting num1 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Load constant int num2 \n ldi    r24,lo8(" + num2.lexeme + ") \n ldi    r25,hi8(" + num2.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Cast num2 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Color expression Meggy.Color.X \n ldi    r22," + color.value  + " \n # push one byte expression onto stack \n push   r22 \n ### Meggy.setPixel(num1,num2,color) call \n # load a one byte expression off stack \n pop    r20 \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6DrawPxhhh \n
-call   _Z12DisplaySlatev \n "); :}; 
+          {:
+			
+				/* parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") "); */
+				
+			/* parser.out.println("# Load constant int num1 \n ldi    r24,lo8(" + num1.lexeme + ") \n ldi    r25,hi8(" + num1.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Casting num1 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Load constant int num2 \n ldi    r24,lo8(" + num2.lexeme + ") \n ldi    r25,hi8(" + num2.lexeme + ") \n # push two byte expression onto stack \n push   r25 \n push   r24 \n # Cast num2 to byte \n pop    r24 \n pop    r25 \n push   r24 \n # Color expression Meggy.Color.X \n ldi    r22," + color.value  + " \n # push one byte expression onto stack \n push   r22 \n ### Meggy.setPixel(num1,num2,color) call \n # load a one byte expression off stack \n pop    r20 \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6DrawPxhhh \n call   _Z12DisplaySlatev \n "); */		
+			:}; 
 
-statement_list ::= statement:s1 statement_list:s2 
+statement_list ::= statement_list:list statement:s  
 	{:
-	
+		/* LinkedList<IStatement> list1 = new LinkedList<IStatement>(); */
+		if(s!=null) {  list.add((IStatement)s);  }
+		RESULT = list;
 	:}
 	/* statement_list can be null */
-	| ;
-	
+	| {: RESULT = new LinkedList<IStatement>(); :};
 

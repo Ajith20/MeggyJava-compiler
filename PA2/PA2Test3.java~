@@ -8,7 +8,7 @@ import meggy.Meggy;
 		Meggy.setPixel((byte)2,(byte)3,Meggy.Color.BLUE);
 		Meggy.setPixel((byte)2,(byte)4,Meggy.Color.YELLOW);
 
-        Meggy.setPixel((byte)2,(byte)5,Meggy.Color.RED);
+        	Meggy.setPixel((byte)2,(byte)5,Meggy.Color.RED);
 		Meggy.setPixel((byte)3,(byte)5,Meggy.Color.BLUE);
 		Meggy.setPixel((byte)4,(byte)5,Meggy.Color.YELLOW);
 
@@ -21,3 +21,4 @@ import meggy.Meggy;
 		Meggy.setPixel((byte)3,(byte)2,Meggy.Color.YELLOW);
 	}
 }
+
