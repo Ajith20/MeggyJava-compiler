@@ -4,7 +4,7 @@ package ast_visitors;
  * CheckTypes
  * 
  * This AST visitor traverses a MiniJava Abstract Syntax Tree and checks
- * for a number of type errors.  If a type error is found a SymanticException
+ * for a number of type errors.  If a type error is found a SemanticException
  * is thrown
  * 
  * CHANGES to make next year (2012)
@@ -39,6 +39,46 @@ public class CheckTypes extends DepthFirstVisitor
 
    public void defaultOut(Node node) {
        System.err.println("Node not implemented in CheckTypes, " + node.getClass());
+   }
+
+   public void outBlockStatement(BlockStatement node)
+   {
+    this.mCurrentST.setExpType(node, Type.VOID);
+   }
+
+   public void outMainClass(MainClass node)
+   {
+    this.mCurrentST.setExpType(node, Type.VOID);
+   }
+
+   public void outProgram(Program node)
+   {
+    this.mCurrentST.setExpType(node, Type.VOID);
+   }
+
+   public void outTrueExp(TrueLiteral node)
+   {
+    this.mCurrentST.setExpType(node, Type.BOOL);
+   }
+
+   public void outFalseExp(FalseLiteral node)
+   {
+    this.mCurrentST.setExpType(node, Type.BOOL);
+   }
+
+   public void outIntegerExp(IntLiteral node)
+   {
+    this.mCurrentST.setExpType(node, Type.INT);
+   }
+
+   public void outButtonExp(ButtonLiteral node)
+   {
+    this.mCurrentST.setExpType(node, Type.BUTTON);
+   }
+
+   public void outColorExp(ColorLiteral node)
+   {
+    this.mCurrentST.setExpType(node, Type.COLOR);
    }
    
    public void outAndExp(AndExp node)
@@ -118,7 +158,7 @@ public class CheckTypes extends DepthFirstVisitor
        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
        if ((lexpType==Type.INT || lexpType==Type.BYTE) &&
            (rexpType==Type.INT || rexpType==Type.BYTE))
-          ){
+          {
            this.mCurrentST.setExpType(node, Type.INT);
          } else {
           throw new SemanticException(
@@ -156,6 +196,24 @@ public class CheckTypes extends DepthFirstVisitor
         }
    }
 
+   public void outMeggySetPixel(MeggySetPixel node)
+   {
+       Type xexpType = this.mCurrentST.getExpType(node.getXExp());
+       Type yexpType = this.mCurrentST.getExpType(node.getYExp());
+       Type cexpType = this.mCurrentST.getExpType(node.getColor());
+       if ((xexpType==Type.BYTE || xexpType==Type.INT) &&
+          (yexpType==Type.BYTE || yexpType==Type.INT) &&
+          (cexpType==Type.COLOR))
+       {
+           this.mCurrentST.setExpType(node, Type.VOID);
+         } else {
+          throw new SemanticException(
+            "Operands to Meggy.setPixel() must be (BYTE or INT, BYTE or INT, COLOR)",
+            node.getXExp().getLine(),
+            node.getXExp().getPos());
+        }
+   }
+
    public void outMeggyGetPixel(MeggyGetPixel node)
    {
        Type xexpType = this.mCurrentST.getExpType(node.getXExp());
@@ -165,7 +223,7 @@ public class CheckTypes extends DepthFirstVisitor
            this.mCurrentST.setExpType(node, Type.COLOR);
          } else {
           throw new SemanticException(
-            "Operands to meggy.getPixel() must be (BYTE, BYTE)",
+            "Operands to Meggy.getPixel() must be (BYTE, BYTE)",
             node.getXExp().getLine(),
             node.getXExp().getPos());
         }
@@ -179,7 +237,7 @@ public class CheckTypes extends DepthFirstVisitor
            this.mCurrentST.setExpType(node, Type.BOOL);
          } else {
           throw new SemanticException(
-            "Operand to meggy.checkButton() must be BUTTON",
+            "Operand to Meggy.checkButton() must be BUTTON",
             node.getExp().getLine(),
             node.getExp().getPos());
         }
@@ -193,7 +251,7 @@ public class CheckTypes extends DepthFirstVisitor
            this.mCurrentST.setExpType(node, Type.VOID);
          } else {
           throw new SemanticException(
-            "Operand to meggy.delay() must be INT",
+            "Operand to Meggy.delay() must be INT",
             node.getExp().getLine(),
             node.getExp().getPos());
         }
