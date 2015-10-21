@@ -119,15 +119,15 @@ public class CheckTypes extends DepthFirstVisitor
        Type lexpType = this.mCurrentST.getExpType(node.getLExp());
        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
        if (lexpType==Type.INT && rexpType==Type.INT)
-          this.mCurrentST.setExpType(node, Type.INT);
+          this.mCurrentST.setExpType(node, Type.BOOL);
   else if (lexpType==Type.BYTE && rexpType==Type.BYTE)
-          this.mCurrentST.setExpType(node, Type.BYTE);
+          this.mCurrentST.setExpType(node, Type.BOOL);
   else if (lexpType==Type.BOOL && rexpType==Type.BOOL)
           this.mCurrentST.setExpType(node, Type.BOOL);
   else if (lexpType==Type.COLOR && rexpType==Type.COLOR)
-          this.mCurrentST.setExpType(node, Type.COLOR);
+          this.mCurrentST.setExpType(node, Type.BOOL);
   else if (lexpType==Type.VOID && rexpType==Type.VOID)
-          this.mCurrentST.setExpType(node, Type.VOID);
+          this.mCurrentST.setExpType(node, Type.BOOL);
      else {
        throw new SemanticException(
                "Operands to == operator do not match",
