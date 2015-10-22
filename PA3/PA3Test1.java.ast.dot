@@ -6,12 +6,20 @@ digraph ASTGraph {
 1 -> 2
 3 [ label="WhileStatement" ];
 2 -> 3
+<<<<<<< HEAD
 4 [ label="IntLiteral\n1" ];
+=======
+4 [ label="TrueLiteral\ntrue" ];
+>>>>>>> e232401951b515819248c53b6fa3edb0698bf488
 3 -> 4
 5 [ label="BlockStatement" ];
 3 -> 5
 6 [ label="MeggyDelay" ];
 5 -> 6
+<<<<<<< HEAD
 7 [ label="IntLiteral\n4" ];
+=======
+7 [ label="IntLiteral\n1" ];
+>>>>>>> e232401951b515819248c53b6fa3edb0698bf488
 6 -> 7
 }

@@ -18,7 +18,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
       
    }
     public void inProgram(Program node)
-    {   System.out.println("IN THE PROGRAM");
+    {   
         out.println(" .file  \"main.java\" \n __SREG__ = 0x3f \n __SP_H__ = 0x3e \n  __SP_L__ = 0x3d \n __tmp_reg__ = 0 \n __zero_reg__ = 1 \n .global __do_copy_data \n .global __do_clear_bss \n .text \n .global main \n.type   main, @function \n main: \n push r29 \n push r28 \n in r28,__SP_L__ \n in r29,__SP_H__ \n /* prologue: function */ \n call _Z18MeggyJrSimpleSetupv \n /* Need to call this so that the meggy library gets set up */\n\n\n ");
     }
 
@@ -101,14 +101,15 @@ public class AVRgenVisitor extends DepthFirstVisitor
         if(node.getThenStatement() != null)
         {
 	   
-	    out.println(a + ":");
+	    out.println(b + ":");
             node.getThenStatement().accept(this);
 	    out.println("jmp " + c);
         }
+	out.println(a + ":");
         if(node.getElseStatement() != null)
         {
 	     
-	    out.println(b + ":");
+	   // out.println(b + ":");
             node.getElseStatement().accept(this);
 	    out.println("jmp " + c);
         }
