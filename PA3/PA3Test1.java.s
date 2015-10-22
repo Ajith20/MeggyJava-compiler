@@ -20,22 +20,19 @@
 
 
  
-<<<<<<< HEAD
-  # Load constant int  
- ldi    r24,lo8(1) 
- ldi    r25,hi8(1) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Load constant int  
- ldi    r24,lo8(4) 
- ldi    r25,hi8(4) 
-=======
- # True/1 expression 
- ldi    r22, 1 
+  ### MeggyCheckButton 
+ call    _Z16CheckButtonsDownv 
+ lds    r24, Button_Up 
+ # if button value is zero, push 0 else push 1 
+ tst    r24 
+ breq   MJ_L3 
+ MJ_L4: 
+ ldi    r24, 1 
+ jmp    MJ_L5 
+ MJ_L3: 
+ MJ_L5: 
  # push one byte expression onto stack 
- push   r22 
+ push   r24 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -48,13 +45,36 @@
  jmp    MJ_L0
 MJ_L1:
   # Load constant int  
- ldi    r24,lo8(1) 
- ldi    r25,hi8(1) 
->>>>>>> e232401951b515819248c53b6fa3edb0698bf488
+ ldi    r24,lo8(10) 
+ ldi    r25,hi8(10) 
  # push two byte expression onto stack 
  push   r25 
  push   r24 
  
+  # Load constant int  
+ ldi    r24,lo8(20) 
+ ldi    r25,hi8(20) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # MulExp 
+ # load a one byte expression off stack 
+ pop    r18 
+ # load a one byte expression off stack 
+ pop    r22 
+ # move low byte src into dest reg 
+ mov    r24, r18 
+ # move low byte src into dest reg 
+ mov    r26, r22 
+ # Do mul operation of two input bytes 
+ muls   r24, r26 
+ # push two byte expression onto stack 
+ push   r1 
+ push   r0 
+ # clear r0 and r1, thanks Brendan! 
+ eor    r0,r0 
+ eor    r1,r1 
  ### Meggy.delay() call 
  # load delay parameter 
  # load a two byte expression off stack 
@@ -62,12 +82,9 @@ MJ_L1:
  pop    r25 
  call   _Z8delay_msj 
  
-<<<<<<< HEAD
-=======
 jmp MJ_L2
 MJ_L0:
 MJ_L2:
->>>>>>> e232401951b515819248c53b6fa3edb0698bf488
   
 
 

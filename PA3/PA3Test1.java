@@ -4,14 +4,14 @@ class PA3Test1
 {
 	public static void main(String[] string1)
 	{
-<<<<<<< HEAD
-		while(1)
-		{
-			Meggy.delay(4);
-		}
-=======
-		if(true){ Meggy.setPixel(1,2,Meggy.Color.Blue); }
->>>>>>> e232401951b515819248c53b6fa3edb0698bf488
+
+		if(Meggy.checkButton(Meggy.Button.Up))
+			{
+				Meggy.delay(10 *20);
+			}
+
+		//if(true){ Meggy.setPixel(1,2,Meggy.Color.Blue); }
+
 			
 		/*Meggy.delay(6-1);
 		Meggy.setPixel((byte)1,(byte)2,Meggy.Color.BLUE);		

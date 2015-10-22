@@ -24,6 +24,32 @@
  ldi    r22, 1 
  # push one byte expression onto stack 
  push   r22 
+  if left operand is false do not eval right 
+ # load a one byte expression off stack 
+ pop    r24 
+ # push one byte expression onto stack 
+ push   r24 
+ # compare left exp with zero 
+ ldi r25, 0 
+ cp    r24, r25 
+ # Want this, breq  
+ brne  MJ_L4 
+ jmp   MJ_L3
+MJ_L4: 
+ #right operand 
+ # load a one byte expression off stack 
+ pop    r24
+ # True/1 expression 
+ ldi    r22, 1 
+ # push one byte expression onto stack 
+ push   r22 
+ # push one byte expression onto stack 
+ push   r22 
+ # load a one byte expression off stack 
+  pop    r24 
+ # push one byte expression onto stack 
+ push   r24 
+ MJ_L3: 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -34,7 +60,7 @@
  #WANT breq MJ_L0 
  brne  MJ_L1 
  jmp    MJ_L0
-MJ_L0:
+MJ_L1:
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -49,8 +75,8 @@ MJ_L0:
  pop    r25 
  call   _Z8delay_msj 
  
-jump MJ_L2
-MJ_L1:
+jmp MJ_L2
+MJ_L0:
 MJ_L2:
   
 

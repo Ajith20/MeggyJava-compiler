@@ -4,22 +4,20 @@ digraph ASTGraph {
 0 -> 1
 2 [ label="BlockStatement" ];
 1 -> 2
-3 [ label="WhileStatement" ];
+3 [ label="IfStatement" ];
 2 -> 3
-<<<<<<< HEAD
-4 [ label="IntLiteral\n1" ];
-=======
-4 [ label="TrueLiteral\ntrue" ];
->>>>>>> e232401951b515819248c53b6fa3edb0698bf488
+4 [ label="MeggyCheckButton" ];
 3 -> 4
-5 [ label="BlockStatement" ];
-3 -> 5
-6 [ label="MeggyDelay" ];
-5 -> 6
-<<<<<<< HEAD
-7 [ label="IntLiteral\n4" ];
-=======
-7 [ label="IntLiteral\n1" ];
->>>>>>> e232401951b515819248c53b6fa3edb0698bf488
+5 [ label="ButtonLiteral\nMeggy.Button.Up" ];
+4 -> 5
+6 [ label="BlockStatement" ];
+3 -> 6
+7 [ label="MeggyDelay" ];
 6 -> 7
+8 [ label="MulExp" ];
+7 -> 8
+9 [ label="IntLiteral\n10" ];
+8 -> 9
+10 [ label="IntLiteral\n20" ];
+8 -> 10
 }

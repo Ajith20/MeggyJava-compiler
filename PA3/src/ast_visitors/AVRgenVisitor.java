@@ -27,7 +27,30 @@ public class AVRgenVisitor extends DepthFirstVisitor
        out.println("  \n\n\n /* epilogue start */ \n endLabel:\n jmp endLabel \n ret \n .size   main, .-main ");
        out.flush();
     }
-   
+    public void visitAndExp(AndExp node)
+    {
+	//String a = new Label().toString();
+	//String b = new Label().toString();
+	//String c = new Label().toString();
+	String d = new Label().toString();
+	String e = new Label().toString();
+	String f = new Label().toString();
+	String g = new Label().toString();
+	String h = new Label().toString();
+        inAndExp(node);
+        if(node.getLExp() != null)
+        {
+            node.getLExp().accept(this);
+out.println( "  # if left operand is false do not eval right \n # load a one byte expression off stack \n pop    r24 \n # push one byte expression onto stack \n push   r24 \n # compare left exp with zero \n ldi r25, 0 \n cp    r24, r25 \n # Want this, breq  \n brne  "+e+" \n jmp   "+d );
+        }
+        if(node.getRExp() != null)
+        {
+	    out.println(e +": \n #right operand \n # load a one byte expression off stack \n pop    r24");
+            node.getRExp().accept(this);
+	    out.println(" # push one byte expression onto stack \n push   r22 \n # load a one byte expression off stack \n  pop    r24 \n # push one byte expression onto stack \n push   r24 \n "+d+": ");
+        }
+        outAndExp(node);
+    }
    public void outAndExp(AndExp node)
    {
      
@@ -73,7 +96,10 @@ public class AVRgenVisitor extends DepthFirstVisitor
    }
    public void outMeggyCheckButton(MeggyCheckButton node)
    {
-      
+	String a = new Label().toString();
+	String b = new Label().toString();
+	String c = new Label().toString();
+      out.println("  ### MeggyCheckButton \n call    _Z16CheckButtonsDownv \n lds    r24, Button_Up \n # if button value is zero, push 0 else push 1 \n tst    r24 \n breq   "+a+" \n "+b+": \n ldi    r24, 1 \n jmp    "+c+" \n "+a+": \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
    }
 
    public void outMeggyDelay(MeggyDelay node)
@@ -140,6 +166,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
 	    out.println(b + ":");
             node.getStatement().accept(this);
         }
+	out.println(" # jump to while test \n jmp   " + a);
 	out.println(c + ":");
         outWhileStatement(node);
     }
@@ -163,4 +190,9 @@ public class AVRgenVisitor extends DepthFirstVisitor
     {
         out.println("  # False/0 expression \n ldi    r24,0 \n # push one byte expression onto stack \n push   r24  ");
     }
+    public void outMeggyGetPixel(MeggyGetPixel node)
+    {
+        out.println("  ### Meggy.getPixel(x,y) call \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6ReadPxhh \n # push one byte expression onto stack \n push   r24 ");
+    }
+
 }

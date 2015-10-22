@@ -23,7 +23,7 @@ public class MJDriver {
           System.err.println(
             "MJ: Specify input file in program arguments");
       }
-     
+      
       public static void main(String args[]) 
       {
         
@@ -63,37 +63,6 @@ public class MJDriver {
 	   //create the symbol table
          /* BuildSymTable stVisitor = new BuildSymTable();
           ast_root.accept(stVisitor); */
-          //
-          
-         /* // print ast to file
-          java.io.PrintStream STout =
-            new java.io.PrintStream(
-                new java.io.FileOutputStream(filename + ".ST.dot"));
-          System.out.println("Printing symbol table to " + filename + ".ST.dot"); 
-          globalST.outputDot(STout);
-                    
-          // perform type checking
-	   SymTable globalST = new SymTable(); 
-          //ast_root.accept(new CheckTypes(globalST));
-          
-        /*  // Determine whether to do register allocation or not.
-=======
-	   
-          /*/// create the symbol table
-
-	   
-          /* create the symbol table
->>>>>>> 1534ba81f3d5f855890f2ee4e66973f2ae1e91e6
-          BuildSymTable stVisitor = new BuildSymTable();
-          ast_root.accept(stVisitor);
-          symtable.SymTable globalST = stVisitor.getSymTable();
-          
-          /*/// print ast to file
-         /* java.io.PrintStream STout =
-            new java.io.PrintStream(
-                new java.io.FileOutputStream(filename + ".ST.dot"));
-          System.out.println("Printing symbol table to " + filename + ".ST.dot");
-          globalST.outputDot(STout); */
                     
           // perform type checking 
           SymTable globalST = new SymTable();
@@ -125,12 +94,6 @@ public class MJDriver {
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
 
           System.out.println("Printing Atmel assembly to " + filename + ".s"); 
-
-
-          System.out.println("Printing Atmel assembly to " + filename + ".s");
-
-          
-
 
         } catch(exceptions.SemanticException e) {
             System.err.println(e.getMessage());
