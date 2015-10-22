@@ -4,18 +4,14 @@ digraph ASTGraph {
 0 -> 1
 2 [ label="BlockStatement" ];
 1 -> 2
-3 [ label="IfStatement" ];
+3 [ label="WhileStatement" ];
 2 -> 3
-4 [ label="EqualExp" ];
+4 [ label="IntLiteral\n1" ];
 3 -> 4
-5 [ label="IntLiteral\n1" ];
-4 -> 5
-6 [ label="IntLiteral\n1" ];
-4 -> 6
-7 [ label="BlockStatement" ];
-3 -> 7
-8 [ label="MeggyDelay" ];
-7 -> 8
-9 [ label="IntLiteral\n1" ];
-8 -> 9
+5 [ label="BlockStatement" ];
+3 -> 5
+6 [ label="MeggyDelay" ];
+5 -> 6
+7 [ label="IntLiteral\n4" ];
+6 -> 7
 }

@@ -4,9 +4,10 @@ class PA3Test1
 {
 	public static void main(String[] string1)
 	{
-		if(1==1){
-                  Meggy.delay(1);
-                } 
+		while(1)
+		{
+			Meggy.delay(4);
+		}
 			
 		/*Meggy.delay(6-1);
 		Meggy.setPixel((byte)1,(byte)2,Meggy.Color.BLUE);		

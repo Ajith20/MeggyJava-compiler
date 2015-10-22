@@ -58,7 +58,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
 
    public void outNegExp(NegExp node)
    {
-       
+       out.println(" # neg int \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n ldi     r22, 0 \n ldi     r23, 0 \n sub     r22, r24 \n sbc     r23, r25 \n # push two byte expression onto stack \n push   r23 \n push   r22 ");
    }
 
    public void outNotExp(NotExp node)
@@ -103,28 +103,45 @@ public class AVRgenVisitor extends DepthFirstVisitor
 	   
 	    out.println(a + ":");
             node.getThenStatement().accept(this);
-	    out.println("jump " + c);
+	    out.println("jmp " + c);
         }
         if(node.getElseStatement() != null)
         {
 	     
 	    out.println(b + ":");
             node.getElseStatement().accept(this);
-	    out.println("jump " + c);
+	    out.println("jmp " + c);
         }
 	out.println(c + ":");
-        outIfStatement(node,a,b);
+        outIfStatement(node);
     }
-   //@override
-   public void outIfStatement(IfStatement node, String a, String b, String c) 
+
+   public void outIfStatement(IfStatement node) 
    {
-	//String a1 = new Label().toString();
-	//String b1 = new Label().toString();
-	//String c = new Label().toString();
-      // out.println(" # load condition and branch if false \n # load a one byte expression off stack \n pop    r24 \n #load zero into reg \n ldi    r25, 0 \n #use cp to set SREG \n cp     r24, r25 \n #WANT breq "+ a +" \n brne   "+ b +" \n jmp    "+ a +" \n #done label for if \n "+ c +": \n ");
-	//out.println(" # load condition and branch if false # load a one byte expression off \n stack pop    r24 \n #load zero into reg \n ldi    r25, 0 \n #use cp to set SREG \n cp     r24, r25 \n #WANT breq MJ_L0 \n brne  " + a + " jmp    "+ b +" ");
+	
    }
 
+    public void visitWhileStatement(WhileStatement node)
+    {
+	String a = new Label().toString();
+	String b = new Label().toString();
+	String c = new Label().toString();
+	
+        inWhileStatement(node);
+        if(node.getExp() != null)
+        {
+	    out.println(a + ":");
+            node.getExp().accept(this);
+        }
+	out.println(" # if not(condition) \n # load a one byte expression off stack \n pop    r24 \n ldi    r25,0 \n cp     r24, r25 \n# WANT breq  \n brne   "+ b +" \n jmp  "+ c);
+        if(node.getStatement() != null)
+        {
+	    out.println(b + ":");
+            node.getStatement().accept(this);
+        }
+	out.println(c + ":");
+        outWhileStatement(node);
+    }
    public void outWhileStatement(WhileStatement node)
    {
        
