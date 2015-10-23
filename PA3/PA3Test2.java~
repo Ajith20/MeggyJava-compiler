@@ -11,7 +11,7 @@ class PA3Test2
 		}		
 		else
 		{
-			if(Meggy.getPixel((byte)5,(byte)3) == Meggy.Color.BLUE)
+			if((Meggy.getPixel((byte)5,(byte)3) == Meggy.Color.BLUE))
 			{
 				Meggy.delay(300);
 			}

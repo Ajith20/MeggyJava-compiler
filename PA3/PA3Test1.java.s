@@ -20,19 +20,61 @@
 
 
  
-  ### MeggyCheckButton 
- call    _Z16CheckButtonsDownv 
- lds    r24, Button_Up 
- # if button value is zero, push 0 else push 1 
- tst    r24 
- breq   MJ_L3 
- MJ_L4: 
- ldi    r24, 1 
- jmp    MJ_L5 
- MJ_L3: 
- MJ_L5: 
+  # Load constant int  
+ ldi    r24,lo8(1) 
+ ldi    r25,hi8(1) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Load constant int  
+ ldi    r24,lo8(2) 
+ ldi    r25,hi8(2) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+ # load a two byte expression off stack 
+ pop    r18 
+ pop    r19 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ # Do add operation 
+ add    r24, r18 
+ adc    r25, r19 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+  # Load constant int  
+ ldi    r24,lo8(3) 
+ ldi    r25,hi8(3) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+ # equality check expression 
+ # load a two byte expression off stack 
+ pop    r18 
+ pop    r19 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ cp    r24, r18 
+ cpc   r25, r19 
+ breq MJ_L8 
+ # result is false 
+ MJ_L7: 
+ ldi     r24, 0 
+ jmp      MJ_L9 
+ # result is true 
+ MJ_L8: 
+ ldi     r24, 1 
+ # store result of equal expression 
+ MJ_L9: 
  # push one byte expression onto stack 
  push   r24 
+ 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -45,36 +87,31 @@
  jmp    MJ_L0
 MJ_L1:
   # Load constant int  
- ldi    r24,lo8(10) 
- ldi    r25,hi8(10) 
+ ldi    r24,lo8(2) 
+ ldi    r25,hi8(2) 
  # push two byte expression onto stack 
  push   r25 
  push   r24 
  
   # Load constant int  
- ldi    r24,lo8(20) 
- ldi    r25,hi8(20) 
+ ldi    r24,lo8(3) 
+ ldi    r25,hi8(3) 
  # push two byte expression onto stack 
  push   r25 
  push   r24 
  
-  # MulExp 
- # load a one byte expression off stack 
+ # load a two byte expression off stack 
  pop    r18 
- # load a one byte expression off stack 
- pop    r22 
- # move low byte src into dest reg 
- mov    r24, r18 
- # move low byte src into dest reg 
- mov    r26, r22 
- # Do mul operation of two input bytes 
- muls   r24, r26 
+ pop    r19 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ # Do add operation 
+ add    r24, r18 
+ adc    r25, r19 
  # push two byte expression onto stack 
- push   r1 
- push   r0 
- # clear r0 and r1, thanks Brendan! 
- eor    r0,r0 
- eor    r1,r1 
+ push   r25 
+ push   r24 
  ### Meggy.delay() call 
  # load delay parameter 
  # load a two byte expression off stack 

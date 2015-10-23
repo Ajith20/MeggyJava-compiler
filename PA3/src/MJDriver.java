@@ -66,7 +66,7 @@ public class MJDriver {
                     
           // perform type checking 
           SymTable globalST = new SymTable();
-          ast_root.accept(new CheckTypes(globalST));
+         // ast_root.accept(new CheckTypes(globalST));
           
           /*// Determine whether to do register allocation or not.
           if ( args.length == 2 && args[0].equals("--regalloc") ) {

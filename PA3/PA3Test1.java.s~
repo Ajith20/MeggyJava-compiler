@@ -20,36 +20,92 @@
 
 
  
- # True/1 expression 
- ldi    r22, 1 
- # push one byte expression onto stack 
- push   r22 
-  if left operand is false do not eval right 
- # load a one byte expression off stack 
+  # Load constant int 2
+    ldi    r24,lo8(2)
+    ldi    r25,hi8(2)
+    # push two byte expression onto stack
+    push   r25
+    push   r24
+
+    # Casting int to byte by popping
+    # 2 bytes off stack and only pushing low order bits
+    # back on.  Low order bits are on top of stack.
+    pop    r24
+    pop    r25
+    push   r24
+
+    # Load constant int 1
+    ldi    r24,lo8(1)
+    ldi    r25,hi8(1)
+    # push two byte expression onto stack
+    push   r25
+    push   r24
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
  pop    r24 
- # push one byte expression onto stack 
+ pop    r25 
  push   r24 
- # compare left exp with zero 
- ldi r25, 0 
- cp    r24, r25 
- # Want this, breq  
- brne  MJ_L4 
- jmp   MJ_L3
-MJ_L4: 
- #right operand 
- # load a one byte expression off stack 
- pop    r24
- # True/1 expression 
- ldi    r22, 1 
- # push one byte expression onto stack 
- push   r22 
- # push one byte expression onto stack 
- push   r22 
- # load a one byte expression off stack 
-  pop    r24 
- # push one byte expression onto stack 
+  # load a two byte expression off stack 
+ pop    r18 
+ pop    r19 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ # promoting a byte to an int
+    tst     r24
+    brlt     MJ_L7
+    ldi    r25, 0
+    jmp    MJ_L8
+MJ_L7:
+    ldi    r25, hi8(-1)
+MJ_L8:
+    # promoting a byte to an int
+    tst     r18
+    brlt     MJ_L9
+    ldi    r19, 0
+    jmp    MJ_L10
+MJ_L9:
+    ldi    r19, hi8(-1)
+MJ_L10:
+
+ # Do INT sub operation 
+ sub    r24, r18 
+ sbc    r25, r19 
+ # push hi order byte first 
+ # push two byte expression onto stack 
+ push   r25 
  push   r24 
+  # Load constant int  
+ ldi    r24,lo8(1) 
+ ldi    r25,hi8(1) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+ # equality check expression 
+ # load a two byte expression off stack 
+ pop    r18 
+ pop    r19 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ cp    r24, r18 
+ cpc   r25, r19 
+ breq MJ_L4 
+ # result is false 
  MJ_L3: 
+ ldi     r24, 0 
+ jmp      MJ_L5 
+ # result is true 
+ MJ_L4: 
+ ldi     r24, 1 
+ # store result of equal expression 
+ MJ_L5: 
+ # push one byte expression onto stack 
+ push   r24 
+ 
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -62,8 +118,8 @@ MJ_L4:
  jmp    MJ_L0
 MJ_L1:
   # Load constant int  
- ldi    r24,lo8(1) 
- ldi    r25,hi8(1) 
+ ldi    r24,lo8(20) 
+ ldi    r25,hi8(20) 
  # push two byte expression onto stack 
  push   r25 
  push   r24 

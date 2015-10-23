@@ -20,14 +20,14 @@ digraph ASTGraph {
 6 -> 9
 10 [ label="MeggyDelay" ];
 9 -> 10
-11 [ label="ByteCast" ];
+11 [ label="MulExp" ];
 10 -> 11
-12 [ label="MulExp" ];
+12 [ label="ByteCast" ];
 11 -> 12
 13 [ label="IntLiteral\n10" ];
 12 -> 13
 14 [ label="ByteCast" ];
-12 -> 14
+11 -> 14
 15 [ label="IntLiteral\n20" ];
 14 -> 15
 16 [ label="IfStatement" ];

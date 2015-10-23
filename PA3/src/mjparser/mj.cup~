@@ -90,12 +90,10 @@ non terminal List<IClassDecl> class_dec;
 /* Declare precedence and associativity  here */
 /*precedence nonassoc LT, EQUAL;*/
 /*precedence nonassoc IF, ELSE;*/
-precedence left AND;
-precedence left EQUAL;
 precedence left PLUS,MINUS; 
 precedence left	TIMES;
-/*precedence left TIMES, AND;*/
-
+precedence left TIMES, AND;
+precedence left EQUAL;
 precedence right NOT, UMINUS;
 precedence right LPAREN,RPAREN,ELSE;
 
