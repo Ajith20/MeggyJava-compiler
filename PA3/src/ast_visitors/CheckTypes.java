@@ -118,7 +118,8 @@ public class CheckTypes extends DepthFirstVisitor
    {
        Type lexpType = this.mCurrentST.getExpType(node.getLExp());
        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
-       if (lexpType==Type.INT && rexpType==Type.INT)
+       if ((lexpType==Type.INT || rexpType==Type.BYTE) && 
+          (lexpType==Type.INT || rexpType==Type.BYTE))
           this.mCurrentST.setExpType(node, Type.BOOL);
   else if (lexpType==Type.BYTE && rexpType==Type.BYTE)
           this.mCurrentST.setExpType(node, Type.BOOL);
@@ -201,14 +202,14 @@ public class CheckTypes extends DepthFirstVisitor
        Type xexpType = this.mCurrentST.getExpType(node.getXExp());
        Type yexpType = this.mCurrentST.getExpType(node.getYExp());
        Type cexpType = this.mCurrentST.getExpType(node.getColor());
-       if ((xexpType==Type.BYTE || xexpType==Type.INT) &&
-          (yexpType==Type.BYTE || yexpType==Type.INT) &&
+       if ((xexpType==Type.BYTE) &&
+          (yexpType==Type.BYTE) &&
           (cexpType==Type.COLOR))
        {
            this.mCurrentST.setExpType(node, Type.VOID);
          } else {
           throw new SemanticException(
-            "Operands to Meggy.setPixel() must be (BYTE or INT, BYTE or INT, COLOR)",
+            "Operands to Meggy.setPixel() must be (BYTE, BYTE, COLOR)",
             node.getXExp().getLine(),
             node.getXExp().getPos());
         }

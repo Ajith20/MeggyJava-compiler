@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2015-10-21 00:49:02,473 [main] FATAL ui.Main - Assembly File passed in does not exist.
 2015-10-21 00:49:19,335 [main] FATAL ui.AVRSim - Encountered fatal error...
 parse.ParseException: [23,2] Fatal parsing error
@@ -711,3 +712,5 @@ instructions.RuntimeError: Hit max number of jumps for label: MJ_L7:
 	at java.lang.reflect.Method.invoke(Method.java:606)
 	at com.simontuffs.onejar.Boot.run(Boot.java:340)
 	at com.simontuffs.onejar.Boot.main(Boot.java:166)
+=======
+>>>>>>> 538211340ff5b7d820d463291348303d6c1a47a5

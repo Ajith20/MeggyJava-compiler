@@ -1,10 +1,9 @@
 import meggy.Meggy;
 
- class PA2Test2
+ class PA2Test1
 {
 	public static void main(String[] test)
 	{
-		Meggy.setPixel(1, 1, Meggy.Color.RED);
+
 	}
 }
-
