@@ -53,12 +53,19 @@
  push   r25 
  push   r24 
  
- # load a two byte expression off stack 
+  # load a two byte expression off stack 
  pop    r18 
  pop    r19 
- # load a two byte expression off stack 
+ # load a one byte expression off stack 
  pop    r24 
- pop    r25 
+ # promoting a byte to an int 
+ tst     r24 
+ brlt     MJ_L3 
+ ldi    r25, 0 
+ jmp    MJ_L4 
+ MJ_L3: 
+ ldi    r25, hi8(-1) 
+ MJ_L4: 
  # Do add operation 
  add    r24, r18 
  adc    r25, r19 
@@ -144,12 +151,6 @@ MJ_L1:
  # push two byte expression onto stack 
  push   r25 
  push   r24 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
   # Load constant int  
  ldi    r24,lo8(5) 
  ldi    r25,hi8(5) 
@@ -188,13 +189,7 @@ MJ_L1:
  # push two byte expression onto stack 
  push   r25 
  push   r24 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Color expression Meggy.Color.BLUE 
+  # Color expression  
  ldi    r22,4 
   # push one byte expression onto stack 
  push   r22 
@@ -227,12 +222,6 @@ MJ_L0:
  # push two byte expression onto stack 
  push   r23 
  push   r22 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
   # Load constant int  
  ldi    r24,lo8(7) 
  ldi    r25,hi8(7) 
@@ -257,12 +246,6 @@ MJ_L0:
  # push two byte expression onto stack 
  push   r23 
  push   r22 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
   # MulExp 
  # load a one byte expression off stack 
  pop    r18 
@@ -280,12 +263,6 @@ MJ_L0:
  # clear r0 and r1, thanks Brendan! 
  eor    r0,r0 
  eor    r1,r1 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
   # Load constant int  
  ldi    r24,lo8(6) 
  ldi    r25,hi8(6) 
@@ -299,7 +276,7 @@ MJ_L0:
  pop    r24 
  pop    r25 
  push   r24 
-  # Color expression Meggy.Color.BLUE 
+  # Color expression  
  ldi    r22,1 
   # push one byte expression onto stack 
  push   r22 

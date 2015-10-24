@@ -63,17 +63,19 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 	String b = new Label().toString();
 	String c = new Label().toString();
 	String d = new Label().toString();
-	Type lexpType = this.mCurrentST.getExpType(node.getLExp());
-        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
-	 if ( lexpType==Type.BYTE && rexpType==Type.BYTE)
+	boolean lexp1 = node.getLExp() instanceof IntLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+	 if ( lexp2 && rexp2 )
           {
 		out.println("  # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+a+" \n ldi    r25, 0 \n jmp    "+b+" \n "+a+": \n ldi    r25, hi8(-1) \n "+b+": \n # promoting a byte to an int \n tst     r18 \n brlt     "+c+" \n ldi    r19, 0 \n jmp    "+d+" \n "+c+": \n ldi    r19, hi8(-1) \n "+d+": \n # Do add operation \n add    r24, r18 \n adc    r25, r19 \n # push two byte expression onto stack \n push   r25 \n push   r24 ");
 	  }
-	else if (lexpType==Type.INT && rexpType==Type.BYTE)
+	else if (lexp1 && rexp2)
 	{
 		out.println("# load a one byte expression off stack \n pop    r18 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # promoting a byte to an int \n tst     r18 \n brlt     "+a+" \n ldi    r19, 0 \n jmp    "+b+" \n "+a+": \n ldi    r19, hi8(-1) \n "+b+": \n # Do add operation \n add    r24, r18 \n adc    r25, r19 \n # push two byte expression onto stack \n push   r25 \n push   r24");
 	}
-	else if (lexpType==Type.BYTE && rexpType==Type.INT)
+	else if (lexp2 && rexp1)
 	{
 		out.println("  # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+a+" \n ldi    r25, 0 \n jmp    "+b+" \n "+a+": \n ldi    r25, hi8(-1) \n "+b+": \n # Do add operation \n add    r24, r18 \n adc    r25, r19 \n # push two byte expression onto stack \n push   r25 \n push   r24 ");
 	}
@@ -88,7 +90,36 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 	String a = new Label().toString();
 	String b = new Label().toString();
 	String c = new Label().toString();
+	String d = new Label().toString();
+	String e = new Label().toString();
+	boolean lexp1 = node.getLExp() instanceof IntLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+	boolean lexp3 = node.getLExp() instanceof ColorLiteral;
+	boolean rexp3 = node.getRExp() instanceof ColorLiteral;
+	Type lexpType = this.mCurrentST.getExpType(node.getLExp());
+       Type rexpType = this.mCurrentST.getExpType(node.getRExp());
+	 if ( lexp2 && rexp2  )
+          {
+		out.println("  # equality check expression \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r24 \n cp    r24, r18 \n breq "+b+" \n # result is false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # result is true \n "+b+": \n ldi     r24, 1 \n # store result of equal expression \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
+	  }
+	else if ( lexp1 && rexp2  )
+	{
+		out.println("   # equality check expression \n # load a one byte expression off stack \n pop    r18 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # promoting a byte to an int \n tst     r18 \n brlt     "+d+" \n ldi    r19, 0 \n jmp    "+e+" \n "+d+": \n ldi    r19, hi8(-1) \n "+e+": \n cp    r24, r18 \n cpc   r25, r19 \n breq "+b+" \n # result is false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # result is true \n "+b+": \n ldi     r24, 1 \n # store result of equal expression \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
+	}
+	else if ( lexp2 && rexp1  )
+	{
+		out.println(" # equality check expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+b+" \n ldi    r25, 0 \n jmp    "+e+" \n "+d+": \n ldi    r25, hi8(-1) \n "+e+": \n cp    r24, r18 \n cpc   r25, r19 \n breq "+b+" \n # result is false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # result is true \n "+b+": \n ldi     r24, 1 \n # store result of equal expression \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
+	}
+	else if ( lexp3 || rexp3)
+	{
+		out.println(" # equality check expression \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r24 \n cp    r24, r18 \n breq "+b+" \n # result is false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # result is true \n "+b+": \n ldi     r24, 1 \n  # store result of equal expression \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
+	}
+	else
+	{
       out.println(" # equality check expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n cp    r24, r18 \n cpc   r25, r19 \n breq " + b +" \n # result is false \n " + a +": \n ldi     r24, 0 \n jmp      " + c +" \n # result is true \n " + b +": \n ldi     r24, 1 \n # store result of equal expression \n " + c +": \n # push one byte expression onto stack \n push   r24 \n ");
+	}
    }
 
    public void outMinusExp(MinusExp node)
@@ -97,18 +128,21 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 	String b = new Label().toString();
 	String c = new Label().toString();
 	String d = new Label().toString();
-	Type lexpType = this.mCurrentST.getExpType(node.getLExp());
-       Type rexpType = this.mCurrentST.getExpType(node.getRExp());
-       if ( lexpType==Type.BYTE && rexpType==Type.BYTE)
+	
+	boolean lexp1 = node.getLExp() instanceof IntLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+       if ( lexp2 && rexp2)
           {
               out.println("  # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+a+" \n ldi    r25, 0 \n jmp    "+b+" \n "+a+": \n ldi    r25, hi8(-1) \n "+b+": \n # promoting a byte to an int \n tst     r18 \n brlt     "+c+" \n ldi    r19, 0 \n jmp    "+d+" \n "+c+": \n ldi    r19, hi8(-1) \n "+d+":  ");
 	       out.println("# Do INT sub operation \n sub    r24, r18 \n sbc    r25, r19 \n # push hi order byte first \n # push two byte expression onto stack \n push   r25 \n push   r24");
     }
-	else if ( lexpType==Type.INT && rexpType==Type.BYTE)
+	else if ( lexp1 && rexp2)
 	{
 		out.println(" # load a one byte expression off stack \n pop    r18 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # promoting a byte to an int \n tst     r18 \n brlt     "+a+" \n ldi    r19, 0 \n jmp    "+b+" \n "+a+": \n ldi    r19, hi8(-1) \n "+b+": \n # Do INT sub operation \n sub    r24, r18 \n sbc    r25, r19 \n # push hi order byte first \n # push two byte expression onto stack \n push   r25 \n push   r24 ");
 	}
-	else if ( lexpType==Type.BYTE && rexpType==Type.INT)
+	else if ( lexp2 && rexp1)
 	{
 		out.println(" # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+a+" \n ldi    r25, 0 \n jmp    "+b+" \n "+a+": \n ldi    r25, hi8(-1) \n "+b+": \n # Do INT sub operation \n sub    r24, r18 \n sbc    r25, r19 \n # push hi order byte first \n # push two byte expression onto stack \n push   r25 \n push   r24");
 	}
@@ -120,12 +154,34 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 
    public void outMulExp(MulExp node)
    {
+	String a = new Label().toString();
+	String b = new Label().toString();
+	String c = new Label().toString();
+	String d = new Label().toString();
+	Type lexpType = this.mCurrentST.getExpType(node.getLExp());
+       Type rexpType = this.mCurrentST.getExpType(node.getRExp());
        out.println("  # MulExp \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r22 \n # move low byte src into dest reg \n mov    r24, r18 \n # move low byte src into dest reg \n mov    r26, r22 \n # Do mul operation of two input bytes \n muls   r24, r26 \n # push two byte expression onto stack \n push   r1 \n push   r0 \n # clear r0 and r1, thanks Brendan! \n eor    r0,r0 \n eor    r1,r1 ");
    }
 
    public void outNegExp(NegExp node)
    {
+	String a = new Label().toString();
+	String b = new Label().toString();
+	String c = new Label().toString();
+	boolean byte_lit = node.getExp() instanceof ByteCast;
+	boolean int_lit = node.getExp() instanceof IntLiteral;
+	boolean minus_lit = node.getExp() instanceof MinusExp;
+	boolean plus_lit = node.getExp() instanceof PlusExp;
+	boolean mul_lit = node.getExp() instanceof MulExp;
+	boolean neg_lit = node.getExp() instanceof NegExp;
+	if(byte_lit)
+	{
+		out.println(" # neg byte \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+a+" \n ldi    r25, 0 \n jmp    "+b+" \n "+a+": \n ldi    r25, hi8(-1) \n "+b+": \n ldi    r22, 0 \n ldi    r23, 0 \n sub     r22, r24 \n sbc     r23, r25 \n # push two byte expression onto stack \n push   r23 \n push   r22");
+	}
+	if(int_lit)
+	{
        out.println(" # neg int \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n ldi     r22, 0 \n ldi     r23, 0 \n sub     r22, r24 \n sbc     r23, r25 \n # push two byte expression onto stack \n push   r23 \n push   r22 ");
+	}
    }
 
    public void outNotExp(NotExp node)
@@ -143,7 +199,31 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 	String a = new Label().toString();
 	String b = new Label().toString();
 	String c = new Label().toString();
-      out.println("  ### MeggyCheckButton \n call    _Z16CheckButtonsDownv \n lds    r24, Button_Up \n # if button value is zero, push 0 else push 1 \n tst    r24 \n breq   "+a+" \n "+b+": \n ldi    r24, 1 \n jmp    "+c+" \n "+a+": \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
+	ButtonLiteral button = (ButtonLiteral)node.getExp();
+	String button_name = "";
+	
+	int value = button.getIntValue();
+	switch(value){
+	case 1:
+		button_name = "Button_B";
+	break;
+	case 2:
+		button_name = "Button_A";
+	break;
+	case 4:
+		button_name = "Button_Up";
+	break;
+	case 8:
+		button_name = "Button_Down";
+	break;
+	case 16:
+		button_name = "Button_Left";
+	break;
+	case 32:
+		button_name = "Button_Right";
+	break;
+	}
+      out.println("  ### MeggyCheckButton \n call    _Z16CheckButtonsDownv \n lds    r24, "+button_name+" \n # if button value is zero, push 0 else push 1 \n tst    r24 \n breq   "+a+" \n "+b+":  \n ldi    r24, 1 \n jmp    "+c+" \n "+a+": \n "+c+": \n # push one byte expression onto stack \n push   r24 ");
    }
 
    public void outMeggyDelay(MeggyDelay node)
@@ -153,8 +233,13 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 
    public void outByteCast(ByteCast node)
    {
-	Type expType = this.mCurrentST.getExpType(node.getExp());
-	if(expType==Type.INT)
+	//Type expType = this.mCurrentST.getExpType(node.getExp());
+	boolean int_lit = node.getExp() instanceof IntLiteral;
+	boolean minus_lit = node.getExp() instanceof MinusExp;
+	boolean plus_lit = node.getExp() instanceof PlusExp;
+	boolean mul_lit = node.getExp() instanceof MulExp;
+	boolean neg_lit = node.getExp() instanceof NegExp;
+	if(int_lit || minus_lit || plus_lit || mul_lit || neg_lit)
 	{
        out.print("  # Casting int to byte by popping \n # 2 bytes off stack and only pushing low order bits \n # back on.  Low order bits are on top of stack. \n pop    r24 \n pop    r25 \n push   r24 \n");
 	}
@@ -228,7 +313,7 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
    }
    public void outColorExp(ColorLiteral node)
     {
-         out.println("  # Color expression Meggy.Color.BLUE \n ldi    r22," + node.getIntValue() + " \n  # push one byte expression onto stack \n push   r22 ");
+         out.println("  # Color expression  \n ldi    r22," + node.getIntValue() + " \n  # push one byte expression onto stack \n push   r22 ");
     }
     public void outTrueExp(TrueLiteral node)
     {
