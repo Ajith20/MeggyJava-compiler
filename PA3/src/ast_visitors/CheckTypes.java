@@ -202,9 +202,7 @@ public class CheckTypes extends DepthFirstVisitor
        Type xexpType = this.mCurrentST.getExpType(node.getXExp());
        Type yexpType = this.mCurrentST.getExpType(node.getYExp());
        Type cexpType = this.mCurrentST.getExpType(node.getColor());
-       if ((xexpType==Type.BYTE) &&
-          (yexpType==Type.BYTE) &&
-          (cexpType==Type.COLOR))
+       if ((xexpType==Type.BYTE) && (yexpType==Type.BYTE) && (cexpType==Type.COLOR))
        {
            this.mCurrentST.setExpType(node, Type.VOID);
          } else {

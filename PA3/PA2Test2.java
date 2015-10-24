@@ -4,7 +4,7 @@ import meggy.Meggy;
 {
 	public static void main(String[] test)
 	{
-		Meggy.setPixel(1, 1, Meggy.Color.RED);
+		Meggy.setPixel((byte)1, (byte)1, Meggy.Color.RED);
 	}
 }
 
