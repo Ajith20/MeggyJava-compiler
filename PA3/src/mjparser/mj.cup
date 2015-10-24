@@ -118,7 +118,8 @@ main_class ::=
         RBRACE 
           {:
 		RESULT = new MainClass(op.line, op.pos, name.lexeme, param.lexeme, new BlockStatement(op.line, op.pos, list));
-		//System.out.println("Check point 0");
+		if(parser.programName != name.lexeme) { System.out.println("Class name and file name do not match");
+												System.exit(1); }
           :};
 	
 statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expression:c RPAREN SEMI
