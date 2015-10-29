@@ -1,0 +1,181 @@
+package mjparser;
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import ast.node.*;
+import ast.visitor.*;
+import ast_visitors.*;
+
+parser code {:
+
+    public PrintWriter out; 
+    
+    public String programName;
+
+    public void unrecovered_syntax_error(Symbol cur_SymbolValue) {
+        report_fatal_error("Fatal syntax error", cur_SymbolValue);
+    }
+    
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        done_parsing();
+        Symbol SymbolValue = (Symbol)info;
+        mjparser.SymbolValue tok = (mjparser.SymbolValue)SymbolValue.value;
+        throw new mjparser.ParseException("Fatal parsing error", 
+                                          tok.line, tok.pos);
+    }
+    
+    public void report_error(String message, Object info) {
+        Symbol SymbolValue = (Symbol)info;
+        mjparser.SymbolValue tok = (mjparser.SymbolValue)SymbolValue.value;
+        System.err.println("[" + tok.line + "," + tok.pos + "] " 
+                               + message + " at " + tok.toString() );
+    }
+            
+:}
+
+/* Notice: all terminals declared here */
+terminal SymbolValue PLUS, MINUS, TIMES, LPAREN, RPAREN;
+terminal SymbolValue LBRACE, RBRACE;
+terminal SymbolValue BOOLEAN, INT;
+terminal SymbolValue BYTE;
+terminal SymbolValue MAIN, IMPORT;
+terminal SymbolValue IF, ELSE;
+terminal SymbolValue LT;
+terminal SymbolValue EQUAL;
+terminal SymbolValue AND, NOT;
+terminal SymbolValue WHILE;
+terminal SymbolValue COMMA, DOT;
+terminal SymbolValue NEW, PUBLIC, RETURN, STATIC;
+terminal SymbolValue STRING, VOID;
+terminal SymbolValue CLASS, EXTENDS;
+terminal SymbolValue LBRACKET, RBRACKET;
+terminal SymbolValue LENGTH;
+terminal SymbolValue SEMI;
+terminal SymbolValue ASSIGN;
+
+terminal SymbolValue MEGGY;
+terminal SymbolValue MEGGYCOLOR;
+terminal SymbolValue MEGGYBUTTON;
+terminal SymbolValue MEGGYTONE;
+terminal SymbolValue MEGGYSETPIXEL;
+terminal SymbolValue MEGGYSETAUXLEDS;
+terminal SymbolValue MEGGYTONESTART;
+terminal SymbolValue MEGGYDELAY;
+terminal SymbolValue MEGGYGETPIXEL;
+terminal SymbolValue MEGGYCHECKBUTTON;
+
+terminal SymbolValue INT_LITERAL, ID;
+terminal SymbolValue TRUE, FALSE;
+terminal SymbolValue COLOR_LITERAL, BUTTON_LITERAL, TONE_LITERAL;
+terminal SymbolValue THIS;
+
+/* bogus terminal for unary precedence declaration */
+terminal UMINUS;
+
+non terminal Program program;
+non terminal Integer exp;
+non terminal IStatement statement;
+non terminal List<IStatement> statement_list;
+non terminal MainClass main_class;
+non terminal IExp expression;
+non terminal List<IClassDecl> class_dec;
+/* Declare precedence and associativity  here */
+precedence nonassoc LT, EQUAL;
+precedence nonassoc IF, ELSE;
+precedence left PLUS,MINUS, TIMES;
+precedence left TIMES, AND;
+
+precedence right NOT, UMINUS;
+
+
+/* Meggy Java Grammar */
+start with program;
+
+program ::= 
+    IMPORT:op MEGGY:b SEMI main_class:a class_dec:c
+	{: RESULT = new Program(op.line, op.pos, a, c ); :}
+    ;
+    class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ;
+main_class ::=
+        CLASS:op ID:name         
+        LBRACE PUBLIC STATIC VOID MAIN 
+        LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
+        LBRACE 
+        statement_list:list 
+	RBRACE
+        RBRACE 
+          {:
+		RESULT = new MainClass(op.line, op.pos, name.lexeme, param.lexeme, new BlockStatement(op.line, op.pos, list));
+		System.out.println("Check point 0");
+          :};
+	
+statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expression:c RPAREN SEMI
+			{:      System.out.println("Check point 1");
+				RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
+			| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
+			{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
+			| IF LPAREN:op expression:a RPAREN statement:s1
+			{: RESULT = new IfStatement(op.line, op.pos, a, s1, (IStatement)null); :} 
+			| IF LPAREN:op expression:a RPAREN statement:s1 ELSE statement:s2
+			{: RESULT = new IfStatement(op.line, op.pos, (IExp)a, (IStatement)s1, (IStatement)s2); :}
+			| WHILE LPAREN:op expression:a RPAREN statement:s1
+			{: RESULT = new WhileStatement(op.line, op.pos, (IExp)a, (IStatement)s1); :}
+			| LBRACE:op statement:s1 statement_list:list RBRACE 
+			 {:     System.out.println("Check point 2");
+				RESULT = new BlockStatement(op.line, op.pos, list); :}
+ 	
+			
+ ;
+
+statement_list ::=  statement_list:list statement:s
+	/* statement_list can be null */
+	{: if(s!=null) { list.add(s); } RESULT = list; 
+		System.out.println("Check point 4"); :}
+	| 
+	{:      System.out.println("Check point 3");
+		RESULT = new LinkedList<IStatement>(); 
+		System.out.println("Check point 5"); :}		
+;
+	expression ::= expression:a AND:op expression:b
+			{: RESULT = new AndExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | expression:a EQUAL:op expression:b
+			{: RESULT = new EqualExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | expression:a PLUS:op expression:b
+			{: RESULT = new PlusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | expression:a MINUS:op expression:b
+			{: RESULT = new MinusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | expression:a TIMES:op expression:b
+			{: RESULT = new MulExp(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | UMINUS:op expression:a
+			{: RESULT = new NegExp(1, 1, (IExp)a); :}
+			 | MEGGYGETPIXEL:op LPAREN expression:a COMMA expression:b RPAREN 
+			{: RESULT = new MeggyGetPixel(op.line, op.pos, (IExp)a, (IExp)b); :}
+			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN
+			{: RESULT = new MeggyCheckButton(op.line, op.pos, (IExp)a); :}
+			 | LPAREN:op BYTE RPAREN expression:a
+			{: RESULT = new ByteCast(op.line, op.pos, a); :}
+			 | INT_LITERAL:a
+			{: RESULT = new IntLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			 | COLOR_LITERAL:a
+			{: RESULT = new ColorLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			 | BUTTON_LITERAL:a
+			{: RESULT = new ButtonLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			 | TRUE:a
+			{: RESULT = new TrueLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			 | FALSE:a
+			{: RESULT = new FalseLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			 | NOT:op expression:a
+			{: RESULT = new NotExp(1, 1, (IExp)a); :}
+			 | LPAREN:op expression:a RPAREN 
+			{: RESULT = a; :} 				
+; 
+
+
