@@ -1,3 +1,6 @@
+/*
+Author: Taghreed Bagies
+*/
 package mjparser;
 import java_cup.runtime.*;
 import java.util.*;
@@ -9,9 +12,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import ast_visitors.*;
 import ast.node.*;
 import ast.visitor.*;
-import ast_visitors.*;
 
 parser code {:
 
@@ -40,6 +43,7 @@ parser code {:
     }
             
 :}
+
 
 /* Notice: all terminals declared here */
 terminal SymbolValue PLUS, MINUS, TIMES, LPAREN, RPAREN;
@@ -78,104 +82,88 @@ terminal SymbolValue COLOR_LITERAL, BUTTON_LITERAL, TONE_LITERAL;
 terminal SymbolValue THIS;
 
 /* bogus terminal for unary precedence declaration */
-terminal UMINUS;
+terminal SymbolValue UMINUS;
 
-non terminal Program program;
-non terminal Integer exp;
+non terminal program;
+non terminal IExp exp;
 non terminal IStatement statement;
-non terminal List<IStatement> statement_list;
+non terminal LinkedList<IStatement> statement_list;
 non terminal MainClass main_class;
-non terminal IExp expression;
-non terminal List<IClassDecl> class_dec;
+
 /* Declare precedence and associativity  here */
-/*precedence nonassoc LT, EQUAL;*/
-/*precedence nonassoc IF, ELSE;*/
 precedence left AND;
 precedence left EQUAL;
-precedence left PLUS,MINUS; 
-precedence left	TIMES;
-/*precedence left TIMES, AND;*/
-
-precedence right NOT, UMINUS;
-precedence right LPAREN,RPAREN,ELSE;
+precedence left PLUS, MINUS;
+precedence left TIMES;
+precedence right UMINUS;
+precedence right LPAREN, RPAREN;//BYTE;
+precedence right ELSE;
 
 /* Meggy Java Grammar */
 start with program;
 
 program ::= 
-    IMPORT:op MEGGY:b SEMI main_class:a class_dec:c
-	{: RESULT = new Program(op.line, op.pos, a, c ); :}
+IMPORT MEGGY:m SEMI main_class:mainC {: RESULT = new Program(m.line,m.pos,mainC,new LinkedList<IClassDecl>()); :}
     ;
-    class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ;
+
 main_class ::=
-        CLASS:op ID:name         
-        LBRACE PUBLIC STATIC VOID MAIN 
+        CLASS ID:name
+        {:
+            // Check filename is class name, if not exit with error message
+            String p = name.lexeme + ".java";
+            if(!p.equals(parser.programName)){
+                System.out.println("ERROR: The name of the file does not match the class name");
+                System.exit(0);
+        }
+
+        :}
+        LBRACE PUBLIC STATIC VOID MAIN:m
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
-        LBRACE 
-        statement_list:list 
-	RBRACE
-        RBRACE 
-          {:
-		RESULT = new MainClass(op.line, op.pos, name.lexeme, param.lexeme, new BlockStatement(op.line, op.pos, list));
-		if(!(parser.programName.equals(name.lexeme + ".java"))) { 
-				System.out.println("Class name and file name do not match.");
-				System.exit(1); }
-          :};
-	
-statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expression:c RPAREN SEMI
-			{: RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
-			| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
-			{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
-			| MEGGYTONESTART LPAREN:op expression:a COMMA expression:b RPAREN SEMI
-			{: RESULT = new MeggyToneStart(op.line, op.pos, a, b); :}
-			| IF LPAREN:op expression:a RPAREN statement:s1
-			{: RESULT = new IfStatement(op.line, op.pos, a, s1, (IStatement)null); :} 
-			| IF LPAREN:op expression:a RPAREN statement:s1 ELSE statement:s2
-			{: RESULT = new IfStatement(op.line, op.pos, (IExp)a, (IStatement)s1, (IStatement)s2); :}
-			| WHILE LPAREN:op expression:a RPAREN statement:s1
-			{: RESULT = new WhileStatement(op.line, op.pos, (IExp)a, (IStatement)s1); :}
-			| LBRACE:op statement_list:list RBRACE 
-			{: RESULT = new BlockStatement(op.line, op.pos, list); :};
+        statement:stmt
+        {:
+            RESULT = new MainClass(m.line,m.pos,name.lexeme,param.lexeme,stmt);
+        :}
+        RBRACE
+        {:  :}
+;
 
-statement_list ::=  statement_list:list statement:s
-	/* statement_list can be null */
-	{: if(s!=null) { list.add(s); } RESULT = list; :}
-	| 
-	{: RESULT = new LinkedList<IStatement>(); :};
+statement ::= LBRACE:l statement_list:list RBRACE {: RESULT = new BlockStatement(l.line,l.pos,list); :}
+            | MEGGYSETPIXEL:m LPAREN exp:e1 COMMA exp:e2 COMMA exp:e3 RPAREN SEMI
+                {: RESULT = new MeggySetPixel(m.line,m.pos,e1,e2,e3); :}
+            | MEGGYDELAY:m LPAREN exp:e RPAREN SEMI
+                {: RESULT = new MeggyDelay(m.line,m.pos,e);  :}
+            | IF:ifstmt LPAREN exp:e RPAREN statement:stmt
+                {: RESULT = new IfStatement(ifstmt.line,ifstmt.pos,e,stmt,null); :}
+            | IF:ifstmt LPAREN exp:e RPAREN statement:stmt1 ELSE statement:stmt2
+                {: RESULT = new IfStatement(ifstmt.line,ifstmt.pos,e,stmt1,stmt2); :}
+            | WHILE:w LPAREN exp:e RPAREN statement:stmt
+                {: RESULT = new WhileStatement(w.line,w.pos,e,stmt); :}
+			| MEGGYTONESTART:t LPAREN exp:e1 COMMA exp:e2 RPAREN SEMI 
+				{: RESULT = new MeggyToneStart(t.line, t.pos, e1, e2); :} 
+;
 
-expression ::= expression:a AND:op expression:b
-			{: RESULT = new AndExp(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | expression:a EQUAL:op expression:b
-			{: RESULT = new EqualExp(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | expression:a PLUS:op expression:b
-			{: RESULT = new PlusExp(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | expression:a MINUS:op expression:b
-			{: RESULT = new MinusExp(op.line, op.pos, a, b); :}
-			 | expression:a LT:op expression:b
-			{: RESULT = new LtExp(op.line, op.pos, a, b); :}
-			 | expression:a TIMES:op expression:b
-			{: RESULT = new MulExp(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | MINUS:op expression:a
-			{: RESULT = new NegExp(1, 1, a); :}
-			 | MEGGYGETPIXEL:op LPAREN expression:a COMMA expression:b RPAREN 
-			{: RESULT = new MeggyGetPixel(op.line, op.pos, (IExp)a, (IExp)b); :}
-			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN
-			{: RESULT = new MeggyCheckButton(op.line, op.pos, (IExp)a); :}
-			 | LPAREN:op BYTE RPAREN expression:a
-			{: RESULT = new ByteCast(op.line, op.pos, a); :}
-			 | INT_LITERAL:a
-			{: RESULT = new IntLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | COLOR_LITERAL:a
-			{: RESULT = new ColorLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | BUTTON_LITERAL:a
-			{: RESULT = new ButtonLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | TONE_LITERAL:a
-			{: RESULT = new ToneLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | TRUE:a
-			{: RESULT = new TrueLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | FALSE:a
-			{: RESULT = new FalseLiteral(a.line, a.pos, a.lexeme, a.value); :}
-			 | NOT:op expression:a
-			{: RESULT = new NotExp(1, 1, (IExp)a); :}
-			 | LPAREN:op expression:a RPAREN 
-			{: RESULT = a; :}; 
+
+exp ::= exp:e1 AND:op exp:e2 {: RESULT = new AndExp(op.line,op.pos,e1,e2); :}
+	| exp:e1 TIMES:op exp:e2 {: RESULT = new MulExp(op.line,op.pos,e1,e2); :}
+	| exp:e1 PLUS:op exp:e2 {: RESULT = new PlusExp(op.line,op.pos,e1,e2); :}
+	| exp:e1 EQUAL:op exp:e2 {: RESULT = new EqualExp(op.line,op.pos,e1,e2); :}
+	| exp:e1 MINUS:op exp:e2 {: RESULT = new MinusExp(op.line,op.pos,e1,e2); :}
+	| exp:e1 LT:op exp:e2 {: RESULT = new LtExp(op.line, op.pos, e1, e2); :}
+	| MINUS:op exp:e {: RESULT = new NegExp(op.line, op.pos, e); :} %prec UMINUS
+	| MEGGYGETPIXEL:m LPAREN exp:e1 COMMA exp:e2 RPAREN {: RESULT = new MeggyGetPixel(m.line,m.pos,e1,e2); :}
+	| MEGGYCHECKBUTTON:m LPAREN exp:e RPAREN {: RESULT = new MeggyCheckButton(m.line,m.pos,e); :}
+	| LPAREN:l BYTE:b RPAREN:r exp:e {: RESULT = new ByteCast(l.line,l.pos,e); :}
+	| INT_LITERAL:n {: RESULT = new IntLiteral(n.line,n.pos,n.lexeme,n.value); :}
+	| COLOR_LITERAL:color {: RESULT = new ColorLiteral(color.line, color.pos, color.lexeme,color.value); :}
+	| BUTTON_LITERAL:button {: RESULT = new ButtonLiteral(button.line, button.pos, button.lexeme, button.value); :}
+	| TONE_LITERAL:tone {: RESULT = new ToneLiteral(tone.line, tone.pos, tone.lexeme, tone.value); :}
+	| TRUE :t {: RESULT = new TrueLiteral(t.line,t.pos,t.lexeme,t.value); :}
+	| FALSE:f {: RESULT = new FalseLiteral(f.line,f.pos,f.lexeme,f.value); :}
+	| NOT:op exp:e {: RESULT = new NotExp(op.line,op.pos,e); :}
+	| LPAREN:l exp:e RPAREN:r {: RESULT = e; :}
+;
+
+statement_list ::= statement_list:list statement:stmt {: if(stmt!=null) { list.add(stmt); } RESULT=list; :}
+	|  {: RESULT = new LinkedList<IStatement>(); :}
+;
+
