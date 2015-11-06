@@ -20,7 +20,42 @@ public class SymTable {
     public SymTable() {
     }
     
+    /** Lookup a symbol in this symbol table.
+     * Starts looking in innermost scope and then
+     * look in enclosing scopes.
+     * Returns null if the symbol is not found.
+     */
+    public STE lookup(String sym) {
+        /* WRITE ME */
+    }
+
+    /** Lookup a symbol in innermost scope only.
+     * return null if the symbol is not found
+     */
+    public STE lookupInnermost(String sym) {
+        Scope currentScope = mScopeStack.peek();
+        return currentScope.lookupInnermost(sym);
+    }
+ 
+    /** When inserting an STE will just insert
+     * it into the scope at the top of the scope stack.
+     */
+    public void insert( STE ste) {
+        /* WRITE ME */
+    }
     
+    /** 
+     * Lookup the given method scope and make it the innermost
+     * scope.  That is, make it the top of the scope stack.
+     */
+    public void pushScope(String id) {
+        /* WRITE ME */
+    }
+    
+    public void popScope() {
+        /* WRITE ME */
+    }
+	
     public void setExpType(Node exp, Type t)
     {
     	this.mExpType.put(exp, t);
