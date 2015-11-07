@@ -1,6 +1,3 @@
-/*
-Author: Taghreed Bagies
-*/
 package mjparser;
 import java_cup.runtime.*;
 import java.util.*;
@@ -86,24 +83,28 @@ terminal SymbolValue UMINUS;
 
 non terminal program;
 non terminal IExp exp;
+non terminal IExp identifier;
+non terminal LinkedList<IStatement> exp_list;
 non terminal IStatement statement;
 non terminal LinkedList<IStatement> statement_list;
 non terminal MainClass main_class;
+non terminal Class class;
 
-/* Declare precedence and associativity  here */
+/* Declare precedence and associativity here */
+precedence left LT;
 precedence left AND;
 precedence left EQUAL;
 precedence left PLUS, MINUS;
 precedence left TIMES;
 precedence right UMINUS;
-precedence right LPAREN, RPAREN;//BYTE;
+precedence right LPAREN, RPAREN; //BYTE;
 precedence right ELSE;
 
 /* Meggy Java Grammar */
 start with program;
 
 program ::= 
-IMPORT MEGGY:m SEMI main_class:mainC {: RESULT = new Program(m.line,m.pos,mainC,new LinkedList<IClassDecl>()); :}
+IMPORT MEGGY:m SEMI main_class:mainC {: RESULT = new Program(m.line, m.pos, mainC, new LinkedList<IClassDecl>()); :}
     ;
 
 main_class ::=
@@ -121,46 +122,62 @@ main_class ::=
         LPAREN STRING LBRACKET RBRACKET ID:param RPAREN
         statement:stmt
         {:
-            RESULT = new MainClass(m.line,m.pos,name.lexeme,param.lexeme,stmt);
+            RESULT = new MainClass(m.line, m.pos, name.lexeme, param.lexeme, stmt);
         :}
         RBRACE
         {:  :}
 ;
 
-statement ::= LBRACE:l statement_list:list RBRACE {: RESULT = new BlockStatement(l.line,l.pos,list); :}
+/*class ::= 
+    CLASS:c ID:name LBRACE method_decl_list:mlist RBRACE
+    {: RESULT = new TopClassDecl(c.line, c.pos, name, ); :}*/
+
+statement ::= LBRACE:l statement_list:list RBRACE {: RESULT = new BlockStatement(l.line, l.pos, list); :}
             | MEGGYSETPIXEL:m LPAREN exp:e1 COMMA exp:e2 COMMA exp:e3 RPAREN SEMI
-                {: RESULT = new MeggySetPixel(m.line,m.pos,e1,e2,e3); :}
+                {: RESULT = new MeggySetPixel(m.line, m.pos, e1, e2, e3); :}
             | MEGGYDELAY:m LPAREN exp:e RPAREN SEMI
-                {: RESULT = new MeggyDelay(m.line,m.pos,e);  :}
+                {: RESULT = new MeggyDelay(m.line, m.pos, e);  :}
             | IF:ifstmt LPAREN exp:e RPAREN statement:stmt
-                {: RESULT = new IfStatement(ifstmt.line,ifstmt.pos,e,stmt,null); :}
+                {: RESULT = new IfStatement(ifstmt.line, ifstmt.pos, e, stmt, null); :}
             | IF:ifstmt LPAREN exp:e RPAREN statement:stmt1 ELSE statement:stmt2
-                {: RESULT = new IfStatement(ifstmt.line,ifstmt.pos,e,stmt1,stmt2); :}
+                {: RESULT = new IfStatement(ifstmt.line, ifstmt.pos, e, stmt1, stmt2); :}
             | WHILE:w LPAREN exp:e RPAREN statement:stmt
-                {: RESULT = new WhileStatement(w.line,w.pos,e,stmt); :}
+                {: RESULT = new WhileStatement(w.line, w.pos, e, stmt); :}
 			| MEGGYTONESTART:t LPAREN exp:e1 COMMA exp:e2 RPAREN SEMI 
-				{: RESULT = new MeggyToneStart(t.line, t.pos, e1, e2); :} 
+				{: RESULT = new MeggyToneStart(t.line, t.pos, e1, e2); :}
+            | exp:e1 DOT identifier:id LPAREN exp_list:list RPAREN SEMI
+                {: RESULT = new CallStatement(e1.line, e1.pos, e1, id, list); :}
 ;
 
 
-exp ::= exp:e1 AND:op exp:e2 {: RESULT = new AndExp(op.line,op.pos,e1,e2); :}
-	| exp:e1 TIMES:op exp:e2 {: RESULT = new MulExp(op.line,op.pos,e1,e2); :}
-	| exp:e1 PLUS:op exp:e2 {: RESULT = new PlusExp(op.line,op.pos,e1,e2); :}
-	| exp:e1 EQUAL:op exp:e2 {: RESULT = new EqualExp(op.line,op.pos,e1,e2); :}
-	| exp:e1 MINUS:op exp:e2 {: RESULT = new MinusExp(op.line,op.pos,e1,e2); :}
+exp ::= exp:e1 AND:op exp:e2 {: RESULT = new AndExp(op.line, op.pos, e1, e2); :}
+	| exp:e1 TIMES:op exp:e2 {: RESULT = new MulExp(op.line, op.pos, e1, e2); :}
+	| exp:e1 PLUS:op exp:e2 {: RESULT = new PlusExp(op.line, op.pos, e1, e2); :}
+	| exp:e1 EQUAL:op exp:e2 {: RESULT = new EqualExp(op.line, op.pos, e1, e2); :}
+	| exp:e1 MINUS:op exp:e2 {: RESULT = new MinusExp(op.line, op.pos, e1, e2); :}
 	| exp:e1 LT:op exp:e2 {: RESULT = new LtExp(op.line, op.pos, e1, e2); :}
 	| MINUS:op exp:e {: RESULT = new NegExp(op.line, op.pos, e); :} %prec UMINUS
-	| MEGGYGETPIXEL:m LPAREN exp:e1 COMMA exp:e2 RPAREN {: RESULT = new MeggyGetPixel(m.line,m.pos,e1,e2); :}
-	| MEGGYCHECKBUTTON:m LPAREN exp:e RPAREN {: RESULT = new MeggyCheckButton(m.line,m.pos,e); :}
-	| LPAREN:l BYTE:b RPAREN:r exp:e {: RESULT = new ByteCast(l.line,l.pos,e); :}
-	| INT_LITERAL:n {: RESULT = new IntLiteral(n.line,n.pos,n.lexeme,n.value); :}
+	| MEGGYGETPIXEL:m LPAREN exp:e1 COMMA exp:e2 RPAREN {: RESULT = new MeggyGetPixel(m.line, m.pos, e1, e2); :}
+	| MEGGYCHECKBUTTON:m LPAREN exp:e RPAREN {: RESULT = new MeggyCheckButton(m.line, m.pos, e); :}
+	| LPAREN:l BYTE:b RPAREN:r exp:e {: RESULT = new ByteCast(l.line, l.pos, e); :}
+	| INT_LITERAL:n {: RESULT = new IntLiteral(n.line, n.pos, n.lexeme, n.value); :}
 	| COLOR_LITERAL:color {: RESULT = new ColorLiteral(color.line, color.pos, color.lexeme,color.value); :}
 	| BUTTON_LITERAL:button {: RESULT = new ButtonLiteral(button.line, button.pos, button.lexeme, button.value); :}
 	| TONE_LITERAL:tone {: RESULT = new ToneLiteral(tone.line, tone.pos, tone.lexeme, tone.value); :}
-	| TRUE :t {: RESULT = new TrueLiteral(t.line,t.pos,t.lexeme,t.value); :}
-	| FALSE:f {: RESULT = new FalseLiteral(f.line,f.pos,f.lexeme,f.value); :}
-	| NOT:op exp:e {: RESULT = new NotExp(op.line,op.pos,e); :}
+	| TRUE:t {: RESULT = new TrueLiteral(t.line, t.pos, t.lexeme, t.value); :}
+	| FALSE:f {: RESULT = new FalseLiteral(f.line, f.pos, f.lexeme, f.value); :}
+	| NOT:op exp:e {: RESULT = new NotExp(op.line, op.pos, e); :}
 	| LPAREN:l exp:e RPAREN:r {: RESULT = e; :}
+    | identifier:id {: RESULT = new IdLiteral(id.line, id.pos, id); :}
+    | THIS:t {: RESULT = new ThisLiteral(t.line, t.pos, t.lexeme, t.value); :}
+    | NEW:op identifier:id LPAREN RPAREN {: RESULT = new NewExp(op.line, op.pos, id); :}
+    | exp:e1 DOT identifier:id LPAREN exp_list:list RPAREN {: RESULT = new CallExp(e1.line, e1.pos, e1, id, list); :}
+;
+
+identifier ::= ID {: :}
+
+exp_list ::= exp_list:list COMMA exp:exp {: if(exp!=null) {list.add(exp); } RESULT=list; :}
+    |  {: RESULT = new LinkedList<IStatement>(); :}
 ;
 
 statement_list ::= statement_list:list statement:stmt {: if(stmt!=null) { list.add(stmt); } RESULT=list; :}

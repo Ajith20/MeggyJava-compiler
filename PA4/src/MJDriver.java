@@ -53,12 +53,12 @@ public class MJDriver {
             ast_root.accept(new DotVisitor(new PrintWriter(astout)));
             System.out.println("Printing AST to " + filename + ".ast.dot");
             
-            //create Type-Checker and an AVRgenVisitor instances
+            /*//create Type-Checker and an AVRgenVisitor instances
             symtable.SymTable globalST = new symtable.SymTable();
             ast_root.accept(new CheckTypes(globalST));
             java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
             ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
-            System.out.println("Printing Atmel assembly to " + filename + ".s");
+            System.out.println("Printing Atmel assembly to " + filename + ".s");*/
 
         } catch(exceptions.SemanticException e) {
             System.err.println(e.getMessage());
