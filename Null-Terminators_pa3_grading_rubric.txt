@@ -1,0 +1,33 @@
+This assignment is graded on a 70 point scale. Your submission will be graded with the following breakdown:
+
+•    10 points: Extension of your scanner and parser specs to correctly scan all tokens and parse for the PA3 grammar demonstrated with test cases
+
+•    10 points: Generates an AST instead of doing code generation using the provided AST classes
+
+•    10 points: (2 points each) Performs code generation to AVR assembly code for the PA2 AST nodes using a visitor
+◦    empty statement program
+◦    setting pixels with constant integer expressions
+◦    setting pixels with color literals
+◦    setting pixels with byte casting
+◦    sequence of statements with setPixel calls (-2 throws array index out of bounds)
+
+•    10 points: Performs correct type checking for the PA3 grammar rules according to the MJ.jar reference compiler type errors (-10 all of the tests I used to test type checking did not detect the type errors properly....or at least it is not reporting them. It ended up generating code for them, which it should not have done.)
+
+•    16 points: (2 points each) Performs correct code generation to AVR assembly code for the PA3 grammar:
+◦    Button presses (Meggy.checkButton)
+◦    use of the delay function (Meggy.delay)
+◦    function for reading the screen pixel values (Meggy.getPixel)
+◦    while statement
+◦    if statement
+◦    byte casts
+◦    operators plus, minus, and times
+◦    boolean expressions
+
+•    4 points: Performs a test correctly to ensure that the name of the main class matches the program's filename.
+•    Additional test cases to demonstrate the awesomeness of your PA3 compiler
+
+•    5 points: README file explaining the file structure (your test files) and other comments you want your TA to know (e.g. features not implemented)
+
+•    5 points: Follows instructions for submission correctly
+
+Total: 60/70
