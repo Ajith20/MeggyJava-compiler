@@ -97,6 +97,7 @@ non terminal LinkedList<MethodDecl> method_list;
 
 /* Declare precedence and associativity here */
 precedence left LT;
+precedence left DOT;
 precedence left AND;
 precedence left EQUAL;
 precedence left PLUS, MINUS;

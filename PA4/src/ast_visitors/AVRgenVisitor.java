@@ -432,8 +432,36 @@ public class AVRgenVisitor extends DepthFirstVisitor
     public void outFormal(Formal node) {}
     public void outIdLiteral(IdLiteral node) {}
     public void outIntType(IntType node) {}
-    public void outLtExp(LtExp node) {}
-    public void outMeggyToneStart(MeggyToneStart node) {}
+    public void outLtExp(LtExp node) {
+        
+    }
+    public void outMeggyToneStart(MeggyToneStart node) 
+    {
+    /*
+    # Push Meggy.Tone.C3 onto the stack.
+    ldi    r25, hi8(61157)
+    ldi    r24, lo8(61157)
+    # push two byte expression onto stack
+    push   r25
+    push   r24
+
+    # Load constant int 1
+    ldi    r24,lo8(1)
+    ldi    r25,hi8(1)
+    # push two byte expression onto stack
+    push   r25
+    push   r24
+
+    ### Meggy.toneStart(tone, time_ms) call
+    # load a two byte expression off stack
+    pop    r22
+    pop    r23
+    # load a two byte expression off stack
+    pop    r24
+    pop    r25
+    call   _Z10Tone_Startjj
+    */
+    }
     public void outMethodDecl(MethodDecl node) {}
     public void outThisExp(ThisLiteral node) {}
     public void outToneExp(ToneLiteral node) {}
