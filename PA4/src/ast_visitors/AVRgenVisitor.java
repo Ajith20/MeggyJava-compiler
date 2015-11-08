@@ -421,6 +421,26 @@ public class AVRgenVisitor extends DepthFirstVisitor
         out.println("   push   r23");
         out.println("   push   r22");
     }
+
+    // PA4 AVR Stubs
+    public void outBoolType(BoolType node) {}
+    public void outButtonType(ButtonType node) {}
+    public void outByteType(ByteType node) {}
+    public void outCallExp(CallExp node) {}
+    public void outCallStatement(CallStatement node) {}
+    public void outColorType(ColorType node) {}
+    public void outFormal(Formal node) {}
+    public void outIdLiteral(IdLiteral node) {}
+    public void outIntType(IntType node) {}
+    public void outLtExp(LtExp node) {}
+    public void outMeggyToneStart(MeggyToneStart node) {}
+    public void outMethodDecl(MethodDecl node) {}
+    public void outThisExp(ThisLiteral node) {}
+    public void outToneExp(ToneLiteral node) {}
+    public void outToneType(ToneType node) {}
+    public void outTopClassDecl(TopClassDecl node) {}
+    public void outVoidType(VoidType node) {}
+
     public void outProgram(Program node){
         out.flush();
     }
