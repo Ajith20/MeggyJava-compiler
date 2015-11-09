@@ -3,7 +3,11 @@ import meggy.Meggy;
 class PA4Example1 {
 
     public static void main(String[] whatever){
-	if(3 < 4) Meggy.delay(1);
-    }
+    }	
+}
 
+class something {
+	
+	public void inBounds(byte a, int b, boolean c, Meggy.Button d, Meggy.Tone e, Meggy.Color f) {
+    }
 }

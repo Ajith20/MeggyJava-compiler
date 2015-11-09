@@ -19,83 +19,6 @@ main:
     /* Need to call this so that the meggy library gets set up */
 
 
-    #### if statement
-
-    # Load constant int 3
-    ldi    r24,lo8(3)
-    ldi    r25,hi8(3)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    # Load constant int 4
-    ldi    r24,lo8(4)
-    ldi    r25,hi8(4)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    # less than expression
-    # load a two byte expression off stack
-    pop    r18
-    pop    r19
-    # load a two byte expression off stack
-    pop    r24
-    pop    r25
-    cp    r24, r18
-    cpc   r25, r19
-    brlt MJ_L4
-
-    # load false
-MJ_L3:
-    ldi     r24, 0
-    jmp      MJ_L5
-
-    # load true
-MJ_L4:
-    ldi    r24, 1
-
-    # push result of less than
-MJ_L5:
-    # push one byte expression onto stack
-    push   r24
-
-    # load condition and branch if false
-    # load a one byte expression off stack
-    pop    r24
-    #load zero into reg
-    ldi    r25, 0
-
-    #use cp to set SREG
-    cp     r24, r25
-    #WANT breq MJ_L0
-    brne   MJ_L1
-    jmp    MJ_L0
-
-    # then label for if
-MJ_L1:
-
-    # Load constant int 1
-    ldi    r24,lo8(1)
-    ldi    r25,hi8(1)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    ### Meggy.delay() call
-    # load delay parameter
-    # load a two byte expression off stack
-    pop    r24
-    pop    r25
-    call   _Z8delay_msj
-    jmp    MJ_L2
-
-    # else label for if
-MJ_L0:
-
-    # done label for if
-MJ_L2:
-
 
 /* epilogue start */
     endLabel:
@@ -103,4 +26,61 @@ MJ_L2:
     ret
     .size   main, .-main
 
+
+
+    .text
+.global something_inBounds
+    .type  something_inBounds, @function
+something_inBounds:
+    push   r29
+    push   r28
+    # make space for locals and params
+    ldi    r30, 0
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+    push   r30
+
+    # Copy stack pointer to frame pointer
+    in     r28,__SP_L__
+    in     r29,__SP_H__
+
+    # save off parameters
+    std    Y + 2, r25
+    std    Y + 1, r24
+    std    Y + 3, r22
+    std    Y + 5, r21
+    std    Y + 4, r20
+    std    Y + 6, r18
+    std    Y + 7, r16
+    std    Y + 9, r15
+    std    Y + 8, r14
+    std    Y + 10, r12
+/* done with function something_inBounds prologue */
+
+
+/* epilogue start for something_inBounds */
+    # no return value
+    # pop space off stack for parameters and locals
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    pop    r30
+    # restoring the frame pointer
+    pop    r28
+    pop    r29
+    ret
+    .size something_inBounds, .-something_inBounds
 

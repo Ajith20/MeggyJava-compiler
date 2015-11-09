@@ -432,39 +432,35 @@ public class AVRgenVisitor extends DepthFirstVisitor
     public void outFormal(Formal node) {}
     public void outIdLiteral(IdLiteral node) {}
     public void outIntType(IntType node) {}
-    public void outLtExp(LtExp node) {
-        
-    }
+    public void outLtExp(LtExp node) {}
+	
     public void outMeggyToneStart(MeggyToneStart node) 
     {
-    /*
-    # Push Meggy.Tone.C3 onto the stack.
-    ldi    r25, hi8(61157)
-    ldi    r24, lo8(61157)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    # Load constant int 1
-    ldi    r24,lo8(1)
-    ldi    r25,hi8(1)
-    # push two byte expression onto stack
-    push   r25
-    push   r24
-
-    ### Meggy.toneStart(tone, time_ms) call
-    # load a two byte expression off stack
-    pop    r22
-    pop    r23
-    # load a two byte expression off stack
-    pop    r24
-    pop    r25
-    call   _Z10Tone_Startjj
-    */
+		out.println("	### Meggy.toneStart(tone, time_ms) call");
+		out.println("	# load a two byte expression off stack");
+		out.println("	pop    r22");
+		out.println("	pop    r23");
+		out.println("	# load a two byte expression off stack");
+		out.println("	pop    r24");
+		out.println("	pop    r25");
+		out.println("	call   _Z10Tone_Startjj");
     }
+	
     public void outMethodDecl(MethodDecl node) {}
     public void outThisExp(ThisLiteral node) {}
-    public void outToneExp(ToneLiteral node) {}
+	
+    public void outToneExp(ToneLiteral node) 
+	{
+		String tone = node.getLexeme();
+		int toneVal = node.getIntValue();
+		out.println("	# Push " + tone + " onto the stack.");
+		out.println("	ldi     r25, hi8(" + toneVal + ")");
+		out.println("	ldi		r24, lo8(" + toneVal + ")");
+		out.println("	# push two byte expression onto stack");
+		out.println("	push	r25");
+		out.println("	push	r24");
+	}
+	
     public void outToneType(ToneType node) {}
     public void outTopClassDecl(TopClassDecl node) {}
     public void outVoidType(VoidType node) {}
