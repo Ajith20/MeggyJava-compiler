@@ -447,7 +447,17 @@ public class AVRgenVisitor extends DepthFirstVisitor
     }
 	
     public void outMethodDecl(MethodDecl node) {}
-    public void outThisExp(ThisLiteral node) {}
+	
+    public void outThisExp(ThisLiteral node)
+	{
+		out.println("	# loading the implicit 'this'");
+		out.println("	# load a two byte variable from base+offset");
+		out.println("	ldd    r31, Y + 2");
+		out.println("	ldd    r30, Y + 1");
+		out.println("	# push two byte expression onto stack");
+		out.println("	push   r31");
+		out.println("	push   r30");
+	}
 	
     public void outToneExp(ToneLiteral node) 
 	{
@@ -462,6 +472,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
 	}
 	
     public void outToneType(ToneType node) {}
+	public void visitTopClassDecl(TopClassDecl node) {}
     public void outTopClassDecl(TopClassDecl node) {}
     public void outVoidType(VoidType node) {}
 
