@@ -73,8 +73,6 @@ public class CheckTypes extends DepthFirstVisitor
                    node.getLExp().getPos());
        }
    }
-  
-    //ADD All OUTmethods For PA3 by Taghreed
     
     public void outMulExp(MulExp node)
     {
@@ -171,17 +169,21 @@ public class CheckTypes extends DepthFirstVisitor
     public void outBlockStatement(BlockStatement node){
         //do nothing
     }
+	
     public void outMainClass(MainClass node)
     {
         //do nothing
     }
+	
     public void outProgram(Program node)
     {
         //do nothing
     }
+	
     public void outIntegerExp(IntLiteral node){
         this.mCurrentST.setExpType(node, Type.INT);
     }
+	
     public void outColorExp(ColorLiteral node){
         this.mCurrentST.setExpType(node, Type.COLOR);
     }
@@ -189,6 +191,7 @@ public class CheckTypes extends DepthFirstVisitor
     public void outButtonExp(ButtonLiteral node){
         this.mCurrentST.setExpType(node, Type.BUTTON);
     }
+	
     public void outTrueExp(TrueLiteral node){
         this.mCurrentST.setExpType(node, Type.BOOL);
     }
@@ -256,4 +259,112 @@ public class CheckTypes extends DepthFirstVisitor
                                         node.getExp().getPos());
         }
     }
+	
+	//Start of PA4 TypeChecking
+	
+	public void outMeggyToneStart(MeggyToneStart node)
+	{
+		Type toneExpType = this.mCurrentST.getExpType(node.getToneExp());
+		Type durationExpType = this.mCurrentST.getExpType(node.getDurationExp());
+		if ((toneExpType==Type.TONE) &&
+			(durationExpType==Type.INT)
+			){
+			this.mCurrentST.setExpType(node, Type.VOID);
+		} else {
+			throw new Semantic Exception(
+										 "The signature of MeggyToneStart() function is void MeggyToneStart(Tone tone, int duration)",
+										 node.getToneExp().getLine(),
+										 node.getToneExp().getLine());	
+		}
+	}
+	
+	public void outBoolType(BoolType node)
+	{
+		
+	}
+	
+	public void outButtonType(ButtonType node)
+	{
+		
+	}
+	
+	public void outByteType(ByteType node)
+	{
+		
+	}
+	
+	public void outCallExp(CallExp node)
+	{
+		
+	}
+	
+	public void outCallStatement(CallStatement node)
+	{
+		
+	}
+	
+	public void outColorType(ColorType node)
+	{
+		
+	}
+	
+	public void outFormal(Formal node)
+	{
+		
+	}
+	
+	public void outIntType(IntType node)
+	{
+		
+	}
+	
+	public void outLtExp(LtExp node)
+	{
+	   Type lexpType = this.mCurrentST.getExpType(node.getLExp());
+       Type rexpType = this.mCurrentST.getExpType(node.getRExp());
+       if ((lexpType==Type.INT  || lexpType==Type.BYTE) &&
+           (rexpType==Type.INT  || rexpType==Type.BYTE)
+          ){
+           this.mCurrentST.setExpType(node, Type.BOOL);
+       } else {
+           throw new SemanticException(
+                   "Operands to < operator must be INT or BYTE",
+                   node.getLExp().getLine(),
+                   node.getLExp().getPos());
+       }
+	}
+	
+	public void outMethodDecl(MethodDecl node)
+	{
+		
+	}
+	
+	public void outNewExp(NewExp node)
+	{
+		
+	}
+	
+	public void outThisExp(ThisLiteral node)
+	{
+		
+	}
+	
+	public void outToneExp(ToneLiteral node) {
+		this.mCurrentST.setExpType(node, Type.TONE);
+	}
+	
+	public void outToneType(ToneType node)
+	{
+		
+	}
+	
+	public void outTopClassDecl(TopClassDecl node)
+	{
+		
+	}
+	
+	public void outVoidType(VoidType node)
+	{
+		
+	}
 }

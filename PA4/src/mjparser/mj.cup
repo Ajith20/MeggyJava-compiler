@@ -136,7 +136,7 @@ main_class ::=
 
 class ::= 
     CLASS:c ID:name LBRACE method_list:mlist RBRACE
-    {: RESULT = new TopClassDecl(c.line, c.pos, name, new LinkedList<VarDecl>(), mlist); :}
+    {: RESULT = new TopClassDecl(c.line, c.pos, name.lexeme, new LinkedList<VarDecl>(), mlist); :}
 ;
 
 class_list ::= class_list:list class:class {: if(class!=null) {list.add(class); } RESULT=list; :}
