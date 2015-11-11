@@ -12,6 +12,7 @@ public class Type
   public static final Type COLOR = new Type();
   public static final Type BUTTON = new Type();
   public static final Type VOID = new Type();
+  public static final Type TONE = new Type();
 
   private Type()
   {
@@ -49,6 +50,11 @@ public class Type
     {
       return "BUTTON";
     }
+	
+	if(this == TONE)
+	{
+	  return "TONE";
+	}
 
     
 /*
@@ -62,6 +68,7 @@ public class Type
       if(this == BYTE) { return 1; }
       if(this == COLOR) { return 1; }
       if(this == BUTTON) { return 1; }
+	  if(this == TONE) { return 1; }
       if(this == VOID) { return 0; }
 
       return 2; // class references are 2 bytes
