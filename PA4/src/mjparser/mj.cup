@@ -88,9 +88,9 @@ non terminal List<IStatement> statement_list;
 non terminal MainClass main_class;
 non terminal IClassDecl class;
 non terminal IExp expression;
-non terminal List<IClassDecl> class_dec;
+/*non terminal List<IClassDecl> class_dec;*/
 non terminal LinkedList<MethodDecl> method_list;
-non terminal LinkedList<IClassDecl> class_list;
+non terminal List<IClassDecl> class_list;
 non terminal MethodDecl method;
 non terminal type;
 non terminal Formal formal;
@@ -118,10 +118,10 @@ precedence right LPAREN,RPAREN,ELSE; */
 start with program;
 
 program ::= 
-    IMPORT:op MEGGY:b SEMI main_class:a class_dec:c
+    IMPORT:op MEGGY:b SEMI main_class:a class_list:c
 	{: RESULT = new Program(op.line, op.pos, a, c ); :}
     ;
-    class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ;
+    /* class_dec ::= {: RESULT = new LinkedList<IClassDecl>(); :} ; */
 main_class ::=
         CLASS:op ID:name         
         LBRACE PUBLIC STATIC VOID MAIN 
@@ -148,7 +148,7 @@ class_list ::= class_list:list class:clss {: if(clss!=null) {list.add(clss); } R
 
 method ::=
 	PUBLIC:p type:t ID:id LPAREN formal_list:fmlist RPAREN
-	LBRACE statement_list:stlist RETURN expression:e SEMI
+	LBRACE statement_list:stlist RETURN expression:e SEMI RBRACE
 	{: RESULT = new MethodDecl(p.line, p.pos, (IType)t, id.lexeme, fmlist, new LinkedList<VarDecl>(), stlist, e); :}
 	|  PUBLIC:p type:t ID:id LPAREN formal_list:fmlist RPAREN
 	   LBRACE statement_list:stlist RBRACE
@@ -223,6 +223,7 @@ statement_list ::=  statement_list:list statement:s
 			{: 	
 				RESULT = new NegExp(1, 1, a); 
 				 :}
+			 | expression:e1 LT:op expression:e2 {: RESULT = new LtExp(op.line, op.pos, e1, e2); :}
 			 | MEGGYGETPIXEL:op LPAREN expression:a COMMA expression:b RPAREN 
 			{: RESULT = new MeggyGetPixel(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN
