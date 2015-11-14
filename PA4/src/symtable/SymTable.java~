@@ -59,12 +59,7 @@ public class SymTable {
 	if(meth_instance)
 	{
 		MethodSTE meth_ste = (MethodSTE)ste;
-		this.mStackScope.push(meth_ste.mScope);
-	}
-	if(classSTE_instance)
-	{
-		ClassSTE class_ste = (ClassSTE)ste;
-		this.mStackScope.push(class_ste.mScope);
+		
 	}
 	
     }

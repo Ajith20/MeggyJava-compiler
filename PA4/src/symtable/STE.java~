@@ -1,0 +1,11 @@
+package symtable;
+
+public class STE
+{
+	public String mName;
+
+	public String Name()
+	{
+		return this.mName;
+	}
+}
