@@ -47,18 +47,18 @@ public class MJDriver {
           parser.programName = filename.substring(lastInPath+1);
           System.out.println("Driver finds input filename: " + parser.programName);
 
-            // print ast to file
-            Node ast_root = (Node)parser.parse().value;
-            java.io.PrintStream astout =new java.io.PrintStream(new java.io.FileOutputStream(filename + ".ast.dot"));
-            ast_root.accept(new DotVisitor(new PrintWriter(astout)));
-            System.out.println("Printing AST to " + filename + ".ast.dot");
+          // print ast to file
+          Node ast_root = (Node)parser.parse().value;
+          java.io.PrintStream astout =new java.io.PrintStream(new java.io.FileOutputStream(filename + ".ast.dot"));
+          ast_root.accept(new DotVisitor(new PrintWriter(astout)));
+          System.out.println("Printing AST to " + filename + ".ast.dot");
             
-            /*//create Type-Checker and an AVRgenVisitor instances
-            symtable.SymTable globalST = new symtable.SymTable();
-            ast_root.accept(new CheckTypes(globalST));
-            java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
-            ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
-            System.out.println("Printing Atmel assembly to " + filename + ".s");*/
+          /*//create Type-Checker and an AVRgenVisitor instances
+          symtable.SymTable globalST = new symtable.SymTable();
+          ast_root.accept(new CheckTypes(globalST));
+          java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
+          ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
+          System.out.println("Printing Atmel assembly to " + filename + ".s");*/
 
         } catch(exceptions.SemanticException e) {
             System.err.println(e.getMessage());

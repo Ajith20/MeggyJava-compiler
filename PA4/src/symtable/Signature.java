@@ -16,4 +16,19 @@ public class Signature
 		}
 		this.formal_parameters = formal_parameters;
 	}
+	
+	public Type getReturnType()
+	{
+		return this.return_type;
+	}
+	
+	public int formalCount()
+	{
+		return this.formal_parameters.size();
+	}
+	
+	public Type formalType(int num)
+	{
+		return (Type)this.formal_parameters.get(num);
+	}
 }

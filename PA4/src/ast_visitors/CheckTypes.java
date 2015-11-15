@@ -27,6 +27,7 @@ public class CheckTypes extends DepthFirstVisitor
 {
     
    private SymTable mCurrentST;
+   private ClassSTE mCurrentClass;
    
    public CheckTypes(SymTable st) {
      if(st==null) {
@@ -262,6 +263,34 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	//Start of PA4 TypeChecking
 	
+	private Type typeCheck(IExp nodeExp, String nodeId, int nodeLine, int nodePos, LinkedList<IExp> nodeArgs)
+	{
+		Type locType1 = this.mCurrentST.getExpType(nodeExp);
+		if((locType1 == null) || (!locType1.isReference()))
+			throw new SemanticException("Method call receiver must be a class, nodeLine, nodePos);
+		
+		ClassSTE locClassSTE = this.mCurrentST.lookupClass(locType1.getClassName());
+		
+		MethodSTE locMethodSTE = (MethodSTE)locClassSTE.getScope().lookup(nodeId);
+		if(locMethodSTE == null)
+			throw new SemanticException("The method " + nodeId + " doesn't exist in class " + locClassSTE.getName(), nodeLine, nodePos);
+		Signature locSignature = locMethodSTE.getSignature();
+		
+		int i = nodeArgs.size();
+		if(i != locSignature.formalCount())
+			throw new SemanticException("The method " + nodeId + " needs " + locSignature.formalCount() + " arguments", nodeLine, nodePos);
+		
+		IExp[] tempIExpArray = new IExp[i];
+		tempIExpArray = (IExp[])nodeArgs.toArray(tempIExpArray);
+		for(int j = 0; j < tempIExpArray.length; j++) {
+			Type locType2 = this.mCurrentST.getExpType(tempIExpArray[j]);
+			Type locType3 = locSignature.formalType(j);
+			if((locType3 != locType2) && ((locType3 != Type.INT) || (locType2 != Type.BYTE))) 
+				throw new SemanticException("Argument type for method " + nodeId + " is invalid", tempIExpArray[j].getLine(), tempIExpArray[j].getPos());
+		}
+		return locSignature.getReturnType();
+	}
+	
 	public void outMeggyToneStart(MeggyToneStart node)
 	{
 		Type toneExpType = this.mCurrentST.getExpType(node.getToneExp());
@@ -280,42 +309,43 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outBoolType(BoolType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outButtonType(ButtonType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outByteType(ByteType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outCallExp(CallExp node)
 	{
-		
+		Type locType = typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
+		this.mCurrentST.setExpType(node, locType);
 	}
 	
 	public void outCallStatement(CallStatement node)
 	{
-		
+		typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
 	}
 	
 	public void outColorType(ColorType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outFormal(Formal node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outIntType(IntType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outLtExp(LtExp node)
@@ -336,17 +366,28 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outMethodDecl(MethodDecl node)
 	{
+		this.mCurrentST.popScope();
+		MethodSTE localMethodSTE = (MethodSTE)this.mCurrentST.lookup(node.getName());
 		
+		Type locType1 = localMethodSTE.getSignature().getReturnType();
+		Type locType2 = this.mCurrentST.getExpType(node.getExp());
+		if((locType1 == Type.VOID) && (locType2 != null)) 
+			throw new SemanticException("Type returned from method is invalid", node.getName(), node.getLine(), node.getPos());
+		if((locType1 != locType2) && (locType2 != null))
+			throw new SemanticException("Type returned from method is invalid", node.getName(), node.getLine(), node.getPos());
 	}
 	
 	public void outNewExp(NewExp node)
 	{
-		
+		STE currSTE = this.mCurrentST.lookup(node.getId());
+		if(currSTE == null) throw new SemanticException("Class undeclared", node.getLine(), node.getPos());
+		this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
 	}
 	
 	public void outThisExp(ThisLiteral node)
 	{
-		
+		if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
+		this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
 	}
 	
 	public void outToneExp(ToneLiteral node) {
@@ -355,16 +396,16 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outToneType(ToneType node)
 	{
-		
+		// Do nothing 
 	}
 	
 	public void outTopClassDecl(TopClassDecl node)
 	{
-		
+		this.mCurrentST.popScope();
 	}
 	
 	public void outVoidType(VoidType node)
 	{
-		
+		// Do nothing 
 	}
 }

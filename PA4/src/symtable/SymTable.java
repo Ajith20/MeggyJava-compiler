@@ -34,6 +34,12 @@ public class SymTable {
 	Scope innermostScope = this.mStackScope.peek();
 	return innermostScope.lookup(sym);
     }
+	
+	public ClassSTE lookupClass(String id)
+	{
+		Scope localScope = (Scope)this.mStackScope.peek();
+		return localScope.lookupClass(id)
+	}
  
     /** When inserting an STE will just insert
      * it into the scope at the top of the scope stack.

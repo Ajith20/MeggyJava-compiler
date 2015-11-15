@@ -15,5 +15,10 @@ public class MethodSTE extends STE
 		this.mScope = scope;
 		this.mName = name;
 	}
+	
+	public Signature getSignature()
+	{
+		return this.mSignature;
+	}
        
 }
