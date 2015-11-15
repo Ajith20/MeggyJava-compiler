@@ -300,7 +300,7 @@ public class CheckTypes extends DepthFirstVisitor
 			){
 			this.mCurrentST.setExpType(node, Type.VOID);
 		} else {
-			throw new SemanticException(
+			throw new Semantic Exception(
 										 "The signature of MeggyToneStart() function is void MeggyToneStart(Tone tone, int duration)",
 										 node.getToneExp().getLine(),
 										 node.getToneExp().getLine());	
