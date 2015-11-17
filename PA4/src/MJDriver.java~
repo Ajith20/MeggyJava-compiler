@@ -17,7 +17,6 @@ import ast_visitors.*;
 import ast.node.*;
 import ast.visitor.*;
 import java.io.PrintStream;
-import symtable.*;
 public class MJDriver {
 
       private static void usage() {

@@ -15,7 +15,7 @@ public class Type
   public static final Type TONE = new Type();
   
   private static final HashMap<String, Type> classTypes = new HashMap();
-  private final String className;
+  private final String className
 
   private Type()
   {

@@ -35,7 +35,7 @@ public class Scope
 		    throw new InternalException("Redefined symbol " + name);
 		}
 		mHashMap.put(name, ste);
-		this.scope_list.add(name);
+		this.mDeclOrder.add(name);
     	}
 	 public int outputDot(PrintStream printStream, int n) {
         String string;

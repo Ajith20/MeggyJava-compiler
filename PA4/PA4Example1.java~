@@ -12,5 +12,5 @@ class something {
     }
 }
 class something1{
-	public void inBounds1(byte a, int b, boolean c, Meggy.Button d, Meggy.Tone e, Meggy.Color f){ }
+	public void inBounds1(byte a, int b, boolean c, Meggy.Button d, Meggy.Tone e, Meggy.Color f) }
 }
