@@ -12,7 +12,7 @@ public class Scope
 {
 	public HashMap<String, STE> mHashMap = new HashMap();
     	public Scope mEnclosing;
-	private final List<String> scope_list = new LinkedList<String>();
+	public final List<String> scope_list = new LinkedList<String>();
 	 public Scope(Scope scope) 
 	{
 	        this.mEnclosing = scope;
@@ -44,7 +44,7 @@ public class Scope
         Iterator<String> iterator = this.scope_list.iterator();
         int n3 = 1;
         while (iterator.hasNext()) {
-            string = iterator.next();
+	            string = iterator.next();
             string2 = string2 + "| <f" + n3 + "> " + "mDict\\[" + string + "\\] ";
             ++n3;
         }

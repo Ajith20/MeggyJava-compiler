@@ -10,10 +10,13 @@ import symtable.Type;
 import exceptions.InternalException;
 import exceptions.SemanticException;
 import label.*;
+import symtable.*;
 public class AVRgenVisitor extends DepthFirstVisitor
 {
     private PrintWriter out;
     private SymTable mCurrentST;
+    public ClassSTE current_class;
+    public int max_offset;
     public AVRgenVisitor(PrintWriter out, SymTable globalST) {
       this.out = out;
       mCurrentST = globalST;
@@ -191,6 +194,81 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
        out.println("  # MulExp \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r22 \n # move low byte src into dest reg \n mov    r24, r18 \n # move low byte src into dest reg \n mov    r26, r22 \n # Do mul operation of two input bytes \n muls   r24, r26 \n # push two byte expression onto stack \n push   r1 \n push   r0 \n # clear r0 and r1, thanks Brendan! \n eor    r0,r0 \n eor    r1,r1 ");
    }
+   public void inTopClassDecl(TopClassDecl node)
+    {
+        String class_name = node.getName();
+        System.out.println(node.getName());
+	STE ste = mCurrentST.lookup(class_name);
+	
+	
+	current_class = (ClassSTE)ste;
+	if(current_class != null)
+	{
+	this.mCurrentST.mStackScope.push(current_class.mScope);
+	}
+    }
+
+    public void outTopClassDecl(TopClassDecl node)
+    {
+        mCurrentST.popScope();
+    }
+    public void inMethodDecl(MethodDecl node)
+    {
+        MethodSTE method_ste = (MethodSTE)mCurrentST.lookup(node.getName());
+	max_offset=0;
+	int r_value = 25;
+	mCurrentST.mStackScope.push(method_ste.mScope);
+	out.println(" .text \n .global "+ current_class.mName +"_"+node.getName() +" \n .type  "+ current_class.mName +"_"+node.getName() +", @function \n "+ current_class.mName +"_"+node.getName() +": \n push   r29 \n push   r28 \n # make space for locals and params \n ldi    r30, 0 \n");
+		Iterator iterator = method_ste.mScope.scope_list.iterator();
+		while(iterator.hasNext())
+		{
+			VarSTE ste = (VarSTE)method_ste.mScope.lookup((String)iterator.next());
+            		if (!(ste instanceof VarSTE)) continue;
+            		if(max_offset < ste.mOffset)
+			{ max_offset = ste.mOffset; }
+		}
+		for(int i =0; i< max_offset; i++)
+		{
+			out.println(" push   r30 ");
+		}
+		out.println(" # Copy stack pointer to frame pointer \n in     r28,__SP_L__ \n in     r29,__SP_H__ \n # save off parameters \n ");
+		for(int i =0; i< max_offset; i++)
+		{
+			out.println("std Y + "+i+", r"+ r_value);
+			r_value = r_value - 1;
+		}
+
+		out.println("/* done with function s"+ current_class.mName +"_"+node.getName() +" prologue */");
+    }
+
+    public void outMethodDecl(MethodDecl node)
+    {
+        mCurrentST.popScope();
+	MethodSTE method_ste = (MethodSTE)mCurrentST.lookup(node.getName());
+	out.println("/* epilogue start for sampletest2_testfun1 */ \n # no return value \n # pop space off stack for parameters and locals");
+	for(int i =0; i< max_offset; i++)
+	{
+			out.println(" pop   r30 ");
+	}
+    	out.println("# restoring the frame pointer \n pop    r28 \n pop    r29 \n ret \n .size "+ current_class.mName +"_"+node.getName() +", .-"+ current_class.mName +"_"+node.getName());
+    }
+    public void outNewExp(NewExp node)
+    {
+     	out.println("# NewExp \n ldi    r24, lo8(0) \n ldi    r25, hi8(0) \n # allocating object of size 0 on heap \n call    malloc \n # push object address \n # push two byte expression onto stack \n push   r25 \n push   r24");  
+    }
+     public void inCallStatement(CallStatement node)
+    {
+        defaultIn(node);
+    }
+
+    public void outCallStatement(CallStatement node)
+    {
+	//Parameter values to do
+	LinkedList<IExp> list = node.getArgs();
+	out.println("");
+	
+        out.println(" # receiver will be passed as first param \n # load a two byte expression off stack \n pop    r24 \n pop    r25");
+    }
 
    public void outNegExp(NegExp node)
    {

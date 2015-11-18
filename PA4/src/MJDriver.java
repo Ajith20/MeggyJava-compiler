@@ -11,7 +11,7 @@
  */
 import java.io.FileReader;
 import java.io.PrintWriter;
-
+import java.util.*;
 import mjparser.*;
 import ast_visitors.*;
 import ast.node.*;
@@ -61,10 +61,20 @@ public class MJDriver {
           System.out.println("Printing symbol table to " + filename + ".ST.dot");
           symTable.outputDot((PrintStream)stout); 
           // create Type-Checker and an AVRgenVisitor instances
-          symtable.SymTable globalST = new symtable.SymTable();
+          //symtable.SymTable globalST = new symtable.SymTable();
           //ast_root.accept(new CheckTypes(globalST));
+	 // Set<String> listofEntries = globalST.mStackScope.peek().mHashMap.keySet();
+   
+          //Iterator<String> it = listofEntries.iterator();
+  
+          /*while(it.hasNext()){
+             System.out.println("**********************"+it.next());
+          } */ 
+                 
+
           java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
-          ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
+         //System.out.println(globalST.mGlobalScope==globalST.);
+          ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),symTable));
           System.out.println("Printing Atmel assembly to " + filename + ".s");
 
         } catch(exceptions.SemanticException e) {

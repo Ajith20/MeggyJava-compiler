@@ -4,16 +4,16 @@ class Test3
 {
 	public static void main(String[] string1)
 	{
-		if(new sampletest2().testfun2((byte)3))
+		/*if(new sampletest2().testfun2((byte)3))
 		{
 			//sample obj = new sample();
 			new sampletest2().testfun1(2);
 			//new sampletest2().testfun3();
-		}
+		}*/
 	}
 }
 
-class sampletest2
+/*class sampletest2
 {
 	public void testfun1(int a)
 	{
@@ -42,7 +42,7 @@ class sampletest2
 			
 		}
 		}
-	} */
-}
+	} 
+}*/
 
 

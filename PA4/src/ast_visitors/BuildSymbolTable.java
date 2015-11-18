@@ -15,8 +15,8 @@ import symtable.*;
 
 public class BuildSymbolTable extends DepthFirstVisitor
 {
-	private SymTable mCurrentST = new SymTable();
-	private ClassSTE mCurrentClass;
+	private SymTable current_st = new SymTable();
+	private ClassSTE current_class;
 	public int offset;
 	private Type getType(IType iType) {
         if (iType == null) {
@@ -55,7 +55,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
     {
         String method_name = node.getName();
 	Formal formal;
-	STE ste = mCurrentST.lookup(method_name);
+	STE ste = current_st.lookup(method_name);
 	if(ste != null)
 	{
 		throw new InternalException("Method already present");
@@ -70,13 +70,13 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	//Scope scope = new Scope(null);
 	MethodSTE meth_obj = new MethodSTE(sig_obj,node.getName());
 	//ste.mName = node.getName();
-	mCurrentST.insert((STE)meth_obj);
-	meth_obj.mScope = new Scope(mCurrentST.mStackScope.peek());
-	mCurrentST.mStackScope.push(meth_obj.mScope);
+	current_st.insert((STE)meth_obj);
+	meth_obj.mScope = new Scope(current_st.mStackScope.peek());
+	current_st.mStackScope.push(meth_obj.mScope);
 	this.offset =1;
-	VarSTE var_obj = new VarSTE("this", Type.getClassType((String)this.mCurrentClass.mName), 1);
+	VarSTE var_obj = new VarSTE("this", Type.getClassType((String)this.current_class.mName), 1);
         this.offset = this.offset + var_obj.mType.getAVRTypeSize();
-        mCurrentST.insert((STE)var_obj);
+        current_st.insert((STE)var_obj);
     }
   public void inFormal(Formal node)
   {
@@ -85,7 +85,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
   public void outFormal(Formal node)
     {
 	String formal_name = node.getName();
-	STE ste1 = mCurrentST.lookup(formal_name);
+	STE ste1 = current_st.lookup(formal_name);
 	if(ste1 != null)
 	{
 		throw new InternalException("Formal already present");
@@ -94,18 +94,18 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	//Increment offset based on type: TO DO
         this.offset = this.offset + var_obj.mType.getAVRTypeSize(); 
 	
-	mCurrentST.insert((STE)var_obj);
+	current_st.insert((STE)var_obj);
 	
     }
   public void outMethodDecl(MethodDecl node)
     {
 	//TO DO: Store number of bytes needed for parameters as size of the method
-	this.mCurrentST.popScope();
+	this.current_st.popScope();
     }
   public void inTopClassDecl(TopClassDecl node) 
     {
 	String class_name = node.getName();
-	STE ste = mCurrentST.lookup(class_name);
+	STE ste = current_st.lookup(class_name);
 	if(ste != null)
 	{
 		throw new InternalException("Class already present");
@@ -113,15 +113,15 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	//Scope scope = new Scope(null);
 	ClassSTE class_obj = new ClassSTE(node.getName(), false, null);
 	//ste.mName = class_name;	
-	mCurrentST.insert((STE)class_obj);
-	class_obj.mScope = new Scope(mCurrentST.mStackScope.peek());
-	mCurrentST.mStackScope.push(class_obj.mScope);
-	this.mCurrentClass = class_obj; 
+	current_st.insert((STE)class_obj);
+	class_obj.mScope = new Scope(current_st.mStackScope.peek());
+	current_st.mStackScope.push(class_obj.mScope);
+	this.current_class = class_obj; 
     }
      public void outTopClassDecl(TopClassDecl topClassDecl) {
-        this.mCurrentST.popScope();
+        this.current_st.popScope();
     }
    public SymTable getSymTable() {
-        return this.mCurrentST;
+        return this.current_st;
     }
 }

@@ -17,9 +17,9 @@ import java.io.PrintStream;
  * WB: Simplified to only expression types
  */
 public class SymTable {
-    private final HashMap<Node,Type> mExpType = new HashMap<Node,Type>();
+    public final HashMap<Node,Type> mExpType = new HashMap<Node,Type>();
     public final Stack<Scope> mStackScope = new Stack();
-    private final Scope mGlobalScope = new Scope(null);
+    public final Scope mGlobalScope = new Scope(null);
 
     public SymTable() {
 	this.mStackScope.push(this.mGlobalScope);
