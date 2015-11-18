@@ -62,7 +62,7 @@ public class MJDriver {
           symTable.outputDot((PrintStream)stout); 
           // create Type-Checker and an AVRgenVisitor instances
           symtable.SymTable globalST = new symtable.SymTable();
-          ast_root.accept(new CheckTypes(globalST));
+          //ast_root.accept(new CheckTypes(globalST));
           /*java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),globalST));
           System.out.println("Printing Atmel assembly to " + filename + ".s");*/

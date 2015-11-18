@@ -9,10 +9,10 @@ public class MethodSTE extends STE
 {
 	public Signature mSignature;
 	public Scope mScope;
-	public MethodSTE(Signature sig, String name)
+	public MethodSTE(Signature sig, Scope scope, String name)
 	{
 		this.mSignature = sig;
-		//this.mScope = scope;
+		this.mScope = scope;
 		this.mName = name;
 	}
 	
@@ -24,7 +24,7 @@ public class MethodSTE extends STE
 	public int outputDot(PrintStream printStream, int n) {
 <<<<<<< HEAD
         int n2 = n;
-        String string = this.mSignature == null ? "null" : this.mSignature.tostring();
+        String string = this.mSignature == null ? "null" : this.mSignature.toString();
         String string2 = "\t" + n2 + " [label=\" <f0> MethodSTE " + "| <f1> mName = " + this.mName + "| <f2> mSignature = " + string + "| <f3> mScope \"];";
 =======
 		String output1;
