@@ -20,6 +20,7 @@ public class MethodSTE extends STE
 	{
 		return this.mSignature;
 	}
+	
 	public int outputDot(PrintStream printStream, int n) {
         int n2 = n;
         String string = this.mSignature == null ? "null" : this.mSignature.toString();

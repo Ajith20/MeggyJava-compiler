@@ -11,12 +11,14 @@ import exceptions.InternalException;
 public class Scope
 {
 	public HashMap<String, STE> mHashMap = new HashMap();
-    	public Scope mEnclosing;
+    public Scope mEnclosing;
 	private final List<String> scope_list = new LinkedList<String>();
-	 public Scope(Scope scope) 
+
+	public Scope(Scope scope) 
 	{
 	        this.mEnclosing = scope;
-        }
+    }
+
 	public STE lookup(String ste_name) 
 	{
 		if (mHashMap.containsKey(ste_name)) 
@@ -24,7 +26,8 @@ public class Scope
 		    return mHashMap.get(ste_name);
 		}
 		return null;
-        }
+    }
+
 	public void insert(STE ste) 
 	{
 		String name = ste.mName;
@@ -36,8 +39,9 @@ public class Scope
 		}
 		mHashMap.put(name, ste);
 		this.scope_list.add(name);
-    	}
-	 public int outputDot(PrintStream printStream, int n) {
+    }
+
+	public int outputDot(PrintStream printStream, int n) {
         String string;
         int n2 = n;
         String string2 = "\t" + n2 + " [label=\" <f0> Scope ";
@@ -61,4 +65,5 @@ public class Scope
         }
         return n;
     }
+    
 }
