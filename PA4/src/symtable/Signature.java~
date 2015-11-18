@@ -31,15 +31,4 @@ public class Signature
 	{
 		return (Type)this.formal_parameters.get(num);
 	}
-	public String tostring()
-	{
-		String str = "(";
-		Iterator<Type> iterator = formal_parameters.iterator();
-		while(iterator.hasNext())
-		{
-			str = str + iterator.next().toString() + ", ";
-		}
-		str = str + ") returns " + return_type.toString();
-		return str;
-	}
 }
