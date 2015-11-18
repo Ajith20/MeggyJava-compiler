@@ -61,6 +61,7 @@ public class MJDriver {
           System.out.println("Printing symbol table to " + filename + ".ST.dot");
           symTable.outputDot((PrintStream)stout); 
           // create Type-Checker and an AVRgenVisitor instances
+<<<<<<< HEAD
           //symtable.SymTable globalST = new symtable.SymTable();
           //ast_root.accept(new CheckTypes(globalST));
 	 // Set<String> listofEntries = globalST.mStackScope.peek().mHashMap.keySet();
@@ -72,6 +73,10 @@ public class MJDriver {
           } */ 
                  
 
+=======
+          symtable.SymTable globalST = new symtable.SymTable();
+          ast_root.accept(new CheckTypes(globalST));
+>>>>>>> dc540f7dadc7b86b467b39eaa33e5fc0e6254447
           java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));
          //System.out.println(globalST.mGlobalScope==globalST.);
           ast_root.accept(new AVRgenVisitor(new PrintWriter(avrsout),symTable));

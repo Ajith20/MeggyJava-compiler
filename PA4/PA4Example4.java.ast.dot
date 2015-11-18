@@ -8,12 +8,6 @@ digraph ASTGraph {
 2 -> 3
 4 [ label="ToneLiteral\nMeggy.Tone.C3" ];
 3 -> 4
-5 [ label="IntLiteral\n8" ];
+5 [ label="ColorLiteral\nMeggy.Color.VIOLET" ];
 3 -> 5
-6 [ label="MeggyToneStart" ];
-2 -> 6
-7 [ label="ToneLiteral\nMeggy.Tone.C3" ];
-6 -> 7
-8 [ label="IntLiteral\n19" ];
-6 -> 8
 }

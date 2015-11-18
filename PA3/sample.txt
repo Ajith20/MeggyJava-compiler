@@ -1,1 +1,37 @@
-make: Nothing to be done for `source'.
+java -jar JLex.jar src/mjparser/mj.lex
+Processing first section -- user code.
+Processing second section -- JLex declarations.
+Processing third section -- lexical rules.
+Creating NFA machine representation.
+NFA comprised of 851 states.
+Working on character classes.:::::::::..:.::::::::::::.::....:.:..:..:........::.::...:....:......:....:......:..:..........:..........................:.............:.............:..:::...................................................::...........:.......::...........................:..::.............:....:...............................:.............::...:.............:..............................................................................................................:.................................................................:...................................................................................................................::..:::.:.:...........
+NFA has 70 distinct character classes.
+Creating DFA transition table.
+Working on DFA states......................................................................................................................................................................................................................................................................................................
+Minimizing DFA transition table.
+285 states after removal of redundant states.
+Outputting lexical analyzer code.
+mv src/mjparser/mj.lex.java src/mjparser/Yylex.java
+javac -classpath /home/ajith/Documents/compiler/Null-Terminators/PA3:src src/MJPA2Driver.java
+cd src; jar cmf MJPA2MainClass.txt MJPA2.jar *.class */*.class */*/*.class -C /home/ajith/Documents/compiler/Null-Terminators/PA3 java_cup  
+cd ..
+mv src/MJPA2.jar .
+javac -classpath /home/ajith/Documents/compiler/Null-Terminators/PA3:src src/MJDriver.java
+src/mjparser/mj.java:1101: error: no suitable constructor found for MethodDecl(int,int,IType,String,LinkedList<Formal>,LinkedList<VarDecl>,BlockStatement,<null>)
+		 RESULT = new MethodDecl(p.line, p.pos, (IType)t, id.lexeme, fmlist, new LinkedList<VarDecl>(), new BlockStatement(p.line, p.pos, stlist), null); 
+		          ^
+    constructor MethodDecl.MethodDecl(int,int,IType,String,List<Formal>,List<VarDecl>,List<IStatement>) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor MethodDecl.MethodDecl(int,int,IType,String,List<Formal>,List<VarDecl>,List<IStatement>,IExp) is not applicable
+      (actual argument BlockStatement cannot be converted to List<IStatement> by method invocation conversion)
+src/mjparser/mj.java:1128: error: no suitable constructor found for MethodDecl(int,int,Object,String,LinkedList<Formal>,LinkedList<VarDecl>,BlockStatement,Integer)
+		 RESULT = new MethodDecl(p.line, p.pos, t, id.lexeme, fmlist, new LinkedList<VarDecl>(), new BlockStatement(p.line, p.pos, stlist), e); 
+		          ^
+    constructor MethodDecl.MethodDecl(int,int,IType,String,List<Formal>,List<VarDecl>,List<IStatement>) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor MethodDecl.MethodDecl(int,int,IType,String,List<Formal>,List<VarDecl>,List<IStatement>,IExp) is not applicable
+      (actual argument Object cannot be converted to IType by method invocation conversion)
+Note: src/mjparser/mj.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 errors
+make: *** [src/MJDriver.class] Error 1

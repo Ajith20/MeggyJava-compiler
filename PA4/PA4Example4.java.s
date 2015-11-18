@@ -26,34 +26,10 @@
  # push two byte expression onto stack 
  push   r25 
  push   r24
-  # Load constant int  
- ldi    r24,lo8(8) 
- ldi    r25,hi8(8) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-### Meggy.toneStart(tone, time_ms) call 
- # load a two byte expression off stack 
- pop    r22 
- pop    r23 
- # load a two byte expression off stack 
- pop    r24 
- pop    r25 
- call   _Z10Tone_Startjj
-# Push Meggy.Tone.C3 onto the stack. 
- ldi    r25, hi8(61157) 
- ldi    r24, lo8(61157) 
- # push two byte expression onto stack 
- push   r25 
- push   r24
-  # Load constant int  
- ldi    r24,lo8(19) 
- ldi    r25,hi8(19) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
+  # Color expression  
+ ldi    r22,6 
+  # push one byte expression onto stack 
+ push   r22 
 ### Meggy.toneStart(tone, time_ms) call 
  # load a two byte expression off stack 
  pop    r22 
