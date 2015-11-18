@@ -121,7 +121,36 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
       out.println(" # equality check expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n cp    r24, r18 \n cpc   r25, r19 \n breq " + b +" \n # result is false \n " + a +": \n ldi     r24, 0 \n jmp      " + c +" \n # result is true \n " + b +": \n ldi     r24, 1 \n # store result of equal expression \n " + c +": \n # push one byte expression onto stack \n push   r24 \n ");
 	}
    }
-
+   public void outLtExp(LtExp node)
+    {
+        String a = new Label().toString();
+	String b = new Label().toString();
+	String c = new Label().toString();
+	String d = new Label().toString();
+	String e = new Label().toString();
+	boolean lexp1 = node.getLExp() instanceof IntLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+	boolean lexp3 = node.getLExp() instanceof ColorLiteral;
+	boolean rexp3 = node.getRExp() instanceof ColorLiteral;
+	 if ( lexp2 && rexp2  )
+          {
+		out.println(" # less than expression \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r24 \n cp    r24, r18 \n brlt "+b+" \n # load false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # load true \n "+b+": \n ldi    r24, 1 \n # push result of less than \n "+c+": \n # push one byte expression onto stack \n push   r24");
+	  }
+	else if ( lexp1 && rexp2  )
+	{
+		out.println(" # less than expression \n # load a one byte expression off stack \n pop    r18 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # promoting a byte to an int \n tst     r18 \n brlt     "+d+" \n ldi    r19, 0 \n jmp    "+e+" \n "+d+": \n ldi    r19, hi8(-1) \n "+e+": \n cp    r24, r18 \n cpc   r25, r19 \n brlt "+b+" \n # load false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # load true \n "+b+": \n ldi    r24, 1 \n # push result of less than \n "+c+": \n # push one byte expression onto stack \n push   r24");
+	}
+	else if ( lexp2 && rexp1  )
+	{
+		out.println(" # less than expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a one byte expression off stack \n pop    r24 \n # promoting a byte to an int \n tst     r24 \n brlt     "+d+" \n ldi    r25, 0 \n jmp    "+e+" \n "+d+": \n ldi    r25, hi8(-1) \n "+e+": \n cp    r24, r18 \n cpc   r25, r19 \n brlt "+b+" \n # load false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # load true \n "+b+": \n ldi    r24, 1 \n # push result of less than \n "+c+": \n # push one byte expression onto stack \n push   r24");
+	}
+	else
+	{
+      		out.println("# less than expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n cp    r24, r18 \n cpc   r25, r19 \n brlt "+ b +" \n # load false \n "+a+": \n ldi     r24, 0 \n jmp      "+c+" \n # load true \n "+b+": \n ldi    r24, 1 \n # push result of less than \n "+c+": \n # push one byte expression onto stack \n push   r24");
+	}
+    }
    public void outMinusExp(MinusExp node)
    {
 	String a = new Label().toString();
@@ -194,6 +223,10 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
      
       out.println(" ### Meggy.setPixel(x,y,color) call \n # load a one byte expression off stack \n pop    r20 \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6DrawPxhhh \n call   _Z12DisplaySlatev ");
    }
+   public void outMeggyToneStart(MeggyToneStart node)
+    {
+        out.println("### Meggy.toneStart(tone, time_ms) call \n # load a two byte expression off stack \n pop    r22 \n pop    r23 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n call   _Z10Tone_Startjj");
+    }
    public void outMeggyCheckButton(MeggyCheckButton node)
    {
 	String a = new Label().toString();
@@ -315,6 +348,9 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
     {
          out.println("  # Color expression  \n ldi    r22," + node.getIntValue() + " \n  # push one byte expression onto stack \n push   r22 ");
     }
+    {
+        out.println("# Push Meggy.Tone.C3 onto the stack. \n ldi    r25, hi8("+ node.getIntValue() +") \n ldi    r24, lo8("+ node.getIntValue() +") \n # push two byte expression onto stack \n push   r25 \n push   r24");
+    }
     public void outTrueExp(TrueLiteral node)
     {
         out.println(" # True/1 expression \n ldi    r22, 1 \n # push one byte expression onto stack \n push   r22 ");
@@ -327,67 +363,7 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
     {
         out.println("  ### Meggy.getPixel(x,y) call \n # load a one byte expression off stack \n pop    r22 \n # load a one byte expression off stack \n pop    r24 \n call   _Z6ReadPxhh \n # push one byte expression onto stack \n push   r24 ");
     }
-    // PA4 AVR Stubs
-    public void outBoolType(BoolType node) {}
-    public void outButtonType(ButtonType node) {}
-    public void outByteType(ByteType node) {}
-    public void outCallExp(CallExp node) {}
-    public void outCallStatement(CallStatement node) {}
-    public void outColorType(ColorType node) {}
-    public void outFormal(Formal node) {}
-    public void outIdLiteral(IdLiteral node) {}
-    public void outIntType(IntType node) {}
-    public void outLtExp(LtExp node) {}
-	
-    public void outMeggyToneStart(MeggyToneStart node) 
-    {
-		out.println("	### Meggy.toneStart(tone, time_ms) call");
-		out.println("	# load a two byte expression off stack");
-		out.println("	pop    r22");
-		out.println("	pop    r23");
-		out.println("	# load a two byte expression off stack");
-		out.println("	pop    r24");
-		out.println("	pop    r25");
-		out.println("	call   _Z10Tone_Startjj");
-    }
-	
-    public void outMethodDecl(MethodDecl node) {}
-	
-    public void outThisExp(ThisLiteral node)
-	{
-		out.println("	# loading the implicit 'this'");
-		out.println("	# load a two byte variable from base+offset");
-		out.println("	ldd    r31, Y + 2");
-		out.println("	ldd    r30, Y + 1");
-		out.println("	# push two byte expression onto stack");
-		out.println("	push   r31");
-		out.println("	push   r30");
-	}
-	
-    public void outToneExp(ToneLiteral node) 
-	{
-		String tone = node.getLexeme();
-		int toneVal = node.getIntValue();
-		out.println("	# Push " + tone + " onto the stack.");
-		out.println("	ldi     r25, hi8(" + toneVal + ")");
-		out.println("	ldi		r24, lo8(" + toneVal + ")");
-		out.println("	# push two byte expression onto stack");
-		out.println("	push	r25");
-		out.println("	push	r24");
-	}
-	
-    public void outToneType(ToneType node) {}
-	public void visitTopClassDecl(TopClassDecl node) {}
-    public void outTopClassDecl(TopClassDecl node) {}
-    public void outVoidType(VoidType node) {}
-
-    public void outProgram(Program node){
-        out.flush();
-    }
-    public void outBlockStatement(BlockStatement node){
-        //do nothing
-    }
-    
+ 
 
 
 }

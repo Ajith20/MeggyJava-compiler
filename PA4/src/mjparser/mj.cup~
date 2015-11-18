@@ -235,7 +235,7 @@ statement_list ::=  statement_list:list statement:s
 			 | INT_LITERAL:a
 			{: RESULT = new IntLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | TONE_LITERAL:a
-			{: RESULT = new ToneLiteral(a.line, a.pos, a.lexeme, a.value); :}
+			{: RESULT new ToneLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | COLOR_LITERAL:a
 			{: RESULT = new ColorLiteral(a.line, a.pos, a.lexeme, a.value); :}
 			 | BUTTON_LITERAL:a
