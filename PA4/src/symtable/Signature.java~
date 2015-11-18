@@ -39,7 +39,7 @@ public class Signature
 		{
 			str = str + iterator.next().toString() + ", ";
 		}
-		str = str + ") returns " + return_type.toString();
+		str = str + ") returns" + return_type.toString();
 		return str;
 	}
 }

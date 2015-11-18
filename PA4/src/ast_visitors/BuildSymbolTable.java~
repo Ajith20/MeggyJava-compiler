@@ -73,10 +73,15 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	mCurrentST.insert((STE)meth_obj);
 	meth_obj.mScope = new Scope(mCurrentST.mStackScope.peek());
 	mCurrentST.mStackScope.push(meth_obj.mScope);
+	this.offset =1;
 	VarSTE var_obj = new VarSTE("this", Type.getClassType((String)this.mCurrentClass.mName), 1);
+        this.offset = this.offset + var_obj.mType.getAVRTypeSize();
         mCurrentST.insert((STE)var_obj);
-	this.offset = 1;
     }
+  public void inFormal(Formal node)
+  {
+	
+  }
   public void outFormal(Formal node)
     {
 	String formal_name = node.getName();
@@ -87,6 +92,8 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	}
 	VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset);
 	//Increment offset based on type: TO DO
+        this.offset = this.offset + var_obj.mType.getAVRTypeSize(); 
+	
 	mCurrentST.insert((STE)var_obj);
 	
     }
