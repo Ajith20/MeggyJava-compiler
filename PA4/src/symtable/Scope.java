@@ -42,26 +42,31 @@ public class Scope
     }
 
 	public int outputDot(PrintStream printStream, int n) {
-        String string;
-        int n2 = n;
-        String string2 = "\t" + n2 + " [label=\" <f0> Scope ";
+        String output1;
+        String output2 = "\t" + n + 
+						 " [label=\" <f0> Scope ";
         Iterator<String> iterator = this.scope_list.iterator();
-        int n3 = 1;
+        int i = 1;
         while (iterator.hasNext()) {
-            string = iterator.next();
-            string2 = string2 + "| <f" + n3 + "> " + "mDict\\[" + string + "\\] ";
-            ++n3;
+            output1 = iterator.next();
+            output2 = output2 + "| <f" + 
+					  i + "> " + "mDict\\[" + 
+					  output1 + "\\] ";
+            ++i;
         }
-        string2 = string2 + "\"];";
-        printStream.println(string2);
+        output2 = output2 + "\"];";
+        printStream.println(output2);
         iterator = this.scope_list.iterator();
-        n3 = 1;
+        i = 1;
         while (iterator.hasNext()) {
             string = iterator.next();
-            STE sTE = this.mHashMap.get(string);
-            printStream.println("\t" + n2 + ":<f" + n3 + "> -> " + ++n + ":<f0>;");
-            n = sTE.outputDot(printStream, n);
-            ++n3;
+            STE tempSTE = this.mHashMap.get(string);
+            printStream.println("\t" + m + 
+								":<f" + i + 
+								"> -> " + ++n + 
+								":<f0>;");
+            n = tempSTE.outputDot(printStream, n);
+            ++i;
         }
         return n;
     }
