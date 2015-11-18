@@ -213,15 +213,16 @@ public class CheckTypes extends DepthFirstVisitor
         }
         this.mCurrentST.setExpType(node, Type.BOOL);
     }
-    public void outIfStatement(IfStatement node)
+
+    public void outIfStatement(IfStatement node, String a, String b)
     {
         if(this.mCurrentST.getExpType(node.getExp()) != Type.BOOL) {
             throw new SemanticException(
-                                        "Invalid right operand type for operator &&",
+                                        "If statement must contain a boolean value ",
                                         node.getExp().getLine(), node.getExp().getPos());
         }
         
-        this.mCurrentST.setExpType(node, Type.BOOL);
+        this.mCurrentST.setExpType(node, Type.VOID);
     }
     
     public void outWhileStatement(WhileStatement node){
@@ -269,6 +270,7 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	private Type typeCheck(IExp nodeExp, String nodeId, int nodeLine, int nodePos, LinkedList<IExp> nodeArgs)
 	{
+
 		Type locType1 = this.mCurrentST.getExpType(nodeExp);
 		if((locType1 == null) || (!locType1.isRef()))
 			throw new SemanticException("Method call receiver must be a class ", nodeLine, nodePos);
@@ -329,13 +331,13 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outCallExp(CallExp node)
 	{
-		Type locType = typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
-		this.mCurrentST.setExpType(node, locType);
+		//Type locType = typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
+		//this.mCurrentST.setExpType(node, locType);
 	}
 	
 	public void outCallStatement(CallStatement node)
 	{
-		typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
+		//typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
 	}
 	
 	public void outColorType(ColorType node)
@@ -371,7 +373,7 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outMethodDecl(MethodDecl node)
 	{
-		this.mCurrentST.popScope();
+		/*this.mCurrentST.popScope();
 		MethodSTE localMethodSTE = (MethodSTE)this.mCurrentST.lookup(node.getName());
 		
 		Type locType1 = localMethodSTE.getSignature().getReturnType();
@@ -379,7 +381,7 @@ public class CheckTypes extends DepthFirstVisitor
 		if((locType1 == Type.VOID) && (locType2 != null)) 
 			throw new SemanticException("Type returned from method is invalid " + node.getName() + node.getLine() + node.getPos());
 		if((locType1 != locType2) && (locType2 != null))
-			throw new SemanticException("Type returned from method is invalid " + node.getName() + node.getLine() + node.getPos());
+			throw new SemanticException("Type returned from method is invalid " + node.getName() + node.getLine() + node.getPos());*/
 	}
 	
 	public void outNewExp(NewExp node)
@@ -407,7 +409,7 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outTopClassDecl(TopClassDecl node)
 	{
-		this.mCurrentST.popScope();
+		//this.mCurrentST.popScope();
 	}
 	
 	public void outVoidType(VoidType node)
