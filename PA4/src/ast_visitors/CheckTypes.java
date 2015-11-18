@@ -384,14 +384,14 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outNewExp(NewExp node)
 	{
-		STE currSTE = this.mCurrentST.lookup(node.getId());
-		if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
-		this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
+		//STE currSTE = this.mCurrentST.lookup(node.getId());
+		//if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
+		//this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
 	}
 	
 	public void outThisExp(ThisLiteral node)
 	{
-
+        //if(this.mCurrentST.lookup(node.getLexeme()) == null) throw new InternalException("'This' being called without a class");
 	//	if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
 	//	this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
 	}
