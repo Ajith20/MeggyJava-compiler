@@ -7,7 +7,7 @@ digraph SymTable {
 	1:<f4> -> 2:<f0>;
 	2 [label=" <f0> Scope | <f1> mDict\[inBounds\] "];
 	2:<f1> -> 3:<f0>;
-	3 [label=" <f0> MethodSTE | <f1> mName = inBounds| <f2> mSignature = symtable.Signature@72f1cbd7| <f3> mScope "];
+	3 [label=" <f0> MethodSTE | <f1> mName = inBounds| <f2> mSignature = symtable.Signature@7020b3a3| <f3> mScope "];
 	3:<f3> -> 4:<f0>;
 	4 [label=" <f0> Scope | <f1> mDict\[this\] | <f2> mDict\[a\] | <f3> mDict\[b\] | <f4> mDict\[c\] | <f5> mDict\[d\] | <f6> mDict\[e\] | <f7> mDict\[f\] "];
 	4:<f1> -> 5:<f0>;
@@ -29,7 +29,7 @@ digraph SymTable {
 	12:<f4> -> 13:<f0>;
 	13 [label=" <f0> Scope | <f1> mDict\[inBounds1\] "];
 	13:<f1> -> 14:<f0>;
-	14 [label=" <f0> MethodSTE | <f1> mName = inBounds1| <f2> mSignature = symtable.Signature@607dcb35| <f3> mScope "];
+	14 [label=" <f0> MethodSTE | <f1> mName = inBounds1| <f2> mSignature = symtable.Signature@72f1cbd7| <f3> mScope "];
 	14:<f3> -> 15:<f0>;
 	15 [label=" <f0> Scope | <f1> mDict\[this\] | <f2> mDict\[a\] | <f3> mDict\[b\] | <f4> mDict\[c\] | <f5> mDict\[d\] | <f6> mDict\[e\] | <f7> mDict\[f\] "];
 	15:<f1> -> 16:<f0>;

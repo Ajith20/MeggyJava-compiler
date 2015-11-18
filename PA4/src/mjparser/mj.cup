@@ -222,10 +222,9 @@ statement_list ::=  statement_list:list statement:s
 			 | expression:a TIMES:op expression:b
 			{: RESULT = new MulExp(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | MINUS:op expression:a
-			{: 	
-				RESULT = new NegExp(1, 1, a); 
-				 :}
-			 | expression:e1 LT:op expression:e2 {: RESULT = new LtExp(op.line, op.pos, e1, e2); :}
+			{: RESULT = new NegExp(1, 1, a); :}
+			 | expression:e1 LT:op expression:e2 
+            {: RESULT = new LtExp(op.line, op.pos, e1, e2); :}
 			 | MEGGYGETPIXEL:op LPAREN expression:a COMMA expression:b RPAREN 
 			{: RESULT = new MeggyGetPixel(op.line, op.pos, (IExp)a, (IExp)b); :}
 			 | MEGGYCHECKBUTTON:op LPAREN expression:a RPAREN
@@ -254,7 +253,8 @@ statement_list ::=  statement_list:list statement:s
             {: RESULT = new ThisLiteral(t.line, t.pos, t.lexeme, t.value); :}
     		 | NEW:op ID:id LPAREN RPAREN 
             {: RESULT = new NewExp(op.line, op.pos, id.lexeme); :}
-   			 | expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN {: RESULT = new CallExp(dt.line, dt.pos, e1, id.lexeme, 			list); :}				
+   			 | expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN 
+            {: RESULT = new CallExp(dt.line, dt.pos, e1, id.lexeme, list); :}				
 ; 
 
 exp_list ::= exp_list:list COMMA expression:exp   {: if(exp!=null) {list.add(exp); } RESULT=list; :}

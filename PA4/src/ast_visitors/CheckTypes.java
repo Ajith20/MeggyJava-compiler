@@ -339,6 +339,13 @@ public class CheckTypes extends DepthFirstVisitor
 	{
 		//typeCheck(node.getExp(), node.getId(), node.getLine(), node.getPos(), node.getArgs());
 	}
+
+    public void outIdLiteral(IdLiteral node)
+    {
+        STE locSTE = this.mCurrentST.lookup(node.getLexeme());
+        if(locSTE == null)
+            throw new SemanticException("Undeclared variable " + node.getLexeme(), node.getLine(), node.getPos());
+    }
 	
 	public void outColorType(ColorType node)
 	{
@@ -347,7 +354,7 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outFormal(Formal node)
 	{
-		// Do nothing 
+
 	}
 	
 	public void outIntType(IntType node)
@@ -370,6 +377,11 @@ public class CheckTypes extends DepthFirstVisitor
                    node.getLExp().getPos());
        }
 	}
+
+    public void inMethodDecl(MethodDecl node)
+    {
+        //this.mCurrentST.pushScope(node.getName());
+    }
 	
 	public void outMethodDecl(MethodDecl node)
 	{
@@ -386,16 +398,16 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outNewExp(NewExp node)
 	{
-		//STE currSTE = this.mCurrentST.lookup(node.getId());
-		//if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
-		//this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
+		/*STE currSTE = this.mCurrentST.lookup(node.getId());
+		if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
+		this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));*/
 	}
 	
 	public void outThisExp(ThisLiteral node)
 	{
-        //if(this.mCurrentST.lookup(node.getLexeme()) == null) throw new InternalException("'This' being called without a class");
-	//	if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
-	//	this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
+        /*if(this.mCurrentST.lookup(node.getLexeme()) == null) throw new InternalException("'This' being called without a class");
+		if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
+		this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));*/
 	}
 	
 	public void outToneExp(ToneLiteral node) {

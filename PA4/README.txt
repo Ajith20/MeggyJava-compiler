@@ -5,6 +5,8 @@ Features implemented:
 - Creates a symbol table that accurately represents the static scoping of the MeggyJava programs of PA4.
 - Check for undefined symbols.
 - Performs correct type checking for the PA4 grammar rules according to the MJ.jar reference compiler type errors.
+  - LT node
+  - Meggy.toneStart
 - Continues to perform code generation to AVR assembly code for the PA3 AST nodes using a visitor.
 - Performs correct code generation to AVR assembly code for the added features in PA4 grammar.
   - Meggy.toneStart
@@ -60,19 +62,3 @@ Report and Evaluation of Partner Work (joint):
     
 - Meeting schedule:
     - We used Slack to message each other, talked about the project after classes, and sometimes met to work on it in Smith.
-    
-Report and Evaluation of Partner Work (individual):
-
-- What are some organizational strategies that you and your partner are using that are working well?
-    - We use Slack to message each other about the project, and write detailed commit messages.  
-    
-- Specifically how did you and your partner divide the work? (e.g., I wrote the type checker for the following set   of grammar rules...)
-    - We both worked on the extension of mjcup.
-    - I worked on type checking and the test cases.
-    - Ajith worked on AVRgen and the symbol table classes.
-    
-- How could the division of work between the partners be improved?
-    - I think it would be helpful if we collaborated on parts like the symbol table classes, because of how interconnected it is with all of the other parts of the project (type checking, AVRgen, etc.)
-    
-- How could the interaction between the partners be improved?
-    - We could meet in person more often, for pair programming.
