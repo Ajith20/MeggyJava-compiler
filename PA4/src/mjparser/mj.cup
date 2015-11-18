@@ -244,9 +244,12 @@ statement_list ::=  statement_list:list statement:s
 			{: RESULT = new NotExp(1, 1, (IExp)a); :}
 			 | LPAREN:op expression:a RPAREN 
 			{: RESULT = a; :} 
-			| ID:id {: RESULT = new IdLiteral(id.line, id.pos, id.lexeme); :}
-   			 | THIS:t {: RESULT = new ThisLiteral(t.line, t.pos, t.lexeme, t.value); :}
-    			| NEW:op ID:id LPAREN RPAREN {: RESULT = new NewExp(op.line, op.pos, id.lexeme); :}
+			 | ID:id 
+            {: RESULT = new IdLiteral(id.line, id.pos, id.lexeme); :}
+   			 | THIS:t 
+            {: RESULT = new ThisLiteral(t.line, t.pos, t.lexeme, t.value); :}
+    		 | NEW:op ID:id LPAREN RPAREN 
+            {: RESULT = new NewExp(op.line, op.pos, id.lexeme); :}
    			 | expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN {: RESULT = new CallExp(dt.line, dt.pos, e1, id.lexeme, 			list); :}				
 ; 
 

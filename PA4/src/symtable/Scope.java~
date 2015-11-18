@@ -11,12 +11,14 @@ import exceptions.InternalException;
 public class Scope
 {
 	public HashMap<String, STE> mHashMap = new HashMap();
-    	public Scope mEnclosing;
+    public Scope mEnclosing;
 	private final List<String> scope_list = new LinkedList<String>();
-	 public Scope(Scope scope) 
+
+	public Scope(Scope scope) 
 	{
 	        this.mEnclosing = scope;
-        }
+    }
+
 	public STE lookup(String ste_name) 
 	{
 		if (mHashMap.containsKey(ste_name)) 
@@ -24,7 +26,8 @@ public class Scope
 		    return mHashMap.get(ste_name);
 		}
 		return null;
-        }
+    }
+
 	public void insert(STE ste) 
 	{
 		String name = ste.mName;
@@ -35,8 +38,9 @@ public class Scope
 		    throw new InternalException("Redefined symbol " + name);
 		}
 		mHashMap.put(name, ste);
-		this.mDeclOrder.add(name);
-    	}
+		this.scope_list.add(name);
+    }
+
 	 public int outputDot(PrintStream printStream, int n) {
         String string;
         int n2 = n;
@@ -61,4 +65,5 @@ public class Scope
         }
         return n;
     }
+    
 }

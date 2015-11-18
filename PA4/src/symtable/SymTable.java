@@ -45,6 +45,7 @@ public class SymTable {
     /** When inserting an STE will just insert
      * it into the scope at the top of the scope stack.
      */
+
     public void insert( STE ste) {
         Scope deepestScope = this.mStackScope.peek();
 	deepestScope.insert(ste);
@@ -90,6 +91,7 @@ public class SymTable {
     {
     	return this.mExpType.get(exp);
     }
+    
     public void outputDot(PrintStream printStream) {
         printStream.println("digraph SymTable {");
         printStream.println("\tgraph [rankdir=\"LR\"];");

@@ -4,7 +4,7 @@ digraph SymTable {
 	0 [label=" <f0> Scope | <f1> mDict\[Solver\] "];
 	0:<f1> -> 1:<f0>;
 	1 [label=" <f0> ClassSTE | <f1> mName = Solver| <f2> mMain = false| <f3> mSuperClass = null| <f4> mScope "];
-	1:<f4> -> 2:<f0>
+	1:<f4> -> 2:<f0>;
 	2 [label=" <f0> Scope | <f1> mDict\[initMaze1\] | <f2> mDict\[initMaze2\] | <f3> mDict\[initMazeCool\] | <f4> mDict\[run\] | <f5> mDict\[inBounds\] | <f6> mDict\[isDark\] | <f7> mDict\[isBLUE\] | <f8> mDict\[findTargetOrMove\] | <f9> mDict\[move\] | <f10> mDict\[mazeRow\] | <f11> mDict\[mazeCol\] "];
 	2:<f1> -> 3:<f0>;
 	3 [label=" <f0> MethodSTE | <f1> mName = initMaze1| <f2> mSignature = () returns class_null;| <f3> mScope "];

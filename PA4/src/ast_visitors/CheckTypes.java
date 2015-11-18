@@ -20,6 +20,10 @@ import java.util.*;
 
 import symtable.SymTable;
 import symtable.Type;
+import symtable.STE;
+import symtable.ClassSTE;
+import symtable.MethodSTE;
+import symtable.Signature;
 import exceptions.InternalException;
 import exceptions.SemanticException;
 
@@ -266,19 +270,20 @@ public class CheckTypes extends DepthFirstVisitor
 	private Type typeCheck(IExp nodeExp, String nodeId, int nodeLine, int nodePos, LinkedList<IExp> nodeArgs)
 	{
 		Type locType1 = this.mCurrentST.getExpType(nodeExp);
-		if((locType1 == null) || (!locType1.isReference()))
-			throw new SemanticException("Method call receiver must be a class, nodeLine, nodePos);
+		if((locType1 == null) || (!locType1.isRef()))
+			throw new SemanticException("Method call receiver must be a class ", nodeLine, nodePos);
 		
-		ClassSTE locClassSTE = this.mCurrentST.lookupClass(locType1.getClassName());
+		ClassSTE locClassSTE = (ClassSTE)this.mCurrentST.lookup(locType1.getClassName());
 		
-		MethodSTE locMethodSTE = (MethodSTE)locClassSTE.getScope().lookup(nodeId);
+		//MethodSTE locMethodSTE = (MethodSTE)locClassSTE.lookup(nodeId);
+        MethodSTE locMethodSTE = (MethodSTE)this.mCurrentST.lookup(nodeId);
 		if(locMethodSTE == null)
-			throw new SemanticException("The method " + nodeId + " doesn't exist in class " + locClassSTE.getName(), nodeLine, nodePos);
+			throw new SemanticException("The method " + nodeId + " doesn't exist in class " + locClassSTE.mName + nodeLine + nodePos);
+
 		Signature locSignature = locMethodSTE.getSignature();
-		
 		int i = nodeArgs.size();
 		if(i != locSignature.formalCount())
-			throw new SemanticException("The method " + nodeId + " needs " + locSignature.formalCount() + " arguments", nodeLine, nodePos);
+			throw new SemanticException("The method " + nodeId + " needs " + locSignature.formalCount() + " arguments " + nodeLine + nodePos);
 		
 		IExp[] tempIExpArray = new IExp[i];
 		tempIExpArray = (IExp[])nodeArgs.toArray(tempIExpArray);
@@ -286,7 +291,7 @@ public class CheckTypes extends DepthFirstVisitor
 			Type locType2 = this.mCurrentST.getExpType(tempIExpArray[j]);
 			Type locType3 = locSignature.formalType(j);
 			if((locType3 != locType2) && ((locType3 != Type.INT) || (locType2 != Type.BYTE))) 
-				throw new SemanticException("Argument type for method " + nodeId + " is invalid", tempIExpArray[j].getLine(), tempIExpArray[j].getPos());
+				throw new SemanticException("Argument type for method " + nodeId + " is invalid ", tempIExpArray[j].getLine(), tempIExpArray[j].getPos());
 		}
 		return locSignature.getReturnType();
 	}
@@ -372,22 +377,23 @@ public class CheckTypes extends DepthFirstVisitor
 		Type locType1 = localMethodSTE.getSignature().getReturnType();
 		Type locType2 = this.mCurrentST.getExpType(node.getExp());
 		if((locType1 == Type.VOID) && (locType2 != null)) 
-			throw new SemanticException("Type returned from method is invalid", node.getName(), node.getLine(), node.getPos());
+			throw new SemanticException("Type returned from method is invalid " + node.getName() + node.getLine() + node.getPos());
 		if((locType1 != locType2) && (locType2 != null))
-			throw new SemanticException("Type returned from method is invalid", node.getName(), node.getLine(), node.getPos());
+			throw new SemanticException("Type returned from method is invalid " + node.getName() + node.getLine() + node.getPos());
 	}
 	
 	public void outNewExp(NewExp node)
 	{
 		STE currSTE = this.mCurrentST.lookup(node.getId());
-		if(currSTE == null) throw new SemanticException("Class undeclared", node.getLine(), node.getPos());
+		if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
 		this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
 	}
 	
 	public void outThisExp(ThisLiteral node)
 	{
-		if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
-		this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
+
+	//	if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
+	//	this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
 	}
 	
 	public void outToneExp(ToneLiteral node) {
