@@ -342,9 +342,9 @@ public class CheckTypes extends DepthFirstVisitor
 
     public void outIdLiteral(IdLiteral node)
     {
-        STE locSTE = this.mCurrentST.lookup(node.getLexeme());
+        /*STE locSTE = this.mCurrentST.lookup(node.getLexeme());
         if(locSTE == null)
-            throw new SemanticException("Undeclared variable " + node.getLexeme(), node.getLine(), node.getPos());
+            throw new SemanticException("Undeclared variable " + node.getLexeme(), node.getLine(), node.getPos());*/
     }
 	
 	public void outColorType(ColorType node)

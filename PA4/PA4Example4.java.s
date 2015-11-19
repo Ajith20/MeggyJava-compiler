@@ -38,11 +38,3 @@
  pop    r24 
  pop    r25 
  call   _Z10Tone_Startjj
-  
-
-
- /* epilogue start */ 
- endLabel:
- jmp endLabel 
- ret 
- .size   main, .-main 

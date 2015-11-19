@@ -37,10 +37,15 @@
  pop    r24 
  pop    r25
 call      run
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_initMaze1 
- .type  Solver_initMaze1, @function 
- Solver_initMaze1: 
+ .global _initMaze1 
+ .type  _initMaze1, @function 
+ initMaze1: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -52,7 +57,8 @@ call      run
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
+std Y + 2, r25
+std Y + 1, r24
 /* done with function sSolver_initMaze1 prologue */
 /* epilogue start for sampletest2_testfun1 */ 
  # no return value 
@@ -62,11 +68,16 @@ std Y + 1, r25
  pop    r28 
  pop    r29 
  ret 
- .size Solver_initMaze1, .-Solver_initMaze1
+ .size initMaze1, .- _initMaze1
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_initMaze2 
- .type  Solver_initMaze2, @function 
- Solver_initMaze2: 
+ .global _initMaze2 
+ .type  _initMaze2, @function 
+ initMaze2: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -78,7 +89,8 @@ std Y + 1, r25
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
+std Y + 2, r25
+std Y + 1, r24
 /* done with function sSolver_initMaze2 prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
@@ -122,11 +134,11 @@ std Y + 1, r25
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -175,11 +187,11 @@ call      mazeRow
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -228,11 +240,11 @@ call      mazeRow
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -281,11 +293,11 @@ call      mazeCol
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -300,11 +312,16 @@ call      mazeCol
  pop    r28 
  pop    r29 
  ret 
- .size Solver_initMaze2, .-Solver_initMaze2
+ .size initMaze2, .- _initMaze2
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_initMazeCool 
- .type  Solver_initMazeCool, @function 
- Solver_initMazeCool: 
+ .global _initMazeCool 
+ .type  _initMazeCool, @function 
+ initMazeCool: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -316,7 +333,8 @@ call      mazeCol
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
+std Y + 2, r25
+std Y + 1, r24
 /* done with function sSolver_initMazeCool prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
@@ -360,11 +378,11 @@ std Y + 1, r25
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -413,11 +431,11 @@ call      mazeRow
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -466,11 +484,11 @@ call      mazeRow
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -519,11 +537,11 @@ call      mazeCol
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -572,11 +590,11 @@ call      mazeCol
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -625,11 +643,11 @@ call      mazeRow
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -678,11 +696,11 @@ call      mazeCol
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -736,11 +754,16 @@ call      mazeRow
  pop    r28 
  pop    r29 
  ret 
- .size Solver_initMazeCool, .-Solver_initMazeCool
+ .size initMazeCool, .- _initMazeCool
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_run 
- .type  Solver_run, @function 
- Solver_run: 
+ .global _run 
+ .type  _run, @function 
+ run: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -752,7 +775,8 @@ call      mazeRow
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
+std Y + 2, r25
+std Y + 1, r24
 /* done with function sSolver_run prologue */
 #### function call 
  # put parameter values into appropriate registers
@@ -817,13 +841,13 @@ call      initMazeCool
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -838,11 +862,16 @@ call      move
  pop    r28 
  pop    r29 
  ret 
- .size Solver_run, .-Solver_run
+ .size run, .- _run
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_inBounds 
- .type  Solver_inBounds, @function 
- Solver_inBounds: 
+ .global _inBounds 
+ .type  _inBounds, @function 
+ inBounds: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -857,9 +886,10 @@ call      move
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
 /* done with function sSolver_inBounds prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
@@ -1142,11 +1172,16 @@ MJ_L1:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_inBounds, .-Solver_inBounds
+ .size inBounds, .- _inBounds
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_isDark 
- .type  Solver_isDark, @function 
- Solver_isDark: 
+ .global _isDark 
+ .type  _isDark, @function 
+ isDark: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -1161,9 +1196,10 @@ MJ_L1:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
 /* done with function sSolver_isDark prologue */
 # IdExp0 
   # load value for variable a 
@@ -1256,11 +1292,16 @@ MJ_L44:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_isDark, .-Solver_isDark
+ .size isDark, .- _isDark
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_isBLUE 
- .type  Solver_isBLUE, @function 
- Solver_isBLUE: 
+ .global _isBLUE 
+ .type  _isBLUE, @function 
+ isBLUE: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -1275,9 +1316,10 @@ MJ_L44:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
 /* done with function sSolver_isBLUE prologue */
 # IdExp0 
   # load value for variable a 
@@ -1370,11 +1412,16 @@ MJ_L54:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_isBLUE, .-Solver_isBLUE
+ .size isBLUE, .- _isBLUE
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_findTargetOrMove 
- .type  Solver_findTargetOrMove, @function 
- Solver_findTargetOrMove: 
+ .global _findTargetOrMove 
+ .type  _findTargetOrMove, @function 
+ findTargetOrMove: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -1391,11 +1438,12 @@ MJ_L54:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
-std Y + 5, r25
-std Y + 6, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
+std Y + 5, r18
+std Y + 6, r16
 /* done with function sSolver_findTargetOrMove prologue */
 # IdExp0 
   # load value for variable a 
@@ -1562,13 +1610,13 @@ MJ_L63:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -1590,11 +1638,16 @@ MJ_L65:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_findTargetOrMove, .-Solver_findTargetOrMove
+ .size findTargetOrMove, .- _findTargetOrMove
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_move 
- .type  Solver_move, @function 
- Solver_move: 
+ .global _move 
+ .type  _move, @function 
+ move: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -1611,11 +1664,12 @@ MJ_L65:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
-std Y + 5, r25
-std Y + 6, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
+std Y + 5, r18
+std Y + 6, r16
 /* done with function sSolver_move prologue */
   # Load constant int  
  ldi    r24,lo8(256) 
@@ -1778,13 +1832,13 @@ MJ_L82:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -1911,13 +1965,13 @@ MJ_L93:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2044,13 +2098,13 @@ MJ_L104:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2179,13 +2233,13 @@ MJ_L115:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2341,13 +2395,13 @@ MJ_L126:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2501,13 +2555,13 @@ MJ_L137:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2661,13 +2715,13 @@ MJ_L148:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2823,13 +2877,13 @@ MJ_L159:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 # load a one byte expression off stack
-pop r4
+pop r26
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -2867,11 +2921,16 @@ MJ_L83:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_move, .-Solver_move
+ .size move, .- _move
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_mazeRow 
- .type  Solver_mazeRow, @function 
- Solver_mazeRow: 
+ .global _mazeRow 
+ .type  _mazeRow, @function 
+ mazeRow: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -2887,10 +2946,11 @@ MJ_L83:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
-std Y + 5, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
+std Y + 5, r18
 /* done with function sSolver_mazeRow prologue */
 # IdExp0 
   # load value for variable a 
@@ -3020,11 +3080,11 @@ MJ_L170:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -3047,11 +3107,16 @@ MJ_L171:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_mazeRow, .-Solver_mazeRow
+ .size mazeRow, .- _mazeRow
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global Solver_mazeCol 
- .type  Solver_mazeCol, @function 
- Solver_mazeCol: 
+ .global _mazeCol 
+ .type  _mazeCol, @function 
+ mazeCol: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -3067,10 +3132,11 @@ MJ_L171:
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 1, r25
-std Y + 3, r25
-std Y + 4, r25
-std Y + 5, r25
+std Y + 2, r25
+std Y + 1, r24
+std Y + 3, r22
+std Y + 4, r20
+std Y + 5, r18
 /* done with function sSolver_mazeCol prologue */
 # IdExp0 
   # load value for variable a 
@@ -3200,11 +3266,11 @@ MJ_L182:
 #### function call 
  # put parameter values into appropriate registers
 # load a one byte expression off stack
-pop r1
+pop r20
 # load a one byte expression off stack
-pop r2
+pop r22
 # load a one byte expression off stack
-pop r3
+pop r24
 
  # receiver will be passed as first param 
  # load a two byte expression off stack 
@@ -3227,12 +3293,4 @@ MJ_L183:
  pop    r28 
  pop    r29 
  ret 
- .size Solver_mazeCol, .-Solver_mazeCol
-  
-
-
- /* epilogue start */ 
- endLabel:
- jmp endLabel 
- ret 
- .size   main, .-main 
+ .size mazeCol, .- _mazeCol

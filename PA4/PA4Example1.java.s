@@ -20,11 +20,15 @@
 
 
  
-<<<<<<< HEAD
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global something_inBounds 
- .type  something_inBounds, @function 
- something_inBounds: 
+ .global _inBounds 
+ .type  _inBounds, @function 
+ inBounds: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -45,16 +49,14 @@
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 0, r25
+std Y + 2, r25
 std Y + 1, r24
-std Y + 2, r23
 std Y + 3, r22
-std Y + 4, r21
-std Y + 5, r20
-std Y + 6, r19
-std Y + 7, r18
-std Y + 8, r17
-std Y + 9, r16
+std Y + 4, r20
+std Y + 6, r18
+std Y + 7, r16
+std Y + 8, r14
+std Y + 10, r12
 /* done with function ssomething_inBounds prologue */
 /* epilogue start for sampletest2_testfun1 */ 
  # no return value 
@@ -73,11 +75,16 @@ std Y + 9, r16
  pop    r28 
  pop    r29 
  ret 
- .size something_inBounds, .-something_inBounds
+ .size inBounds, .- _inBounds
+/* epilogue start */ 
+ endLabel: 
+ jmp endLabel 
+ ret 
+ .size   main, .-main
  .text 
- .global something1_inBounds1 
- .type  something1_inBounds1, @function 
- something1_inBounds1: 
+ .global _inBounds1 
+ .type  _inBounds1, @function 
+ inBounds1: 
  push   r29 
  push   r28 
  # make space for locals and params 
@@ -98,16 +105,14 @@ std Y + 9, r16
  in     r29,__SP_H__ 
  # save off parameters 
  
-std Y + 0, r25
+std Y + 2, r25
 std Y + 1, r24
-std Y + 2, r23
 std Y + 3, r22
-std Y + 4, r21
-std Y + 5, r20
-std Y + 6, r19
-std Y + 7, r18
-std Y + 8, r17
-std Y + 9, r16
+std Y + 4, r20
+std Y + 6, r18
+std Y + 7, r16
+std Y + 8, r14
+std Y + 10, r12
 /* done with function ssomething1_inBounds1 prologue */
 /* epilogue start for sampletest2_testfun1 */ 
  # no return value 
@@ -126,14 +131,4 @@ std Y + 9, r16
  pop    r28 
  pop    r29 
  ret 
- .size something1_inBounds1, .-something1_inBounds1
-=======
->>>>>>> dc540f7dadc7b86b467b39eaa33e5fc0e6254447
-  
-
-
- /* epilogue start */ 
- endLabel:
- jmp endLabel 
- ret 
- .size   main, .-main 
+ .size inBounds1, .- _inBounds1

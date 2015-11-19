@@ -196,11 +196,3 @@ MJ_L9:
 jmp MJ_L10
 MJ_L8:
 MJ_L10:
-  
-
-
- /* epilogue start */ 
- endLabel:
- jmp endLabel 
- ret 
- .size   main, .-main 
