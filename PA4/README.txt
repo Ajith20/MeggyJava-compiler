@@ -34,6 +34,8 @@ Test Cases provided:
 
 Notes:
 - Our PA3 TypeChecking specification was provided by Taghreed Bagies.
+- To demonstrate AVR code generation on .java files that might be getting unneccessary errors from the type checker, comment out the following line from MJDriver.java:
+  ast_root.accept(new CheckTypes(symTable));
 
 Report and Evaluation of Partner Work (joint):
 
