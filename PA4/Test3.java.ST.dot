@@ -1,0 +1,31 @@
+digraph SymTable {
+	graph [rankdir="LR"];
+	node [shape=record];
+	0 [label=" <f0> Scope | <f1> mDict\[sampletest2\] "];
+	0:<f1> -> 1:<f0>;
+	1 [label=" <f0> ClassSTE | <f1> mName = sampletest2| <f2> mMain = false| <f3> mSuperClass = null| <f4> mScope "];
+	1:<f4> -> 2:<f0>;
+	2 [label=" <f0> Scope | <f1> mDict\[testfun1\] | <f2> mDict\[testfun2\] | <f3> mDict\[testfun3\] "];
+	2:<f1> -> 3:<f0>;
+	3 [label=" <f0> MethodSTE | <f1> mName = testfun1| <f2> mSignature = (BYTE, ) returns class_null;| <f3> mScope "];
+	3:<f3> -> 4:<f0>;
+	4 [label=" <f0> Scope | <f1> mDict\[this\] | <f2> mDict\[a\] "];
+	4:<f1> -> 5:<f0>;
+	5 [label=" <f0> VarSTE | <f1> mName = this| <f2> mType = class_sampletest2;| <f3> mBase = Y| <f4> mOffset = 1"];
+	4:<f2> -> 6:<f0>;
+	6 [label=" <f0> VarSTE | <f1> mName = a| <f2> mType = BYTE| <f3> mBase = Y| <f4> mOffset = 3"];
+	2:<f2> -> 7:<f0>;
+	7 [label=" <f0> MethodSTE | <f1> mName = testfun2| <f2> mSignature = (BYTE, ) returns BOOL| <f3> mScope "];
+	7:<f3> -> 8:<f0>;
+	8 [label=" <f0> Scope | <f1> mDict\[this\] | <f2> mDict\[a\] "];
+	8:<f1> -> 9:<f0>;
+	9 [label=" <f0> VarSTE | <f1> mName = this| <f2> mType = class_sampletest2;| <f3> mBase = Y| <f4> mOffset = 1"];
+	8:<f2> -> 10:<f0>;
+	10 [label=" <f0> VarSTE | <f1> mName = a| <f2> mType = BYTE| <f3> mBase = Y| <f4> mOffset = 3"];
+	2:<f3> -> 11:<f0>;
+	11 [label=" <f0> MethodSTE | <f1> mName = testfun3| <f2> mSignature = () returns class_null;| <f3> mScope "];
+	11:<f3> -> 12:<f0>;
+	12 [label=" <f0> Scope | <f1> mDict\[this\] "];
+	12:<f1> -> 13:<f0>;
+	13 [label=" <f0> VarSTE | <f1> mName = this| <f2> mType = class_sampletest2;| <f3> mBase = Y| <f4> mOffset = 1"];
+}

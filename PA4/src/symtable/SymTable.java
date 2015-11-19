@@ -20,7 +20,7 @@ public class SymTable {
     public final HashMap<Node,Type> mExpType = new HashMap<Node,Type>();
     public final Stack<Scope> mStackScope = new Stack();
     public final Scope mGlobalScope = new Scope(null);
-
+    public final HashMap<String, MethodSTE> map = new HashMap<String,MethodSTE>();
     public SymTable() {
 	this.mStackScope.push(this.mGlobalScope);
     }

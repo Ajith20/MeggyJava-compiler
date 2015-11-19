@@ -115,10 +115,6 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	//ste.mName = class_name;	
 	current_st.insert((STE)class_obj);
 	class_obj.mScope = new Scope(current_st.mStackScope.peek());
-          if(current_st.mStackScope.peek() == current_st.mGlobalScope)
-	  {
-		System.out.println("***************");
-	   }
 	current_st.mStackScope.push(class_obj.mScope);
 	this.current_class = class_obj; 
     }

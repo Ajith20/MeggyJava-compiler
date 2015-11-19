@@ -69,6 +69,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	Signature sig_obj = new Signature(this.getType(node.getType()), formal_list);
 	//Scope scope = new Scope(null);
 	MethodSTE meth_obj = new MethodSTE(sig_obj,node.getName());
+	current_st.map.put(method_name, meth_obj);
 	//ste.mName = node.getName();
 	current_st.insert((STE)meth_obj);
 	meth_obj.mScope = new Scope(current_st.mStackScope.peek());

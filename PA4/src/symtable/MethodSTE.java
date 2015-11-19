@@ -9,6 +9,7 @@ public class MethodSTE extends STE
 {
 	public Signature mSignature;
 	public Scope mScope;
+	//public HashMap<String,STE> method_mapping = new HashMap<String,STE>();
 	public MethodSTE(Signature sig, String name)
 	{
 		this.mSignature = sig;

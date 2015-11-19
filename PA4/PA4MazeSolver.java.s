@@ -20,6 +20,66 @@
 
 
  
+# NewExp 
+ ldi    r24, lo8(0) 
+ ldi    r25, hi8(0) 
+ # allocating object of size 0 on heap 
+ call    malloc 
+ # push object address 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      run
+ .text 
+ .global Solver_initMaze1 
+ .type  Solver_initMaze1, @function 
+ Solver_initMaze1: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+/* done with function sSolver_initMaze1 prologue */
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_initMaze1, .-Solver_initMaze1
+ .text 
+ .global Solver_initMaze2 
+ .type  Solver_initMaze2, @function 
+ Solver_initMaze2: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+/* done with function sSolver_initMaze2 prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
  ldi    r25,hi8(0) 
@@ -49,6 +109,139 @@
   # Load constant int  
  ldi    r24,lo8(7) 
  ldi    r25,hi8(7) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
+  # Load constant int  
+ ldi    r24,lo8(0) 
+ ldi    r25,hi8(0) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+  # Load constant int  
+ ldi    r24,lo8(5) 
+ ldi    r25,hi8(5) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+  # Load constant int  
+ ldi    r24,lo8(5) 
+ ldi    r25,hi8(5) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
+  # Load constant int  
+ ldi    r24,lo8(7) 
+ ldi    r25,hi8(7) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+  # Load constant int  
+ ldi    r24,lo8(0) 
+ ldi    r25,hi8(0) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+  # Load constant int  
+ ldi    r24,lo8(7) 
+ ldi    r25,hi8(7) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+  # Casting int to byte by popping 
+ # 2 bytes off stack and only pushing low order bits 
+ # back on.  Low order bits are on top of stack. 
+ pop    r24 
+ pop    r25 
+ push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeCol
+  # Load constant int  
+ ldi    r24,lo8(5) 
+ ldi    r25,hi8(5) 
  # push two byte expression onto stack 
  push   r25 
  push   r24 
@@ -85,97 +278,46 @@
  pop    r24 
  pop    r25 
  push   r24 
-  # Load constant int  
- ldi    r24,lo8(5) 
- ldi    r25,hi8(5) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
  pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(7) 
- ldi    r25,hi8(7) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
+ pop    r25
+call      mazeCol
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_initMaze2, .-Solver_initMaze2
+ .text 
+ .global Solver_initMazeCool 
+ .type  Solver_initMazeCool, @function 
+ Solver_initMazeCool: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
  
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(0) 
- ldi    r25,hi8(0) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(7) 
- ldi    r25,hi8(7) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(5) 
- ldi    r25,hi8(5) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(0) 
- ldi    r25,hi8(0) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
-  # Load constant int  
- ldi    r24,lo8(5) 
- ldi    r25,hi8(5) 
- # push two byte expression onto stack 
- push   r25 
- push   r24 
- 
-  # Casting int to byte by popping 
- # 2 bytes off stack and only pushing low order bits 
- # back on.  Low order bits are on top of stack. 
- pop    r24 
- pop    r25 
- push   r24 
+std Y + 1, r25
+/* done with function sSolver_initMazeCool prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
  ldi    r25,hi8(0) 
@@ -215,6 +357,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
   # Load constant int  
  ldi    r24,lo8(0) 
  ldi    r25,hi8(0) 
@@ -254,6 +410,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
   # Load constant int  
  ldi    r24,lo8(7) 
  ldi    r25,hi8(7) 
@@ -293,6 +463,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeCol
   # Load constant int  
  ldi    r24,lo8(0) 
  ldi    r25,hi8(0) 
@@ -332,6 +516,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeCol
   # Load constant int  
  ldi    r24,lo8(2) 
  ldi    r25,hi8(2) 
@@ -371,6 +569,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
   # Load constant int  
  ldi    r24,lo8(2) 
  ldi    r25,hi8(2) 
@@ -410,6 +622,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeCol
   # Load constant int  
  ldi    r24,lo8(2) 
  ldi    r25,hi8(2) 
@@ -449,6 +675,20 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
   # Load constant int  
  ldi    r24,lo8(5) 
  ldi    r25,hi8(5) 
@@ -488,6 +728,40 @@
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_initMazeCool, .-Solver_initMazeCool
+ .text 
+ .global Solver_run 
+ .type  Solver_run, @function 
+ Solver_run: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+/* done with function sSolver_run prologue */
+#### function call 
+ # put parameter values into appropriate registers
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      initMazeCool
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -540,6 +814,53 @@
  pop    r24 
  pop    r25 
  push   r24 
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_run, .-Solver_run
+ .text 
+ .global Solver_inBounds 
+ .type  Solver_inBounds, @function 
+ Solver_inBounds: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+/* done with function sSolver_inBounds prologue */
   # Load constant int  
  ldi    r24,lo8(0) 
  ldi    r25,hi8(0) 
@@ -573,6 +894,13 @@
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
 # less than expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -609,6 +937,13 @@ MJ_L11:
  #right operand 
  # load a one byte expression off stack 
  pop    r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(8) 
  ldi    r25,hi8(8) 
@@ -698,6 +1033,13 @@ MJ_L6:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
 # less than expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -741,6 +1083,13 @@ MJ_L1:
  #right operand 
  # load a one byte expression off stack 
  pop    r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(8) 
  ldi    r25,hi8(8) 
@@ -782,6 +1131,54 @@ MJ_L1:
  # push one byte expression onto stack 
  push   r24 
  MJ_L0: 
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_inBounds, .-Solver_inBounds
+ .text 
+ .global Solver_isDark 
+ .type  Solver_isDark, @function 
+ Solver_isDark: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+/* done with function sSolver_isDark prologue */
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # if left operand is false do not eval right 
  # load a one byte expression off stack 
  pop    r24 
@@ -797,6 +1194,20 @@ MJ_L44:
  #right operand 
  # load a one byte expression off stack 
  pop    r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   ### Meggy.getPixel(x,y) call 
  # load a one byte expression off stack 
  pop    r22 
@@ -834,6 +1245,54 @@ MJ_L44:
  # push one byte expression onto stack 
  push   r24 
  MJ_L43: 
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_isDark, .-Solver_isDark
+ .text 
+ .global Solver_isBLUE 
+ .type  Solver_isBLUE, @function 
+ Solver_isBLUE: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+/* done with function sSolver_isBLUE prologue */
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # if left operand is false do not eval right 
  # load a one byte expression off stack 
  pop    r24 
@@ -849,6 +1308,20 @@ MJ_L54:
  #right operand 
  # load a one byte expression off stack 
  pop    r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   ### Meggy.getPixel(x,y) call 
  # load a one byte expression off stack 
  pop    r22 
@@ -886,6 +1359,58 @@ MJ_L54:
  # push one byte expression onto stack 
  push   r24 
  MJ_L53: 
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_isBLUE, .-Solver_isBLUE
+ .text 
+ .global Solver_findTargetOrMove 
+ .type  Solver_findTargetOrMove, @function 
+ Solver_findTargetOrMove: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+std Y + 5, r25
+std Y + 6, r25
+/* done with function sSolver_findTargetOrMove prologue */
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
  # equality check expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -923,6 +1448,20 @@ MJ_L67:
  #right operand 
  # load a one byte expression off stack 
  pop    r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
  # equality check expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -963,6 +1502,20 @@ MJ_L67:
  brne  MJ_L64 
  jmp    MJ_L63
 MJ_L64:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,5 
   # push one byte expression onto stack 
@@ -978,8 +1531,92 @@ MJ_L64:
  call   _Z12DisplaySlatev 
 jmp MJ_L65
 MJ_L63:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
 jmp MJ_L65
 MJ_L65:
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_findTargetOrMove, .-Solver_findTargetOrMove
+ .text 
+ .global Solver_move 
+ .type  Solver_move, @function 
+ Solver_move: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+std Y + 5, r25
+std Y + 6, r25
+/* done with function sSolver_move prologue */
   # Load constant int  
  ldi    r24,lo8(256) 
  ldi    r25,hi8(256) 
@@ -994,6 +1631,20 @@ MJ_L65:
  pop    r25 
  call   _Z8delay_msj 
  
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,5 
   # push one byte expression onto stack 
@@ -1007,6 +1658,20 @@ MJ_L65:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1050,6 +1715,20 @@ MJ_L65:
  brne  MJ_L82 
  jmp    MJ_L81
 MJ_L82:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1082,8 +1761,45 @@ MJ_L82:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      findTargetOrMove
 jmp MJ_L83
 MJ_L81:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1115,6 +1831,13 @@ MJ_L81:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -1126,6 +1849,13 @@ MJ_L81:
  brne  MJ_L93 
  jmp    MJ_L92
 MJ_L93:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1157,8 +1887,59 @@ MJ_L93:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      findTargetOrMove
 jmp MJ_L94
 MJ_L92:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1201,6 +1982,20 @@ MJ_L92:
  brne  MJ_L104 
  jmp    MJ_L103
 MJ_L104:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1232,8 +2027,45 @@ MJ_L104:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      findTargetOrMove
 jmp MJ_L105
 MJ_L103:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1266,6 +2098,13 @@ MJ_L103:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -1277,6 +2116,13 @@ MJ_L103:
  brne  MJ_L115 
  jmp    MJ_L114
 MJ_L115:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1309,8 +2155,59 @@ MJ_L115:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      findTargetOrMove
 jmp MJ_L116
 MJ_L114:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1354,6 +2251,20 @@ MJ_L114:
  brne  MJ_L126 
  jmp    MJ_L125
 MJ_L126:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,3 
   # push one byte expression onto stack 
@@ -1367,6 +2278,20 @@ MJ_L126:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1399,8 +2324,45 @@ MJ_L126:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
 jmp MJ_L127
 MJ_L125:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1432,6 +2394,13 @@ MJ_L125:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -1443,6 +2412,20 @@ MJ_L125:
  brne  MJ_L137 
  jmp    MJ_L136
 MJ_L137:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,3 
   # push one byte expression onto stack 
@@ -1456,6 +2439,13 @@ MJ_L137:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1487,8 +2477,59 @@ MJ_L137:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
 jmp MJ_L138
 MJ_L136:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1531,6 +2572,20 @@ MJ_L136:
  brne  MJ_L148 
  jmp    MJ_L147
 MJ_L148:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,3 
   # push one byte expression onto stack 
@@ -1544,6 +2599,20 @@ MJ_L148:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1575,8 +2644,45 @@ MJ_L148:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
 jmp MJ_L149
 MJ_L147:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1609,6 +2715,13 @@ MJ_L147:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
  # load condition and branch if false 
  # load a one byte expression off  stack 
  pop    r24 
@@ -1620,6 +2733,20 @@ MJ_L147:
  brne  MJ_L159 
  jmp    MJ_L158
 MJ_L159:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,3 
   # push one byte expression onto stack 
@@ -1633,6 +2760,13 @@ MJ_L159:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1665,6 +2799,43 @@ MJ_L159:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 6 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+# load a one byte expression off stack
+pop r4
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      move
 jmp MJ_L160
 MJ_L158:
 jmp MJ_L160
@@ -1683,6 +2854,58 @@ jmp MJ_L94
 MJ_L94:
 jmp MJ_L83
 MJ_L83:
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_move, .-Solver_move
+ .text 
+ .global Solver_mazeRow 
+ .type  Solver_mazeRow, @function 
+ Solver_mazeRow: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+std Y + 5, r25
+/* done with function sSolver_mazeRow prologue */
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,6 
   # push one byte expression onto stack 
@@ -1696,6 +2919,20 @@ MJ_L83:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
 # less than expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -1728,6 +2965,13 @@ MJ_L83:
  brne  MJ_L170 
  jmp    MJ_L169
 MJ_L170:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1759,10 +3003,89 @@ MJ_L170:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeRow
 jmp MJ_L171
 MJ_L169:
 jmp MJ_L171
 MJ_L171:
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_mazeRow, .-Solver_mazeRow
+ .text 
+ .global Solver_mazeCol 
+ .type  Solver_mazeCol, @function 
+ Solver_mazeCol: 
+ push   r29 
+ push   r28 
+ # make space for locals and params 
+ ldi    r30, 0 
+
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ push   r30 
+ # Copy stack pointer to frame pointer 
+ in     r28,__SP_L__ 
+ in     r29,__SP_H__ 
+ # save off parameters 
+ 
+std Y + 1, r25
+std Y + 3, r25
+std Y + 4, r25
+std Y + 5, r25
+/* done with function sSolver_mazeCol prologue */
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Color expression  
  ldi    r22,6 
   # push one byte expression onto stack 
@@ -1776,6 +3099,20 @@ MJ_L171:
  pop    r24 
  call   _Z6DrawPxhhh 
  call   _Z12DisplaySlatev 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
 # less than expression 
  # load a two byte expression off stack 
  pop    r18 
@@ -1808,6 +3145,20 @@ MJ_L171:
  brne  MJ_L182 
  jmp    MJ_L181
 MJ_L182:
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 3 
+ # push one byte expression onto stack 
+ push   r24
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 4 
+ # push one byte expression onto stack 
+ push   r24
   # Load constant int  
  ldi    r24,lo8(1) 
  ldi    r25,hi8(1) 
@@ -1839,10 +3190,44 @@ MJ_L182:
  pop    r24 
  pop    r25 
  push   r24 
+# IdExp0 
+  # load value for variable a 
+ # variable is a local or param variable 
+ # load a one byte variable from base+offset 
+ ldd    r24, Y + 5 
+ # push one byte expression onto stack 
+ push   r24
+#### function call 
+ # put parameter values into appropriate registers
+# load a one byte expression off stack
+pop r1
+# load a one byte expression off stack
+pop r2
+# load a one byte expression off stack
+pop r3
+
+ # receiver will be passed as first param 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25
+call      mazeCol
 jmp MJ_L183
 MJ_L181:
 jmp MJ_L183
 MJ_L183:
+/* epilogue start for sampletest2_testfun1 */ 
+ # no return value 
+ # pop space off stack for parameters and locals
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+ pop   r30 
+# restoring the frame pointer 
+ pop    r28 
+ pop    r29 
+ ret 
+ .size Solver_mazeCol, .-Solver_mazeCol
   
 
 
