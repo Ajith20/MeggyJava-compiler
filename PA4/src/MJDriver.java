@@ -59,7 +59,7 @@ public class MJDriver {
           SymTable symTable = buildSymTable.getSymTable(); 
 	        java.io.PrintStream stout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".ST.dot"));
           System.out.println("Printing symbol table to " + filename + ".ST.dot");
-          symTable.outputDot((PrintStream)stout); 
+        //  symTable.outputDot((PrintStream)stout); 
           // create Type-Checker and an AVRgenVisitor instances
 
           //symtable.SymTable globalST = new symtable.SymTable();

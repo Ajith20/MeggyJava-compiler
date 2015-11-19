@@ -35,7 +35,6 @@ public class Scope
 		    throw new InternalException("Redefined symbol " + name);
 		}
 		mHashMap.put(name, ste);
-		System.out.println(mHashMap.get(name));
 		this.scope_list.add(name);
     	}
 	 public int outputDot(PrintStream printStream, int n) {

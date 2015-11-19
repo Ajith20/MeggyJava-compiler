@@ -37,28 +37,5 @@ public class Scope
 		mHashMap.put(name, ste);
 		this.scope_list.add(name);
     	}
-	 public int outputDot(PrintStream printStream, int n) {
-        String string;
-        int n2 = n;
-        String string2 = "\t" + n2 + " [label=\" <f0> Scope ";
-        Iterator<String> iterator = this.scope_list.iterator();
-        int n3 = 1;
-        while (iterator.hasNext()) {
-	            string = iterator.next();
-            string2 = string2 + "| <f" + n3 + "> " + "mDict\\[" + string + "\\] ";
-            ++n3;
-        }
-        string2 = string2 + "\"];";
-        printStream.println(string2);
-        iterator = this.scope_list.iterator();
-        n3 = 1;
-        while (iterator.hasNext()) {
-            string = iterator.next();
-            STE sTE = this.mHashMap.get(string);
-            printStream.println("\t" + n2 + ":<f" + n3 + "> -> " + ++n + ":<f0>;");
-            n = sTE.outputDot(printStream, n);
-            ++n3;
-        }
-        return n;
-    }
+	 
 }

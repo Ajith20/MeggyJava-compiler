@@ -3,7 +3,7 @@ package symtable;
 
 import symtable.STE;
 import symtable.Type;
-
+import java.io.PrintStream;
 public class VarSTE extends STE
 {
 	public Type mType;
@@ -18,9 +18,6 @@ public class VarSTE extends STE
 	}
 	
     public int outputDot(PrintStream printStream, int n) {
-        int n2 = n;
-        String string = "\t" + n2 + " [label=\" <f0> VarSTE " + "| <f1> mName = " + this.mName + "| <f2> mType = " + this.mType.toString() + "| <f3> mBase = " + this.mBase + "| <f4> mOffset = " + this.mOffset + "\"];";
-        printStream.println(string);
-        return n++;
+       return 0;
     }
 }

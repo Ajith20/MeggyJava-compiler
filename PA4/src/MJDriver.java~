@@ -64,15 +64,6 @@ public class MJDriver {
 
           //symtable.SymTable globalST = new symtable.SymTable();
           //ast_root.accept(new CheckTypes(globalST));
-	 // Set<String> listofEntries = globalST.mStackScope.peek().mHashMap.keySet();
-   
-          //Iterator<String> it = listofEntries.iterator();
-  
-          /*while(it.hasNext()){
-             System.out.println("**********************"+it.next());
-          } */ 
-                 
-
 
           //symtable.SymTable globalST = new symtable.SymTable();
           //ast_root.accept(new CheckTypes(globalST));
