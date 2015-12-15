@@ -72,7 +72,7 @@ terminal SymbolValue MEGGYDELAY;
 terminal SymbolValue MEGGYGETPIXEL;
 terminal SymbolValue MEGGYCHECKBUTTON;
 
-terminal SymbolValue INT_LITERAL, ID;
+terminal SymbolValue INT_LITERAL, ID, ASSIG_ID;
 terminal SymbolValue TRUE, FALSE;
 terminal SymbolValue COLOR_LITERAL, BUTTON_LITERAL, TONE_LITERAL;
 terminal SymbolValue THIS;
@@ -195,8 +195,9 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 	{: RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
 	| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
 	{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
-	| ID:id ASSIGN:a expression:e SEMI 
-	{: RESULT = new AssignStatement(id.line, id.pos, id.lexeme, e); :}
+	| ASSIG_ID:id expression:e SEMI 
+	{:	String[] arr = id.lexeme.split(" "); 
+		RESULT = new AssignStatement(id.line, id.pos, arr[0], e); :}
 	| MEGGYTONESTART:q LPAREN:op expression:a COMMA expression:b RPAREN SEMI
 	{: RESULT = new MeggyToneStart(q.line, q.pos, a, b); :} 
 	| IF LPAREN:op expression:a RPAREN statement:s1
@@ -206,7 +207,8 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 	| WHILE LPAREN:op expression:a RPAREN statement:s1
 	{: RESULT = new WhileStatement(op.line, op.pos, (IExp)a, (IStatement)s1); :}
 	| expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN SEMI
-    {: RESULT = new CallStatement(dt.line, dt.pos, e1, id.lexeme, list); :}
+    {: 
+	RESULT = new CallStatement(dt.line, dt.pos, e1, id.lexeme, list); :}
 	| LBRACE:op statement_list:list RBRACE 
 	{: RESULT = new BlockStatement(op.line, op.pos, list); :}
 ;
@@ -260,7 +262,7 @@ expression ::= expression:a AND:op expression:b
     {: RESULT = new ThisLiteral(t.line, t.pos, t.lexeme, t.value); :}
     | NEW:op ID:id LPAREN RPAREN 
     {: RESULT = new NewExp(op.line, op.pos, id.lexeme); :}
-   	| expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN 
+   	| expression:e1 DOT:dt ID:id LPAREN exp_list:list RPAREN
 	{: RESULT = new CallExp(dt.line, dt.pos, e1, id.lexeme, list); :}
 ; 
 

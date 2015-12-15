@@ -20,7 +20,7 @@ class C {
     C c;
     public int foo(boolean p) {
 	
-       B b;
+       // B b;
         return 3;
     }
 }
