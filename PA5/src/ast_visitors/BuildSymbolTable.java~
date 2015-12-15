@@ -17,6 +17,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 {
 	private SymTable mCurrentST = new SymTable();
 	private ClassSTE mCurrentClass;
+	public boolean inMethod;
 	public int offset;
 	private Type getType(IType iType) {
         if (iType == null) {
@@ -53,6 +54,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	
  public void inMethodDecl(MethodDecl node)
     {
+	inMethod = true;
         String method_name = node.getName();
 	Formal formal;
 	STE ste = mCurrentST.lookup(method_name);
@@ -74,7 +76,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	meth_obj.mScope = new Scope(mCurrentST.mStackScope.peek());
 	mCurrentST.mStackScope.push(meth_obj.mScope);
 	this.offset =1;
-	VarSTE var_obj = new VarSTE("this", Type.getClassType((String)this.mCurrentClass.mName), 1);
+	VarSTE var_obj = new VarSTE("this", Type.getClassType((String)this.mCurrentClass.mName), "Y");
         this.offset = this.offset + var_obj.mType.getAVRTypeSize();
         mCurrentST.insert((STE)var_obj);
     }
@@ -90,20 +92,37 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	{
 		throw new InternalException("Formal already present");
 	}
-	VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset);
+	VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset, "Y");
 	//Increment offset based on type: TO DO
         this.offset = this.offset + var_obj.mType.getAVRTypeSize(); 
 	
 	mCurrentST.insert((STE)var_obj);
 	
     }
+     public void outVarDecl(VarDecl node) {
+	if(inMethod)
+	{
+       		VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset, "Y");
+		this.offset = this.offset + var_obj.mType.getAVRTypeSize();
+		mCurrentST.insert((STE)var_obj);
+	}
+	else
+	{
+		VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset, "Z");
+		this.offset = this.offset + var_obj.mType.getAVRTypeSize();
+		mCurrentST.insert((STE)var_obj);
+	}
+	
+    }
   public void outMethodDecl(MethodDecl node)
     {
 	//TO DO: Store number of bytes needed for parameters as size of the method
 	this.mCurrentST.popScope();
+	inMethod = false;
     }
   public void inTopClassDecl(TopClassDecl node) 
     {
+	this.offset = 0;
 	String class_name = node.getName();
 	STE ste = mCurrentST.lookup(class_name);
 	if(ste != null)

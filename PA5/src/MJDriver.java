@@ -54,14 +54,14 @@ public class MJDriver {
           ast_root.accept(new DotVisitor(new PrintWriter(astout)));
           System.out.println("Printing AST to " + filename + ".ast.dot");
 
-          /*
+          
 	        BuildSymbolTable buildSymTable = new BuildSymbolTable();
           ast_root.accept((Visitor)buildSymTable);
           SymTable symTable = buildSymTable.getSymTable(); 
 	        java.io.PrintStream stout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".ST.dot"));
           System.out.println("Printing symbol table to " + filename + ".ST.dot");
           symTable.outputDot((PrintStream)stout); 
-          // create Type-Checker and an AVRgenVisitor instances
+         /* // create Type-Checker and an AVRgenVisitor instances
           symtable.SymTable globalST = new symtable.SymTable();
           ast_root.accept(new CheckTypes(globalST));
           java.io.PrintStream avrsout = new java.io.PrintStream(new java.io.FileOutputStream(filename + ".s"));

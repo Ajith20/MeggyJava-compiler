@@ -9,12 +9,12 @@ public class VarSTE extends STE
 	public Type mType;
 	public String mBase;
 	public int mOffset;
-	public VarSTE(String mName, Type mType, int mOffset)
+	public VarSTE(String mName, Type mType, int mOffset, String mbase)
 	{
 		this.mName = mName;
 		this.mType = mType;
 		this.mOffset = mOffset;
-		this.mBase = "Y";
+		this.mBase = mbase;
 	}
 	
     public int outputDot(PrintStream printStream, int n) {
