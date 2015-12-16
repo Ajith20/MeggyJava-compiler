@@ -7,7 +7,7 @@ Features implemented:
 10 points: test cases for PA5 features
 5 points: README file explaining the file structure (your test files) and other comments you want your TA to know (e.g. features not implemented)
 5 points: Follows instructions for submission correctly 
-
+15 points: Creates a symbol table that accurately represents the static scoping of the MeggyJava programs of PA5 including class scopes
 
 Features not implemented (so far):
 
@@ -18,7 +18,6 @@ Features not implemented (so far):
     local variable uses and definitions
     equality comparison of class refs
     class refs 
-15 points: Creates a symbol table that accurately represents the static scoping of the MeggyJava programs of PA5 including class scopes
 10 points: Check for undefined, doubly defined, and incorrectly typed symbols
 15 points: Performs correct type checking for the PA5 grammar rules according to the MJ.jar reference compiler type errors (handles member variables, locals and assignment)
 
