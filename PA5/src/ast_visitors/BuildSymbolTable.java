@@ -19,6 +19,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	private ClassSTE mCurrentClass;
 	public boolean inMethod;
 	public int offset;
+	
 	private Type getType(IType iType) {
         if (iType == null) {
             throw new InternalException("unexpected null argument");
@@ -71,6 +72,7 @@ public class BuildSymbolTable extends DepthFirstVisitor
 	Signature sig_obj = new Signature(this.getType(node.getType()), formal_list);
 	//Scope scope = new Scope(null);
 	MethodSTE meth_obj = new MethodSTE(sig_obj,node.getName());
+	mCurrentST.map.put(method_name, meth_obj);
 	//ste.mName = node.getName();
 	mCurrentST.insert((STE)meth_obj);
 	meth_obj.mScope = new Scope(mCurrentST.mStackScope.peek());
@@ -105,12 +107,14 @@ public class BuildSymbolTable extends DepthFirstVisitor
        		VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset, "Y");
 		this.offset = this.offset + var_obj.mType.getAVRTypeSize();
 		mCurrentST.insert((STE)var_obj);
+		
 	}
 	else
 	{
 		VarSTE var_obj = new VarSTE(node.getName(), this.getType(node.getType()), this.offset, "Z");
 		this.offset = this.offset + var_obj.mType.getAVRTypeSize();
 		mCurrentST.insert((STE)var_obj);
+		mCurrentST.sum_sizes = mCurrentST.sum_sizes + var_obj.mType.getAVRTypeSize();
 	}
 	
     }

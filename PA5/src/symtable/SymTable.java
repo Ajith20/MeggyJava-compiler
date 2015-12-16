@@ -17,10 +17,11 @@ import java.io.PrintStream;
  * WB: Simplified to only expression types
  */
 public class SymTable {
-    private final HashMap<Node,Type> mExpType = new HashMap<Node,Type>();
+    public final HashMap<Node,Type> mExpType = new HashMap<Node,Type>();
     public final Stack<Scope> mStackScope = new Stack();
-    private final Scope mGlobalScope = new Scope(null);
-
+    public final Scope mGlobalScope = new Scope(null);
+    public final HashMap<String, MethodSTE> map = new HashMap<String,MethodSTE>();
+    public int sum_sizes =0;
     public SymTable() {
 	this.mStackScope.push(this.mGlobalScope);
     }
@@ -91,6 +92,13 @@ public class SymTable {
     {
     	return this.mExpType.get(exp);
     }
+    
+    
+   
+/*
+ */
+
+
     
     public void outputDot(PrintStream printStream) {
         printStream.println("digraph SymTable {");

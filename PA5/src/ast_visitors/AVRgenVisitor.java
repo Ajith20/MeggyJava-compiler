@@ -10,10 +10,13 @@ import symtable.Type;
 import exceptions.InternalException;
 import exceptions.SemanticException;
 import label.*;
+import symtable.*;
 public class AVRgenVisitor extends DepthFirstVisitor
 {
     private PrintWriter out;
     private SymTable mCurrentST;
+    public ClassSTE current_class;
+    public int max_offset;
     public AVRgenVisitor(PrintWriter out, SymTable globalST) {
       this.out = out;
       mCurrentST = globalST;
@@ -25,7 +28,7 @@ public class AVRgenVisitor extends DepthFirstVisitor
 
     public void outProgram(Program node)
     {
-       out.println("  \n\n\n /* epilogue start */ \n endLabel:\n jmp endLabel \n ret \n .size   main, .-main ");
+       //out.println("  \n\n\n /* epilogue start */ \n endLabel:\n jmp endLabel \n ret \n .size   main, .-main ");
        out.flush();
     }
     public void visitAndExp(AndExp node)
@@ -121,6 +124,16 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
       out.println(" # equality check expression \n # load a two byte expression off stack \n pop    r18 \n pop    r19 \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n cp    r24, r18 \n cpc   r25, r19 \n breq " + b +" \n # result is false \n " + a +": \n ldi     r24, 0 \n jmp      " + c +" \n # result is true \n " + b +": \n ldi     r24, 1 \n # store result of equal expression \n " + c +": \n # push one byte expression onto stack \n push   r24 \n ");
 	}
    }
+   public void inIdLiteral(IdLiteral node)
+    {
+       
+    }
+
+    public void outIdLiteral(IdLiteral node)
+    {
+	VarSTE var_ste = (VarSTE)mCurrentST.lookup(node.getLexeme());
+        out.println("# IdExp0 \n  # load value for variable a \n # variable is a local or param variable \n # load a one byte variable from base+offset \n ldd    r24, Y + "+var_ste.mOffset+" \n # push one byte expression onto stack \n push   r24");
+    }
    public void outLtExp(LtExp node)
     {
         String a = new Label().toString();
@@ -191,6 +204,119 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
        Type rexpType = this.mCurrentST.getExpType(node.getRExp());
        out.println("  # MulExp \n # load a one byte expression off stack \n pop    r18 \n # load a one byte expression off stack \n pop    r22 \n # move low byte src into dest reg \n mov    r24, r18 \n # move low byte src into dest reg \n mov    r26, r22 \n # Do mul operation of two input bytes \n muls   r24, r26 \n # push two byte expression onto stack \n push   r1 \n push   r0 \n # clear r0 and r1, thanks Brendan! \n eor    r0,r0 \n eor    r1,r1 ");
    }
+   public void inTopClassDecl(TopClassDecl node)
+    {
+        String class_name = node.getName();
+	STE ste = mCurrentST.lookup(class_name);
+	
+	
+	current_class = (ClassSTE)ste;
+	if(current_class != null)
+	{
+	this.mCurrentST.mStackScope.push(current_class.mScope);
+	}
+    }
+
+    public void outTopClassDecl(TopClassDecl node)
+    {
+        mCurrentST.popScope();
+    }
+    public void inMethodDecl(MethodDecl node)
+    {
+        MethodSTE method_ste = (MethodSTE)mCurrentST.lookup(node.getName());
+	max_offset=0;
+	int r_value = 24;
+	mCurrentST.mStackScope.push(method_ste.mScope);
+	out.println("/* epilogue start */ \n endLabel: \n jmp endLabel \n ret \n .size   main, .-main");
+	out.println(" .text \n .global _"+node.getName() +" \n .type  _"+node.getName() +", @function \n "+node.getName() +": \n push   r29 \n push   r28 \n # make space for locals and params \n ldi    r30, 0 \n");
+		Iterator iterator = method_ste.mScope.scope_list.iterator();
+		while(iterator.hasNext())
+		{
+			VarSTE ste = (VarSTE)method_ste.mScope.lookup((String)iterator.next());
+            		if (!(ste instanceof VarSTE)) continue;
+            		if(max_offset < ste.mOffset)
+			{ max_offset = ste.mOffset; }
+		}
+		for(int i =0; i< max_offset; i++)
+		{
+			out.println(" push   r30 ");
+		}
+		out.println(" # Copy stack pointer to frame pointer \n in     r28,__SP_L__ \n in     r29,__SP_H__ \n # save off parameters \n ");
+		iterator = method_ste.mScope.scope_list.iterator();
+		out.println("std Y + 2, r25");
+		while(iterator.hasNext())
+		{
+			VarSTE ste = (VarSTE)method_ste.mScope.lookup((String)iterator.next());
+			out.println("std Y + "+ste.mOffset+", r"+ r_value);
+			r_value = r_value -2;
+			
+		}
+
+		out.println("/* done with function s"+ current_class.mName +"_"+node.getName() +" prologue */");
+    }
+
+    public void outMethodDecl(MethodDecl node)
+    {
+        mCurrentST.popScope();
+	MethodSTE method_ste = (MethodSTE)mCurrentST.lookup(node.getName());
+	out.println("/* epilogue start for sampletest2_testfun1 */ \n # no return value \n # pop space off stack for parameters and locals");
+	for(int i =0; i< max_offset; i++)
+	{
+			out.println(" pop   r30 ");
+	}
+    	out.println("# restoring the frame pointer \n pop    r28 \n pop    r29 \n ret \n .size "+ node.getName() +", .- _"+node.getName());
+    }
+    public void outNewExp(NewExp node)
+    {
+     	out.println("# NewExp \n ldi    r24, lo8("+mCurrentST.sum_sizes+") \n ldi    r25, hi8("+mCurrentST.sum_sizes+") \n # allocating object of size "+mCurrentST.sum_sizes+" on heap \n call    malloc \n # push object address \n # push two byte expression onto stack \n push   r25 \n push   r24");  
+    }
+     public void inCallStatement(CallStatement node)
+    {
+        defaultIn(node);
+    }
+
+    public void outCallStatement(CallStatement node)
+    {
+	int r_value = 20;
+	//Parameter values 
+	IExp exp = node.getExp();
+	String id = node.getId();
+	//System.out.println(id);
+	MethodSTE method_ste = mCurrentST.map.get(id);
+        Signature sig_obj = method_ste.mSignature; 
+	ListIterator<Type> iterator = sig_obj.formal_parameters.listIterator();
+	out.println("#### function call \n # put parameter values into appropriate registers");
+	while(iterator.hasNext())
+	{
+		if(iterator.next().getAVRTypeSize() == 2 )
+		{
+			out.println("# load two byte expression off stack");
+			out.println("pop r"+r_value);
+			r_value++;
+			out.println("pop r"+r_value);
+			r_value++;
+		}
+		else 
+		{
+			out.println("# load a one byte expression off stack");
+			out.println("pop r"+r_value);
+			r_value = r_value + 2;
+		}
+		/*else
+		{
+			out.println("# load two byte expression off stack");
+			out.println("pop "+r_value);
+			r_value++;
+			out.println("pop "+r_value);
+			r_value++;
+		}*/
+	}
+	//LinkedList<IExp> list = node.getArgs();
+	out.println("");
+	
+        out.println(" # receiver will be passed as first param \n # load a two byte expression off stack \n pop    r24 \n pop    r25");
+	out.println("call      "+ id);
+    }
 
    public void outNegExp(NegExp node)
    {

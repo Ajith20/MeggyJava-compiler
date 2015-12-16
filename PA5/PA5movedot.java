@@ -26,7 +26,7 @@ class Dot {
 	//System.out.println("Assign Check");
         Meggy.Tone localvar;
 	//System.out.println("Assign Check");
-        localvar =  Meggy.Tone.C3;
+       // localvar =  Meggy.Tone.C3;
             
         // initialize color
        /* dotcolor = Meggy.Color.ORANGE;

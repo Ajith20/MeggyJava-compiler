@@ -12,7 +12,7 @@ public class Scope
 {
 	public HashMap<String, STE> mHashMap = new HashMap();
     	public Scope mEnclosing;
-	private final List<String> scope_list = new LinkedList<String>();
+	public final List<String> scope_list = new LinkedList<String>();
 	 public Scope(Scope scope) 
 	{
 	        this.mEnclosing = scope;
