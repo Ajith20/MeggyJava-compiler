@@ -8,18 +8,21 @@ Features implemented:
 5 points: README file explaining the file structure (your test files) and other comments you want your TA to know (e.g. features not implemented)
 5 points: Follows instructions for submission correctly 
 15 points: Creates a symbol table that accurately represents the static scoping of the MeggyJava programs of PA5 including class scopes
+15 points: Performs correct code generation to AVR assembly code for the added features in PA5 grammar:
+    new class objects
+    equality comparison of class refs
+    this in parameters and expression (in some cases)
+    assignment (in some cases)
+15 points: Performs correct type checking for the PA5 grammar rules according to the MJ.jar reference compiler type errors (handles member variables, locals and assignment) (for some cases)
+10 points: Check for undefined symbols.
+
 
 Features not implemented (so far):
 
 15 points: Performs correct code geneation to AVR assembly code for the added features in PA5 grammar:
-    this in parameters and expression
-    assignment
-    new class objects
     local variable uses and definitions
-    equality comparison of class refs
     class refs 
-10 points: Check for undefined, doubly defined, and incorrectly typed symbols
-15 points: Performs correct type checking for the PA5 grammar rules according to the MJ.jar reference compiler type errors (handles member variables, locals and assignment)
+10 points: Check for doubly defined, and incorrectly typed symbols
 
 
 Test Cases provided:
@@ -49,16 +52,3 @@ Report and Evaluation of Partner Work (joint):
   possible before the deadline.
     
 - Meeting schedule: Meet before class, use Slack to message.
-
-
-Report and Evaluation of Partner Work (separate):
-
-- What are some organizational strategies that you and your partner are using that are working well: Using Slack to communicate, and writing detailed commit messages.
-
-- Specifically how did you and your partner divide the work? (e.g., I wrote the type checker for the following set of grammar rules...): I did the mjcup spec, test cases, README, and type checking,
-  Ajith did the symbol table, AVR code generation, and figured out how to get mjcup to work.
-
-- How could the division of work between the partners be improved: With finals week, it would've been better if we had begun work on PA5 earlier.  Regardless, we both had a lot of other work to
-  manage and completed as much of PA5 as we could.
-
-- How could the interaction between the partners be improved?: I probably should have used Slack more to let Ajith know my progress on the project.
