@@ -195,7 +195,7 @@ statement ::= MEGGYSETPIXEL LPAREN:op expression:a COMMA expression:b COMMA expr
 	{: RESULT = new MeggySetPixel(op.line, op.pos, a, b, c); :}
 	| MEGGYDELAY LPAREN:op expression:a RPAREN SEMI
 	{: RESULT = new MeggyDelay(op.line, op.pos, a); :}
-	| ASSIG_ID:id expression:e SEMI 
+	| ASSIG_ID:id 	 expression:e SEMI 
 	{: String[] arr = id.lexeme.split(" "); 
 	   RESULT = new AssignStatement(id.line, id.pos, arr[0], e); :}
 	| MEGGYTONESTART:q LPAREN:op expression:a COMMA expression:b RPAREN SEMI

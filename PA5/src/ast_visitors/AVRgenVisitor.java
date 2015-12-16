@@ -344,6 +344,18 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
        out.println("  # not operation \n # load a one byte expression off stack \n pop    r24 \n ldi     r22, 1 \n eor     r24,r22 \n # push one byte expression onto stack \n push   r24  ");
    }
 
+    public void outAssignStatement(AssignStatement node)
+    {
+	boolean lexp1 = node.getLExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+	if(lexp1)
+	{
+        out.println("");
+	}
+    }	
+
    public void outMeggySetPixel(MeggySetPixel node)
    {
      

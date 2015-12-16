@@ -282,7 +282,7 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 	IExp exp = node.getExp();
 	String id = node.getId();
 	//System.out.println(id);
-	MethodSTE method_ste = mCurrentST.mExpType.get(id);
+	MethodSTE method_ste = mCurrentST.map.get(id);
         Signature sig_obj = method_ste.mSignature; 
 	ListIterator<Type> iterator = sig_obj.formal_parameters.listIterator();
 	out.println("#### function call \n # put parameter values into appropriate registers");
@@ -343,6 +343,11 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
    {
        out.println("  # not operation \n # load a one byte expression off stack \n pop    r24 \n ldi     r22, 1 \n eor     r24,r22 \n # push one byte expression onto stack \n push   r24  ");
    }
+
+    public void outAssignStatement(AssignStatement node)
+    {
+        defaultOut(node);
+    }	
 
    public void outMeggySetPixel(MeggySetPixel node)
    {

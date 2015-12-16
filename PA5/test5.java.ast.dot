@@ -34,4 +34,8 @@ digraph ASTGraph {
 5 -> 16
 17 [ label="VoidType" ];
 16 -> 17
+18 [ label="MeggyDelay" ];
+16 -> 18
+19 [ label="IntLiteral\n2" ];
+18 -> 19
 }

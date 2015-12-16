@@ -60,6 +60,20 @@ call      run
 std Y + 2, r25
 std Y + 1, r24
 /* done with function sDot_run prologue */
+  # Load constant int  
+ ldi    r24,lo8(2) 
+ ldi    r25,hi8(2) 
+ # push two byte expression onto stack 
+ push   r25 
+ push   r24 
+ 
+ ### Meggy.delay() call 
+ # load delay parameter 
+ # load a two byte expression off stack 
+ pop    r24 
+ pop    r25 
+ call   _Z8delay_msj 
+ 
 /* epilogue start for sampletest2_testfun1 */ 
  # no return value 
  # pop space off stack for parameters and locals

@@ -24,6 +24,7 @@ class Dot {
     Meggy.Color dotcolor;
     Dot b;
     public void run() {
+	Meggy.delay(2);
 	//System.out.println("Assign Check");
 	//int a;
 	//int b;
