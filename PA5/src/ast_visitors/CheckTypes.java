@@ -23,6 +23,7 @@ import symtable.Type;
 import symtable.STE;
 import symtable.ClassSTE;
 import symtable.MethodSTE;
+import symtable.VarSTE;
 import symtable.Signature;
 import exceptions.InternalException;
 import exceptions.SemanticException;
@@ -413,5 +414,44 @@ public class CheckTypes extends DepthFirstVisitor
 	public void outVoidType(VoidType node)
 	{
 		// Do nothing 
+	}
+	
+	// Start of PA5 TypeChecking 
+	
+	public void outAssignStatement(AssignStatement node) {
+		STE locSTE = this.mCurrentST.lookup(node.getId());
+		if ((locSTE == null) || (!(locSTE instanceof VarSTE))) {
+			throw new SemanticException("Undeclared variable " + node.getId(), node.getLine(), node.getPos());
+		}
+		VarSTE locVarSTE = (VarSTE)locSTE;
+		Type leftType = locVarSTE.getType();
+		Type rightType = this.mCurrentST.getExpType(node.getExp());
+		if ((leftType != rightType) && (
+			(leftType != Type.INT) || (rightType != Type.BYTE))) {
+			throw new Semantic Exception("Invalid expression type assigned to variable " + node.getId(), node.getExp().getLine(), node.getExp().getPos());
+		}
+	}
+	
+	public void outVarDecl(VarDecl node) {
+		VarSTE locVarSTE = (VarSTE)this.mCurrentST.lookup(node.getName());
+		if (locVarSTE.getType() == Type.VOID) {
+			throw new SemanticException("Cannot declare a variable as type void", node.getLine(), node.getPos());
+		}
+	}
+	
+	public void outClassType(ClassType node) {
+		// Do nothing
+	}
+	
+	public void outIdLiteral(IdLiteral node) {
+		STE locSTE = this.mCurrentST.lookup(node.getLexeme());
+		if (locSTE == null) {
+			throw new SemanticException("Undeclared variable " + node.getLexeme(), node.getLine(), node.getPos());
+		}
+		if (locSTE instanceof VarSTE)
+		{
+			VarSTE locVarSTE = (VarSTE)localSTE;
+			this.mCurrentST.setExpType(node, locVarSTE.getType());
+		}
 	}
 }
