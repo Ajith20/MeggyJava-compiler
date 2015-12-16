@@ -346,7 +346,22 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 
     public void outAssignStatement(AssignStatement node)
     {
-        defaultOut(node);
+	boolean lexp1 = node.getLExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
+	boolean lexp2 = node.getLExp() instanceof ByteCast;
+        boolean rexp1 = node.getRExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
+	boolean rexp2 = node.getRExp() instanceof ByteCast;
+	if(lexp1 && rexp1)
+	{
+        out.println("### AssignStatement \n # load rhs exp \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # store rhs into var  \n std    Y + 4, r25 \n std    Y + 3, r24");
+	}
+	else if(lexp1 && rexp2)
+	{
+		out.println("");
+	}
+	else 
+	{
+		out.println(" ### AssignStatement \n # load rhs exp \n # load a one byte expression off stack \n pop    r24 \n # store rhs into var b \n std    Y + 5, r24 ");
+	}
     }	
 
    public void outMeggySetPixel(MeggySetPixel node)
@@ -479,6 +494,10 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
     {
          out.println("  # Color expression  \n ldi    r22," + node.getIntValue() + " \n  # push one byte expression onto stack \n push   r22 ");
     }
+    public void outThisExp(ThisLiteral node) 
+	{
+		out.println("# loading the implicit this \n # load a two byte variable from base+offset \n ldd    r31, Y + 2 \n ldd    r30, Y + 1 \n # push two byte expression onto stack \n push   r31 \n push   r30");
+	}
     public void outToneExp(ToneLiteral node)
     {
         out.println("# Push Meggy.Tone.C3 onto the stack. \n ldi    r25, hi8("+ node.getIntValue() +") \n ldi    r24, lo8("+ node.getIntValue() +") \n # push two byte expression onto stack \n push   r25 \n push   r24");

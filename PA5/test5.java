@@ -10,7 +10,7 @@
 
 import meggy.Meggy;
 
-class test5 {
+class PA5movedot {
 
     public static void main(String[] whatever){
         new Dot().run();
@@ -24,43 +24,15 @@ class Dot {
     Meggy.Color dotcolor;
     Dot b;
     public void run() {
-	Meggy.delay(2);
-	//System.out.println("Assign Check");
-	//int a;
-	//int b;
-	//int c;
-        //Meggy.Tone localvar;
-	//System.out.println("Assign Check");
-        //localvar =  Meggy.Tone.C3;
-            
-        // initialize color
-        //dotcolor = Meggy.Color.ORANGE;
+	Dot a;
+	Dot b;
+	a = new Dot();
+	b = a;
+	if(a == b)
+	{
+		Meggy.delay(5);
+	}
         
-        // initialize the x and y coordinates of the dot
-       /* curr_x = (byte)3;
-        curr_y = (byte)6;
-        
-        // and then let the user move it around with the Dpad
-        while (true) {
-            if (Meggy.checkButton(Meggy.Button.Up)) {
-                this.movedot(curr_x, (byte)(curr_y+(byte)1));
-                Meggy.toneStart(localvar, 50);
-            } else {}
-            if (Meggy.checkButton(Meggy.Button.Down)) {
-                this.movedot(curr_x, (byte)(curr_y-(byte)1));
-                Meggy.toneStart(localvar, 50);
-            } else {}
-            if (Meggy.checkButton(Meggy.Button.Left)) {
-                this.movedot((byte)(curr_x-(byte)1), curr_y);
-                Meggy.toneStart(localvar, 50);
-            } else {}
-            if (Meggy.checkButton(Meggy.Button.Right)) {
-                this.movedot((byte)(curr_x+(byte)1), curr_y);
-                Meggy.toneStart(localvar, 50);
-            } else {}
-            
-            Meggy.delay(100);
-        }*/
     }
     
   /*  public void movedot(byte x, byte y) {
