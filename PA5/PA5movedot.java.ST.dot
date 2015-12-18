@@ -1,0 +1,23 @@
+digraph SymTable {
+	graph [rankdir="LR"];
+	node [shape=record];
+	0 [label=" <f0> Scope | <f1> mDict\[Dot\] "];
+	0:<f1> -> 1:<f0>;
+	1 [label=" <f0> ClassSTE | <f1> mName = Dot| <f2> mMain = false| <f3> mSuperClass = null| <f4> mScope "];
+	1:<f4> -> 2:<f0>;
+	2 [label=" <f0> Scope | <f1> mDict\[curr_x\] | <f2> mDict\[curr_y\] | <f3> mDict\[dotcolor\] | <f4> mDict\[run\] "];
+	2:<f1> -> 3:<f0>;
+	3 [label=" <f0> VarSTE | <f1> mName = curr_x| <f2> mType = BYTE| <f3> mBase = Z| <f4> mOffset = 0"];
+	2:<f2> -> 4:<f0>;
+	4 [label=" <f0> VarSTE | <f1> mName = curr_y| <f2> mType = BYTE| <f3> mBase = Z| <f4> mOffset = 1"];
+	2:<f3> -> 5:<f0>;
+	5 [label=" <f0> VarSTE | <f1> mName = dotcolor| <f2> mType = COLOR| <f3> mBase = Z| <f4> mOffset = 2"];
+	2:<f4> -> 6:<f0>;
+	6 [label=" <f0> MethodSTE | <f1> mName = run| <f2> mSignature = () returns class_null;| <f3> mScope "];
+	6:<f3> -> 7:<f0>;
+	7 [label=" <f0> Scope | <f1> mDict\[this\] | <f2> mDict\[localvar\] "];
+	7:<f1> -> 8:<f0>;
+	8 [label=" <f0> VarSTE | <f1> mName = this| <f2> mType = class_Dot;| <f3> mBase = Y| <f4> mOffset = 1"];
+	7:<f2> -> 9:<f0>;
+	9 [label=" <f0> VarSTE | <f1> mName = localvar| <f2> mType = TONE| <f3> mBase = Y| <f4> mOffset = 3"];
+}

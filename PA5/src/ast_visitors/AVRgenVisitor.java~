@@ -346,17 +346,11 @@ out.println( "  # if left operand is false do not eval right \n # load a one byt
 
     public void outAssignStatement(AssignStatement node)
     {
-	boolean lexp1 = node.getLExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
-	boolean lexp2 = node.getLExp() instanceof ByteCast;
-        boolean rexp1 = node.getRExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
-	boolean rexp2 = node.getRExp() instanceof ByteCast;
-	if(lexp1 && rexp1)
+	boolean lexp1 = node.getExp() instanceof IntLiteral || node.getLExp() instanceof ToneLiteral;
+	//boolean lexp2 = node.getExp() instanceof ByteCast;
+	if(lexp1)
 	{
         out.println("### AssignStatement \n # load rhs exp \n # load a two byte expression off stack \n pop    r24 \n pop    r25 \n # store rhs into var  \n std    Y + 4, r25 \n std    Y + 3, r24");
-	}
-	else if(lexp1 && rexp2)
-	{
-		out.println("");
 	}
 	else 
 	{

@@ -30,8 +30,4 @@ digraph ASTGraph {
 12 -> 14
 15 [ label="ToneType" ];
 14 -> 15
-16 [ label="AssignStatement" ];
-12 -> 16
-17 [ label="ToneLiteral\nMeggy.Tone.C3" ];
-16 -> 17
 }
