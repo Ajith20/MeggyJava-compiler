@@ -276,7 +276,7 @@ public class CheckTypes extends DepthFirstVisitor
 		
 		ClassSTE locClassSTE = (ClassSTE)this.mCurrentST.lookup(locType1.getClassName());
 		
-		//MethodSTE locMethodSTE = (MethodSTE)locClassSTE.lookup(nodeId);
+		MethodSTE locMethodSTE = (MethodSTE)locClassSTE.lookup(nodeId);
         MethodSTE locMethodSTE = (MethodSTE)this.mCurrentST.lookup(nodeId);
 		if(locMethodSTE == null)
 			throw new SemanticException("The method " + nodeId + " doesn't exist in class " + locClassSTE.mName + nodeLine + nodePos);
@@ -385,16 +385,16 @@ public class CheckTypes extends DepthFirstVisitor
 	
 	public void outNewExp(NewExp node)
 	{
-		//STE currSTE = this.mCurrentST.lookup(node.getId());
-		//if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
-		//this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
+		STE currSTE = this.mCurrentST.lookup(node.getId());
+		if(currSTE == null) throw new SemanticException("Class undeclared " + node.getLine() + node.getPos());
+		this.mCurrentST.setExpType(node, Type.getClassType(node.getId()));
 	}
 	
 	public void outThisExp(ThisLiteral node)
 	{
-        //if(this.mCurrentST.lookup(node.getLexeme()) == null) throw new InternalException("'This' being called without a class");
-	//	if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
-	//	this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
+		if(this.mCurrentST.lookup(node.getLexeme()) == null) throw new InternalException("'This' being called without a class");
+		if(this.mCurrentClass == null) throw new InternalException("'This' being called without a class");
+		this.mCurrentST.setExpType(node, Type.getClassType(this.mCurrentClass.getName()));
 	}
 	
 	public void outToneExp(ToneLiteral node) {
