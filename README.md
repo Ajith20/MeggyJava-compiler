@@ -1,5 +1,5 @@
 # Null-Terminators
 
-Meggy Java Project for CISC 471/672 Compiler Design
+Meggy Java Project 
 
 Ajith Vemuri and Joe Campanelli
