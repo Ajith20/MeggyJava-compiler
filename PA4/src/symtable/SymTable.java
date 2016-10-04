@@ -92,7 +92,13 @@ public class SymTable {
     	return this.mExpType.get(exp);
     }
     
-    
+    public void outputDot(PrintStream printStream) {
+        printStream.println("digraph SymTable {");
+        printStream.println("\tgraph [rankdir=\"LR\"];");
+        printStream.println("\tnode [shape=record];");
+        this.mGlobalScope.outputDot(printStream, 0);
+        printStream.println("}");
+    }
    
 /*
  */
